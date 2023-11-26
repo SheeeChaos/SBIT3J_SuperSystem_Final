@@ -1,0 +1,779 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DowntownAlley_DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuditTrail">
+          <Key>
+            <PropertyRef Name="Login_ID" />
+          </Key>
+          <Property Name="Login_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_ID" Type="int" />
+          <Property Name="Activity" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Discount">
+          <Key>
+            <PropertyRef Name="Discount_ID" />
+          </Key>
+          <Property Name="Discount_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Discount_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Discount_Amount" Type="int" />
+          <Property Name="Start_Date" Type="date" />
+          <Property Name="End_Date" Type="date" />
+        </EntityType>
+        <EntityType Name="EmployeeAccount">
+          <Key>
+            <PropertyRef Name="Account_ID" />
+          </Key>
+          <Property Name="Account_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeInformation">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="int" Nullable="false" />
+          <Property Name="First_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Middle_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Last_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Sex" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="255" />
+          <Property Name="Phone_Number" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Birth_Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Expenses">
+          <Key>
+            <PropertyRef Name="Expenses_ID" />
+          </Key>
+          <Property Name="Expenses_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Loss_Damage_ID" Type="int" />
+          <Property Name="Loss_Fraud_ID" Type="int" />
+          <Property Name="Electric_Bill" Type="int" />
+          <Property Name="Water_Bill" Type="int" />
+          <Property Name="Internet_Bill" Type="int" />
+          <Property Name="Payroll_Salary_ID" Type="int" />
+          <Property Name="Other_Services_ID" Type="int" />
+          <Property Name="Date_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Loss_Damages">
+          <Key>
+            <PropertyRef Name="Loss_Damage_ID" />
+          </Key>
+          <Property Name="Loss_Damage_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_ID" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Loss_Fraud">
+          <Key>
+            <PropertyRef Name="Loss_Fraud_ID" />
+          </Key>
+          <Property Name="Loss_Fraud_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_ID" Type="int" />
+          <Property Name="Date_Time" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Other_Services">
+          <Key>
+            <PropertyRef Name="OtherServices_ID" />
+          </Key>
+          <Property Name="OtherServices_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Services_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DowntownAlley_Database.dbo.Product_Category' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Product_Category">
+          <Property Name="Category_ID" Type="int" />
+          <Property Name="Category_Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
+        <EntityType Name="Product_Info">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Category" Type="varchar" MaxLength="50" />
+          <Property Name="Size" Type="varchar" MaxLength="50" />
+          <Property Name="Color" Type="varchar" MaxLength="50" />
+          <Property Name="Sex" Type="varchar" MaxLength="50" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Stock_Level" Type="int" />
+        </EntityType>
+        <EntityType Name="Sales_Transaction">
+          <Key>
+            <PropertyRef Name="Transaction_ID" />
+          </Key>
+          <Property Name="Transaction_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_ID" Type="int" />
+          <Property Name="Total_Amount" Type="int" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sales_Transaction_Details">
+          <Key>
+            <PropertyRef Name="Transaction_Detail_ID" />
+          </Key>
+          <Property Name="Transaction_Detail_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Transaction_ID" Type="int" />
+          <Property Name="Product_ID" Type="int" />
+          <Property Name="Total_Quantity" Type="int" />
+          <Property Name="Discount_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK__AuditTrai__Accou__4BAC3F29">
+          <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="0..1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeAccount">
+              <PropertyRef Name="Account_ID" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeA__Emplo__267ABA7A">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="EmployeeAccount">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Loss_Damages">
+          <End Role="Loss_Damages" Type="Self.Loss_Damages" Multiplicity="0..1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loss_Damages">
+              <PropertyRef Name="Loss_Damage_ID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="Loss_Damage_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Loss_Fraud">
+          <End Role="Loss_Fraud" Type="Self.Loss_Fraud" Multiplicity="0..1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loss_Fraud">
+              <PropertyRef Name="Loss_Fraud_ID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="Loss_Fraud_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Other_Services">
+          <End Role="Other_Services" Type="Self.Other_Services" Multiplicity="0..1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Other_Services">
+              <PropertyRef Name="OtherServices_ID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="Other_Services_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loss_Fraud_Product_Info">
+          <End Role="Product_Info" Type="Self.Product_Info" Multiplicity="0..1" />
+          <End Role="Loss_Fraud" Type="Self.Loss_Fraud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Loss_Fraud">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Discount">
+          <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+          <End Role="Sales_Transaction_Details" Type="Self.Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="Discount_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Discount_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Product_Info">
+          <End Role="Product_Info" Type="Self.Product_Info" Multiplicity="0..1" />
+          <End Role="Sales_Transaction_Details" Type="Self.Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Sales_Transaction">
+          <End Role="Sales_Transaction" Type="Self.Sales_Transaction" Multiplicity="0..1" />
+          <End Role="Sales_Transaction_Details" Type="Self.Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales_Transaction">
+              <PropertyRef Name="Transaction_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Transaction_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_EmployeeAccount">
+          <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="0..1" />
+          <End Role="Sales_Transaction" Type="Self.Sales_Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeAccount">
+              <PropertyRef Name="Account_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction">
+              <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DowntownAlley_DatabaseModelStoreContainer">
+          <EntitySet Name="AuditTrail" EntityType="Self.AuditTrail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeAccount" EntityType="Self.EmployeeAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeInformation" EntityType="Self.EmployeeInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loss_Damages" EntityType="Self.Loss_Damages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loss_Fraud" EntityType="Self.Loss_Fraud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Other_Services" EntityType="Self.Other_Services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_Info" EntityType="Self.Product_Info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales_Transaction" EntityType="Self.Sales_Transaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales_Transaction_Details" EntityType="Self.Sales_Transaction_Details" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AuditTrai__Accou__4BAC3F29" Association="Self.FK__AuditTrai__Accou__4BAC3F29">
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccount" />
+            <End Role="AuditTrail" EntitySet="AuditTrail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeA__Emplo__267ABA7A" Association="Self.FK__EmployeeA__Emplo__267ABA7A">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Loss_Damages" Association="Self.FK_Expenses_Loss_Damages">
+            <End Role="Loss_Damages" EntitySet="Loss_Damages" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Loss_Fraud" Association="Self.FK_Expenses_Loss_Fraud">
+            <End Role="Loss_Fraud" EntitySet="Loss_Fraud" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Other_Services" Association="Self.FK_Expenses_Other_Services">
+            <End Role="Other_Services" EntitySet="Other_Services" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loss_Fraud_Product_Info" Association="Self.FK_Loss_Fraud_Product_Info">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Loss_Fraud" EntitySet="Loss_Fraud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Discount" Association="Self.FK_Sales_Transaction_Details_Discount">
+            <End Role="Discount" EntitySet="Discount" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Product_Info" Association="Self.FK_Sales_Transaction_Details_Product_Info">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Sales_Transaction" Association="Self.FK_Sales_Transaction_Details_Sales_Transaction">
+            <End Role="Sales_Transaction" EntitySet="Sales_Transaction" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_EmployeeAccount" Association="Self.FK_Sales_Transaction_EmployeeAccount">
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccount" />
+            <End Role="Sales_Transaction" EntitySet="Sales_Transaction" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DowntownAlley_DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AuditTrail">
+          <Key>
+            <PropertyRef Name="Login_ID" />
+          </Key>
+          <Property Name="Login_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_ID" Type="Int32" />
+          <Property Name="Activity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="EmployeeAccount" Relationship="Self.FK__AuditTrai__Accou__4BAC3F29" FromRole="AuditTrail" ToRole="EmployeeAccount" />
+        </EntityType>
+        <EntityType Name="Discount">
+          <Key>
+            <PropertyRef Name="Discount_ID" />
+          </Key>
+          <Property Name="Discount_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Discount_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Discount_Amount" Type="Int32" />
+          <Property Name="Start_Date" Type="DateTime" Precision="0" />
+          <Property Name="End_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Sales_Transaction_Details" Relationship="Self.FK_Sales_Transaction_Details_Discount" FromRole="Discount" ToRole="Sales_Transaction_Details" />
+        </EntityType>
+        <EntityType Name="EmployeeAccount">
+          <Key>
+            <PropertyRef Name="Account_ID" />
+          </Key>
+          <Property Name="Account_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="AuditTrails" Relationship="Self.FK__AuditTrai__Accou__4BAC3F29" FromRole="EmployeeAccount" ToRole="AuditTrail" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="Self.FK__EmployeeA__Emplo__267ABA7A" FromRole="EmployeeAccount" ToRole="EmployeeInformation" />
+          <NavigationProperty Name="Sales_Transaction" Relationship="Self.FK_Sales_Transaction_EmployeeAccount" FromRole="EmployeeAccount" ToRole="Sales_Transaction" />
+        </EntityType>
+        <EntityType Name="EmployeeInformation">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" />
+          <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Middle_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Phone_Number" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Birth_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EmployeeAccounts" Relationship="Self.FK__EmployeeA__Emplo__267ABA7A" FromRole="EmployeeInformation" ToRole="EmployeeAccount" />
+        </EntityType>
+        <EntityType Name="Expens">
+          <Key>
+            <PropertyRef Name="Expenses_ID" />
+          </Key>
+          <Property Name="Expenses_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Loss_Damage_ID" Type="Int32" />
+          <Property Name="Loss_Fraud_ID" Type="Int32" />
+          <Property Name="Electric_Bill" Type="Int32" />
+          <Property Name="Water_Bill" Type="Int32" />
+          <Property Name="Internet_Bill" Type="Int32" />
+          <Property Name="Payroll_Salary_ID" Type="Int32" />
+          <Property Name="Other_Services_ID" Type="Int32" />
+          <Property Name="Date_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Loss_Damages" Relationship="Self.FK_Expenses_Loss_Damages" FromRole="Expenses" ToRole="Loss_Damages" />
+          <NavigationProperty Name="Loss_Fraud" Relationship="Self.FK_Expenses_Loss_Fraud" FromRole="Expenses" ToRole="Loss_Fraud" />
+          <NavigationProperty Name="Other_Services" Relationship="Self.FK_Expenses_Other_Services" FromRole="Expenses" ToRole="Other_Services" />
+        </EntityType>
+        <EntityType Name="Loss_Damages">
+          <Key>
+            <PropertyRef Name="Loss_Damage_ID" />
+          </Key>
+          <Property Name="Loss_Damage_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_ID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expenses_Loss_Damages" FromRole="Loss_Damages" ToRole="Expenses" />
+        </EntityType>
+        <EntityType Name="Loss_Fraud">
+          <Key>
+            <PropertyRef Name="Loss_Fraud_ID" />
+          </Key>
+          <Property Name="Loss_Fraud_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_ID" Type="Int32" />
+          <Property Name="Date_Time" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expenses_Loss_Fraud" FromRole="Loss_Fraud" ToRole="Expenses" />
+          <NavigationProperty Name="Product_Info" Relationship="Self.FK_Loss_Fraud_Product_Info" FromRole="Loss_Fraud" ToRole="Product_Info" />
+        </EntityType>
+        <EntityType Name="Other_Services">
+          <Key>
+            <PropertyRef Name="OtherServices_ID" />
+          </Key>
+          <Property Name="OtherServices_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Services_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Int32" />
+          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expenses_Other_Services" FromRole="Other_Services" ToRole="Expenses" />
+        </EntityType>
+        <EntityType Name="Product_Info">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Stock_Level" Type="Int32" />
+          <NavigationProperty Name="Loss_Fraud" Relationship="Self.FK_Loss_Fraud_Product_Info" FromRole="Product_Info" ToRole="Loss_Fraud" />
+          <NavigationProperty Name="Sales_Transaction_Details" Relationship="Self.FK_Sales_Transaction_Details_Product_Info" FromRole="Product_Info" ToRole="Sales_Transaction_Details" />
+        </EntityType>
+        <EntityType Name="Sales_Transaction">
+          <Key>
+            <PropertyRef Name="Transaction_ID" />
+          </Key>
+          <Property Name="Transaction_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_ID" Type="Int32" />
+          <Property Name="Total_Amount" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="EmployeeAccount" Relationship="Self.FK_Sales_Transaction_EmployeeAccount" FromRole="Sales_Transaction" ToRole="EmployeeAccount" />
+          <NavigationProperty Name="Sales_Transaction_Details" Relationship="Self.FK_Sales_Transaction_Details_Sales_Transaction" FromRole="Sales_Transaction" ToRole="Sales_Transaction_Details" />
+        </EntityType>
+        <EntityType Name="Sales_Transaction_Details">
+          <Key>
+            <PropertyRef Name="Transaction_Detail_ID" />
+          </Key>
+          <Property Name="Transaction_Detail_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Transaction_ID" Type="Int32" />
+          <Property Name="Product_ID" Type="Int32" />
+          <Property Name="Total_Quantity" Type="Int32" />
+          <Property Name="Discount_ID" Type="Int32" />
+          <NavigationProperty Name="Discount" Relationship="Self.FK_Sales_Transaction_Details_Discount" FromRole="Sales_Transaction_Details" ToRole="Discount" />
+          <NavigationProperty Name="Product_Info" Relationship="Self.FK_Sales_Transaction_Details_Product_Info" FromRole="Sales_Transaction_Details" ToRole="Product_Info" />
+          <NavigationProperty Name="Sales_Transaction" Relationship="Self.FK_Sales_Transaction_Details_Sales_Transaction" FromRole="Sales_Transaction_Details" ToRole="Sales_Transaction" />
+        </EntityType>
+        <Association Name="FK__AuditTrai__Accou__4BAC3F29">
+          <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="0..1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeAccount">
+              <PropertyRef Name="Account_ID" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Discount">
+          <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+          <End Role="Sales_Transaction_Details" Type="Self.Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="Discount_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Discount_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeA__Emplo__267ABA7A">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="EmployeeAccount">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_EmployeeAccount">
+          <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="0..1" />
+          <End Role="Sales_Transaction" Type="Self.Sales_Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeAccount">
+              <PropertyRef Name="Account_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction">
+              <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Loss_Damages">
+          <End Role="Loss_Damages" Type="Self.Loss_Damages" Multiplicity="0..1" />
+          <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loss_Damages">
+              <PropertyRef Name="Loss_Damage_ID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="Loss_Damage_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Loss_Fraud">
+          <End Role="Loss_Fraud" Type="Self.Loss_Fraud" Multiplicity="0..1" />
+          <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loss_Fraud">
+              <PropertyRef Name="Loss_Fraud_ID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="Loss_Fraud_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Other_Services">
+          <End Role="Other_Services" Type="Self.Other_Services" Multiplicity="0..1" />
+          <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Other_Services">
+              <PropertyRef Name="OtherServices_ID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="Other_Services_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loss_Fraud_Product_Info">
+          <End Role="Product_Info" Type="Self.Product_Info" Multiplicity="0..1" />
+          <End Role="Loss_Fraud" Type="Self.Loss_Fraud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Loss_Fraud">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Product_Info">
+          <End Role="Product_Info" Type="Self.Product_Info" Multiplicity="0..1" />
+          <End Role="Sales_Transaction_Details" Type="Self.Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Sales_Transaction">
+          <End Role="Sales_Transaction" Type="Self.Sales_Transaction" Multiplicity="0..1" />
+          <End Role="Sales_Transaction_Details" Type="Self.Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales_Transaction">
+              <PropertyRef Name="Transaction_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Transaction_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseEntitiesConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AuditTrails" EntityType="Self.AuditTrail" />
+          <EntitySet Name="Discounts" EntityType="Self.Discount" />
+          <EntitySet Name="EmployeeAccounts" EntityType="Self.EmployeeAccount" />
+          <EntitySet Name="EmployeeInformations" EntityType="Self.EmployeeInformation" />
+          <EntitySet Name="Expenses" EntityType="Self.Expens" />
+          <EntitySet Name="Loss_Damages" EntityType="Self.Loss_Damages" />
+          <EntitySet Name="Loss_Fraud" EntityType="Self.Loss_Fraud" />
+          <EntitySet Name="Other_Services" EntityType="Self.Other_Services" />
+          <EntitySet Name="Product_Info" EntityType="Self.Product_Info" />
+          <EntitySet Name="Sales_Transaction" EntityType="Self.Sales_Transaction" />
+          <EntitySet Name="Sales_Transaction_Details" EntityType="Self.Sales_Transaction_Details" />
+          <AssociationSet Name="FK__AuditTrai__Accou__4BAC3F29" Association="Self.FK__AuditTrai__Accou__4BAC3F29">
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccounts" />
+            <End Role="AuditTrail" EntitySet="AuditTrails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Discount" Association="Self.FK_Sales_Transaction_Details_Discount">
+            <End Role="Discount" EntitySet="Discounts" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeA__Emplo__267ABA7A" Association="Self.FK__EmployeeA__Emplo__267ABA7A">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_EmployeeAccount" Association="Self.FK_Sales_Transaction_EmployeeAccount">
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccounts" />
+            <End Role="Sales_Transaction" EntitySet="Sales_Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Loss_Damages" Association="Self.FK_Expenses_Loss_Damages">
+            <End Role="Loss_Damages" EntitySet="Loss_Damages" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Loss_Fraud" Association="Self.FK_Expenses_Loss_Fraud">
+            <End Role="Loss_Fraud" EntitySet="Loss_Fraud" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Other_Services" Association="Self.FK_Expenses_Other_Services">
+            <End Role="Other_Services" EntitySet="Other_Services" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loss_Fraud_Product_Info" Association="Self.FK_Loss_Fraud_Product_Info">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Loss_Fraud" EntitySet="Loss_Fraud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Product_Info" Association="Self.FK_Sales_Transaction_Details_Product_Info">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Sales_Transaction" Association="Self.FK_Sales_Transaction_Details_Sales_Transaction">
+            <End Role="Sales_Transaction" EntitySet="Sales_Transaction" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DowntownAlley_DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntitiesConnection">
+          <EntitySetMapping Name="AuditTrails">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.AuditTrail">
+              <MappingFragment StoreEntitySet="AuditTrail">
+                <ScalarProperty Name="Login_ID" ColumnName="Login_ID" />
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="Activity" ColumnName="Activity" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Discounts">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Discount">
+              <MappingFragment StoreEntitySet="Discount">
+                <ScalarProperty Name="Discount_ID" ColumnName="Discount_ID" />
+                <ScalarProperty Name="Discount_Name" ColumnName="Discount_Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Discount_Amount" ColumnName="Discount_Amount" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeAccounts">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.EmployeeAccount">
+              <MappingFragment StoreEntitySet="EmployeeAccount">
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeInformations">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.EmployeeInformation">
+              <MappingFragment StoreEntitySet="EmployeeInformation">
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Middle_Name" ColumnName="Middle_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Birth_Date" ColumnName="Birth_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Expens">
+              <MappingFragment StoreEntitySet="Expenses">
+                <ScalarProperty Name="Expenses_ID" ColumnName="Expenses_ID" />
+                <ScalarProperty Name="Loss_Damage_ID" ColumnName="Loss_Damage_ID" />
+                <ScalarProperty Name="Loss_Fraud_ID" ColumnName="Loss_Fraud_ID" />
+                <ScalarProperty Name="Electric_Bill" ColumnName="Electric_Bill" />
+                <ScalarProperty Name="Water_Bill" ColumnName="Water_Bill" />
+                <ScalarProperty Name="Internet_Bill" ColumnName="Internet_Bill" />
+                <ScalarProperty Name="Payroll_Salary_ID" ColumnName="Payroll_Salary_ID" />
+                <ScalarProperty Name="Other_Services_ID" ColumnName="Other_Services_ID" />
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loss_Damages">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Loss_Damages">
+              <MappingFragment StoreEntitySet="Loss_Damages">
+                <ScalarProperty Name="Loss_Damage_ID" ColumnName="Loss_Damage_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loss_Fraud">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Loss_Fraud">
+              <MappingFragment StoreEntitySet="Loss_Fraud">
+                <ScalarProperty Name="Loss_Fraud_ID" ColumnName="Loss_Fraud_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Other_Services">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Other_Services">
+              <MappingFragment StoreEntitySet="Other_Services">
+                <ScalarProperty Name="OtherServices_ID" ColumnName="OtherServices_ID" />
+                <ScalarProperty Name="Services_Name" ColumnName="Services_Name" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_Info">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Product_Info">
+              <MappingFragment StoreEntitySet="Product_Info">
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Product_Code" ColumnName="Product_Code" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Stock_Level" ColumnName="Stock_Level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales_Transaction">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Sales_Transaction">
+              <MappingFragment StoreEntitySet="Sales_Transaction">
+                <ScalarProperty Name="Transaction_ID" ColumnName="Transaction_ID" />
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales_Transaction_Details">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Sales_Transaction_Details">
+              <MappingFragment StoreEntitySet="Sales_Transaction_Details">
+                <ScalarProperty Name="Transaction_Detail_ID" ColumnName="Transaction_Detail_ID" />
+                <ScalarProperty Name="Transaction_ID" ColumnName="Transaction_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Total_Quantity" ColumnName="Total_Quantity" />
+                <ScalarProperty Name="Discount_ID" ColumnName="Discount_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
