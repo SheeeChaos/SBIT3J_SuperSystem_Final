@@ -183,6 +183,7 @@
     <Content Include="Models\SuperSystemDataModel.edmx.diagram">
       <DependentUpon>SuperSystemDataModel.edmx</DependentUpon>
     </Content>
+    <Content Include="GET THE DATABASE HERE\DBver2.bacpac" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\AdminMonitoring\Dashboard.cshtml" />
