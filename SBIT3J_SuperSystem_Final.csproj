@@ -97,8 +97,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Styles\LoginPage.css" />
+    <Content Include="Content\Styles\_AdminMonitoring_Layout.css" />
     <Content Include="Image\Group1-Assets\310946292_648016883505321_4943227458489112127_n.png" />
     <Content Include="Global.asax" />
+    <Content Include="Image\Group1-Assets\received_594167488046920.png" />
+    <Content Include="Image\Group1-Assets\revenue-icon.png" />
     <Content Include="Models\SuperSystemDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SuperSystemDataModel.Context.cs</LastGenOutput>
@@ -117,9 +120,12 @@
     <Compile Include="Controllers\AdminMonitoringController.cs" />
     <Compile Include="Controllers\EmployeeLOGSController.cs" />
     <Compile Include="Controllers\EmployeeManagementController.cs" />
-    <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\InventoryManagement\InventoryController.cs" />
+    <Compile Include="Controllers\InventoryManagement\ProductsController.cs" />
+    <Compile Include="Controllers\InventoryManagement\RestockDetailsController.cs" />
+    <Compile Include="Controllers\InventoryManagement\RestocksController.cs" />
     <Compile Include="Controllers\PayrollController.cs" />
-    <Compile Include="Controllers\POSController.cs" />
+    <Compile Include="Controllers\InventoryManagement\POSController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -199,6 +205,9 @@
     <Content Include="Views\SuperAdmin\Index.cshtml" />
     <Content Include="Views\EmployeeLOGS\Index.cshtml" />
     <Content Include="Views\Shared\_TimeInTimeOutLayout.cshtml" />
+    <Content Include="Views\AdminMonitoring\Revenue.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -209,6 +218,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Scripts\" />
+    <Folder Include="Image\NewFolder1\" />
+    <Folder Include="Views\RestockDetails\" />
+    <Folder Include="Views\Restocks\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

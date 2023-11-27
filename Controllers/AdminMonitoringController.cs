@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
-    [Authorize]
+  
     public class AdminMonitoringController : Controller
     {
         // GET: AdminMonitoring
@@ -18,6 +18,11 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         public ActionResult Dashboard()
         {
             return View();  
+        }
+
+        public ActionResult Revenue()
+        {
+            return View();
         }
     }
 }
