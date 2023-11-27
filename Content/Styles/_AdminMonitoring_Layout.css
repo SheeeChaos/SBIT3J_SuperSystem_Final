@@ -30,7 +30,7 @@ nav {
     align-items: center;
     transition: all 0.1s ease;
     height: 90px;
-    border: 0.5px solid white;
+    color: #fdf3f3;
 }
 .logo-container img{
     width: 90px;
@@ -60,32 +60,45 @@ nav {
    text-align: center;
 }
 */
-
-.logo-container:hover,
-.menu-container:hover{
-    background:white;
+.menu-container:hover {
+    background-color: #a12f43;
 }
-
 nav:hover{
-    width: 300px;
+    width: 350px;
     transition:all 0.1s ease;
 }
 
 .menu-container {
     display: flex;
-    align-items:center;
+    align-items: center;
     transition: all 0.1s ease;
-    padding-left: 22px;
-    border: 0.5px solid white;
-    column-gap:25px;
+    padding: 5px 0 5px 25px;
+    border-bottom: 1.5px solid #f6f6f6;
+    column-gap: 40px;
+    color: #fdf3f3;
 }
 
 .menu-container img{
-    width:45px;
-    height:45px;
+    width:35px;
+    height:35px;
 }
 
 .menu-container span {        
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1rem;
  }
+
+#admin-profile {
+    height: 80px;
+}
+#logout-link{
+   position:absolute;
+   width:100%;
+   bottom:10px;
+}
+
+/*THE FOLLOWING CODE IS FOR THE RENDER BODY*/
+
+.renderbody {
+  
+}

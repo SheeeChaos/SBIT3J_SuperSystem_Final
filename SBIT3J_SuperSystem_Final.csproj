@@ -100,8 +100,14 @@
     <Content Include="Content\Styles\_AdminMonitoring_Layout.css" />
     <Content Include="Image\Group1-Assets\310946292_648016883505321_4943227458489112127_n.png" />
     <Content Include="Global.asax" />
+    <Content Include="Image\Group1-Assets\CashierLogIcon.png" />
+    <Content Include="Image\Group1-Assets\InventoryIcon.png" />
+    <Content Include="Image\Group1-Assets\LogoutIcon.png" />
+    <Content Include="Image\Group1-Assets\LossesIcon.png" />
+    <Content Include="Image\Group1-Assets\OveallActivityIcon.png" />
+    <Content Include="Image\Group1-Assets\ProfitIcon.png" />
     <Content Include="Image\Group1-Assets\received_594167488046920.png" />
-    <Content Include="Image\Group1-Assets\revenue-icon.png" />
+    <Content Include="Image\Group1-Assets\RevenueIcon.png" />
     <Content Include="Models\SuperSystemDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SuperSystemDataModel.Context.cs</LastGenOutput>
@@ -205,9 +211,13 @@
     <Content Include="Views\SuperAdmin\Index.cshtml" />
     <Content Include="Views\EmployeeLOGS\Index.cshtml" />
     <Content Include="Views\Shared\_TimeInTimeOutLayout.cshtml" />
-    <Content Include="Views\AdminMonitoring\Revenue.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\AdminMonitoring\SalesRevenue.cshtml" />
+    <Content Include="Views\AdminMonitoring\ProductRevenue.cshtml" />
+    <Content Include="Views\AdminMonitoring\Profit.cshtml" />
+    <Content Include="Views\AdminMonitoring\Losses.cshtml" />
+    <Content Include="Views\AdminMonitoring\CashierLogs.cshtml" />
+    <Content Include="Views\AdminMonitoring\OverallActivities.cshtml" />
+    <Content Include="Views\AdminMonitoring\Inventory.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -219,6 +229,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Scripts\" />
     <Folder Include="Image\NewFolder1\" />
+    <Folder Include="Views\Products\" />
     <Folder Include="Views\RestockDetails\" />
     <Folder Include="Views\Restocks\" />
   </ItemGroup>
