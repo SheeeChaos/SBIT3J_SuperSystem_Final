@@ -6,7 +6,8 @@ using System.Web.Mvc;
 
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
-  
+
+    [Authorize]
     public class AdminMonitoringController : Controller
     {
         // GET: AdminMonitoring
@@ -20,7 +21,36 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             return View();  
         }
 
-        public ActionResult Revenue()
+        public ActionResult SalesRevenue()
+        {
+            return View();
+        }
+
+        public ActionResult ProductRevenue()
+        {
+            return View();
+        }
+
+        public ActionResult Profit()
+        {
+            return View();
+        }
+
+        public ActionResult Losses()
+        {
+            return View();
+        }
+
+        public ActionResult CashierLogs()
+        {
+            return View();
+        }
+
+        public ActionResult OverallActivities ()
+        {
+            return View();
+        }
+        public ActionResult Inventory()
         {
             return View();
         }

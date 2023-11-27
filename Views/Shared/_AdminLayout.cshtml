@@ -16,20 +16,64 @@
                     <img src="~/Image/Group1-Assets/received_594167488046920.png" />
                     <span class="nav-item">Down Town Alley Sales Monitoring</span>
                 </a>
-
+            </li>
+            <li id="admin-profile">
             </li>
             <li>
-                <a href="@Url.Action("Revenue", "AdminMonitoring")" class="menu-container">
-                    <img src="~/Image/Group1-Assets/revenue-icon.png" />
-                    <span class="nav-item">Revenue</span>
+                <a href="@Url.Action("SalesRevenue", "AdminMonitoring")" class="menu-container">
+                    <img src="~/Image/Group1-Assets/RevenueIcon.png" />
+                    <span class="nav-item">Sales Revenue</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("ProductRevenue", "AdminMonitoring")" class="menu-container">
+                    <img src="~/Image/Group1-Assets/InventoryIcon.png" />
+                    <span class="nav-item">Product Revenue</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Profit", "AdminMonitoring")" class="menu-container">
+                    <img src="~/Image/Group1-Assets/ProfitIcon.png" />
+                    <span class="nav-item">Profit</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Losses", "AdminMonitoring")" class="menu-container">
+                    <img src="~/Image/Group1-Assets/LossesIcon.png" />
+                    <span class="nav-item">Losses</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("CashierLogs", "AdminMonitoring")" class="menu-container">
+                    <img src="~/Image/Group1-Assets/CashierLogIcon.png" />
+                    <span class="nav-item">Cashier Logs</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("OverallActivities", "AdminMonitoring")" class="menu-container">
+                    <img src="~/Image/Group1-Assets/OveallActivityIcon.png" />
+                    <span class="nav-item">Overall Activities</span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Inventory", "AdminMonitoring")" class="menu-container">
+                    <img src="~/Image/Group1-Assets/InventoryIcon.png" />
+                    <span class="nav-item">Inventory</span>
+                </a>
+            </li>
+            <li id="logout-link">
+                <a href="@Url.Action("Logout", "Accounts")" class="menu-container">
+                    <img src="~/Image/Group1-Assets/LogoutIcon.png" />
+                    <span class="nav-item">Logout</span>
                 </a>
             </li>
         </ul>
 
     </nav>
-    <div>
+
+    <div class="renderbody" id="renderbody" style="margin-left:120px; padding: 20px;">
         @RenderBody()
     </div>
-    @Html.ActionLink("Logout", "Logout", "Accounts") @*Link for logout*@
+
 </body>
 </html>
