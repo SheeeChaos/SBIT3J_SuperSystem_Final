@@ -9,14 +9,14 @@
 }
 
 body {
-
+    background: #fcf5f4;
 }
 
 nav {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
-    height: 100%;
+    height: 100vh;
     left: 0;
     background: rgba(84, 22, 35, 1);
     width:90px;
@@ -30,7 +30,7 @@ nav {
     align-items: center;
     transition: all 0.1s ease;
     height: 90px;
-    color: #fdf3f3;
+    color: #fcf5f4;
 }
 .logo-container img{
     width: 90px;
@@ -64,8 +64,8 @@ nav {
     background-color: #a12f43;
 }
 nav:hover{
-    width: 350px;
-    transition:all 0.1s ease;
+    width: 300px;
+    transition:all 0.2s ease;
 }
 
 .menu-container {
@@ -99,6 +99,3 @@ nav:hover{
 
 /*THE FOLLOWING CODE IS FOR THE RENDER BODY*/
 
-.renderbody {
-  
-}
