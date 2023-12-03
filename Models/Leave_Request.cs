@@ -12,22 +12,24 @@ namespace SBIT3J_SuperSystem_Final.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Loss_Damages
+    public partial class Leave_Request
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Loss_Damages()
+        public Leave_Request()
         {
-            this.Expenses = new HashSet<Expens>();
+            this.Payrolls = new HashSet<Payroll>();
         }
     
-        public int Loss_Damage_ID { get; set; }
-        public Nullable<int> Product_ID { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public Nullable<int> Price { get; set; }
-        public string Description { get; set; }
+        public int Leave_ID { get; set; }
+        public Nullable<int> Employee_ID { get; set; }
+        public string Leave_Request1 { get; set; }
+        public string Department { get; set; }
+        public string Leave_Description { get; set; }
+        public Nullable<System.DateTime> Start_Date { get; set; }
+        public Nullable<System.DateTime> End_Date { get; set; }
     
+        public virtual EmployeeInformation EmployeeInformation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Expens> Expenses { get; set; }
-        public virtual Product_Info Product_Info { get; set; }
+        public virtual ICollection<Payroll> Payrolls { get; set; }
     }
 }

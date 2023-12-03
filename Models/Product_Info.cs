@@ -17,7 +17,10 @@ namespace SBIT3J_SuperSystem_Final.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product_Info()
         {
+            this.Loss_Damages = new HashSet<Loss_Damages>();
             this.Loss_Fraud = new HashSet<Loss_Fraud>();
+            this.Restock_Detail = new HashSet<Restock_Detail>();
+            this.Return_Item = new HashSet<Return_Item>();
             this.Sales_Transaction_Details = new HashSet<Sales_Transaction_Details>();
         }
     
@@ -27,12 +30,19 @@ namespace SBIT3J_SuperSystem_Final.Models
         public string Category { get; set; }
         public string Size { get; set; }
         public string Color { get; set; }
-        public string Sex { get; set; }
+        public Nullable<bool> Sex { get; set; }
+        public Nullable<bool> Is_Archived { get; set; }
         public Nullable<int> Price { get; set; }
         public Nullable<int> Stock_Level { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Loss_Damages> Loss_Damages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Loss_Fraud> Loss_Fraud { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Restock_Detail> Restock_Detail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Return_Item> Return_Item { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sales_Transaction_Details> Sales_Transaction_Details { get; set; }
     }

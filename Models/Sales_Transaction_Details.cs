@@ -17,7 +17,7 @@ namespace SBIT3J_SuperSystem_Final.Models
         public int Transaction_Detail_ID { get; set; }
         public Nullable<int> Transaction_ID { get; set; }
         public Nullable<int> Product_ID { get; set; }
-        public Nullable<int> Total_Quantity { get; set; }
+        public Nullable<decimal> Total_Quantity { get; set; }
         public Nullable<int> Discount_ID { get; set; }
     
         public virtual Discount Discount { get; set; }

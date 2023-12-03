@@ -1,8 +1,47 @@
-﻿
+﻿@model IEnumerable<SBIT3J_SuperSystem_Final.Models.AuditTrail>
+
 @{
     ViewBag.Title = "CashierLogs";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>CashierLogs</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Activity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeAccount.Username)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeAccount.Username)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Login_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Login_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Login_ID })
+        </td>
+    </tr>
+}
+</table>
+
 

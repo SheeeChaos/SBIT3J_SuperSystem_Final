@@ -17,15 +17,18 @@ namespace SBIT3J_SuperSystem_Final.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sales_Transaction()
         {
+            this.Return_Item = new HashSet<Return_Item>();
             this.Sales_Transaction_Details = new HashSet<Sales_Transaction_Details>();
         }
     
         public int Transaction_ID { get; set; }
         public Nullable<int> Account_ID { get; set; }
-        public Nullable<int> Total_Amount { get; set; }
+        public Nullable<decimal> Total_Amount { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
     
         public virtual EmployeeAccount EmployeeAccount { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Return_Item> Return_Item { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sales_Transaction_Details> Sales_Transaction_Details { get; set; }
     }

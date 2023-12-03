@@ -12,22 +12,18 @@ namespace SBIT3J_SuperSystem_Final.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Loss_Damages
+    public partial class Return_Item
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Loss_Damages()
-        {
-            this.Expenses = new HashSet<Expens>();
-        }
-    
-        public int Loss_Damage_ID { get; set; }
+        public int Return_ID { get; set; }
+        public Nullable<int> Transaction_ID { get; set; }
         public Nullable<int> Product_ID { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public Nullable<int> Price { get; set; }
-        public string Description { get; set; }
+        public Nullable<System.DateTime> Return_Date { get; set; }
+        public Nullable<int> Quantity_Returned { get; set; }
+        public string Reason { get; set; }
+        public Nullable<bool> Resellable { get; set; }
+        public string Customer_Name { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Expens> Expenses { get; set; }
         public virtual Product_Info Product_Info { get; set; }
+        public virtual Sales_Transaction Sales_Transaction { get; set; }
     }
 }
