@@ -52,5 +52,28 @@
 
         </div>
     </div>
+    <div id="clock">
+        <h1 id="time"></h1>
+    </div>
 </div>
 
+<script>
+    function updateTime() {
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        var formattedTime = hours + ":" + minutes + ":" + seconds;
+        document.getElementById("time").innerHTML = formattedTime;
+    }
+
+    // Update time every second
+    setInterval(updateTime, 1000);
+
+    // Initial update
+    updateTime();
+</script>

@@ -12,13 +12,13 @@ namespace SBIT3J_SuperSystem_Final.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AuditTrail
+    public partial class Insurance
     {
-        public int Login_ID { get; set; }
-        public Nullable<int> Account_ID { get; set; }
-        public string Activity { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public int Insurance_ID { get; set; }
+        public Nullable<int> Employee_ID { get; set; }
+        public string Insurance_Provider { get; set; }
+        public string insurance_Type { get; set; }
     
-        public virtual EmployeeAccount EmployeeAccount { get; set; }
+        public virtual EmployeeInformation EmployeeInformation { get; set; }
     }
 }

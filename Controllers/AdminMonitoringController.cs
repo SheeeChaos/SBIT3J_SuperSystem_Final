@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SBIT3J_SuperSystem_Final.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,10 +8,12 @@ using System.Web.Mvc;
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
 
-    [Authorize]
+    //[Authorize]
     public class AdminMonitoringController : Controller
     {
         // GET: AdminMonitoring
+
+        DatabaseConnectionEntities dbcon = new DatabaseConnectionEntities(); //Connection String
         public ActionResult Index()
         {
             return View();
@@ -23,6 +26,8 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
         public ActionResult SalesRevenue()
         {
+
+            ViewBag.TotalCountEmployee = dbcon.EmployeeInformations.Count();
             return View();
         }
 
@@ -43,7 +48,8 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
         public ActionResult CashierLogs()
         {
-            return View();
+
+            return View(dbcon.AuditTrails.ToList());
         }
 
         public ActionResult OverallActivities ()

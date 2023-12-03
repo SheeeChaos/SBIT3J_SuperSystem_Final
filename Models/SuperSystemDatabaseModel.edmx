@@ -1,0 +1,1978 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DowntownAlley_DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuditTrail">
+          <Key>
+            <PropertyRef Name="Login_ID" />
+          </Key>
+          <Property Name="Login_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_ID" Type="int" />
+          <Property Name="Activity" Type="varchar" MaxLength="255" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Deduction">
+          <Key>
+            <PropertyRef Name="Deduction_ID" />
+          </Key>
+          <Property Name="Deduction_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Deduction_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount_Deducted" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Date_Of_Deduction" Type="date" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Department_ID" />
+          </Key>
+          <Property Name="Department_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Department_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Salary_Range" Type="int" />
+        </EntityType>
+        <EntityType Name="Discount">
+          <Key>
+            <PropertyRef Name="Discount_ID" />
+          </Key>
+          <Property Name="Discount_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Discount_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Discount_Amount" Type="int" />
+          <Property Name="Start_Date" Type="date" />
+          <Property Name="End_Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Employee_Attendance">
+          <Key>
+            <PropertyRef Name="Attendance_ID" />
+          </Key>
+          <Property Name="Attendance_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_ID" Type="int" />
+          <Property Name="Time_In" Type="datetime" />
+          <Property Name="Time_Out" Type="datetime" />
+          <Property Name="Total_Hour_Worked" Type="time" Precision="7" />
+          <Property Name="Absent" Type="date" />
+        </EntityType>
+        <EntityType Name="EmployeeAccount">
+          <Key>
+            <PropertyRef Name="Account_ID" />
+          </Key>
+          <Property Name="Account_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeInformation">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="int" Nullable="false" />
+          <Property Name="First_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Middle_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Last_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Sex" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="255" />
+          <Property Name="Phone_Number" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Birth_Date" Type="date" />
+          <Property Name="Date_Hired" Type="date" />
+        </EntityType>
+        <EntityType Name="Expenses">
+          <Key>
+            <PropertyRef Name="Expenses_ID" />
+          </Key>
+          <Property Name="Expenses_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Loss_Damage_ID" Type="int" />
+          <Property Name="Loss_Fraud_ID" Type="int" />
+          <Property Name="Electric_Bill" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="Water_Bill" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="Internet_Bill" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="Rentals" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="Payroll_Salary_ID" Type="int" />
+          <Property Name="Date_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Insurance">
+          <Key>
+            <PropertyRef Name="Insurance_ID" />
+          </Key>
+          <Property Name="Insurance_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Insurance_Provider" Type="nvarchar" MaxLength="50" />
+          <Property Name="insurance_Type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Leave_Request">
+          <Key>
+            <PropertyRef Name="Leave_ID" />
+          </Key>
+          <Property Name="Leave_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Leave_Request" Type="nvarchar" MaxLength="50" />
+          <Property Name="Department" Type="varchar" MaxLength="50" />
+          <Property Name="Leave_Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Start_Date" Type="date" />
+          <Property Name="End_Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Loss_Damages">
+          <Key>
+            <PropertyRef Name="Loss_Damage_ID" />
+          </Key>
+          <Property Name="Loss_Damage_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_ID" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Loss_Fraud">
+          <Key>
+            <PropertyRef Name="Loss_Fraud_ID" />
+          </Key>
+          <Property Name="Loss_Fraud_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_ID" Type="int" />
+          <Property Name="Date_Time" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Pag_Ibig">
+          <Key>
+            <PropertyRef Name="PagIbig_ID" />
+          </Key>
+          <Property Name="PagIbig_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="PagIbig_Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Contribution_Rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Contribution_Amount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Payroll">
+          <Key>
+            <PropertyRef Name="Payroll_ID" />
+          </Key>
+          <Property Name="Payroll_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Department_ID" Type="int" />
+          <Property Name="Deduction_ID" Type="int" />
+          <Property Name="Salary_ID" Type="int" />
+          <Property Name="Leave_ID" Type="int" />
+          <Property Name="Attendance_ID" Type="int" />
+          <Property Name="Attendance" Type="date" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Total_Salary" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Philhealth">
+          <Key>
+            <PropertyRef Name="Philhealth_ID" />
+          </Key>
+          <Property Name="Philhealth_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Philhealth_Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Contribution_Rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Contribution_Amount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Product_Info">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Category" Type="varchar" MaxLength="50" />
+          <Property Name="Size" Type="varchar" MaxLength="50" />
+          <Property Name="Color" Type="varchar" MaxLength="50" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="Is_Archived" Type="bit" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Stock_Level" Type="int" />
+        </EntityType>
+        <EntityType Name="Restock">
+          <Key>
+            <PropertyRef Name="Restock_ID" />
+          </Key>
+          <Property Name="Restock_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Total_Amount" Type="int" />
+        </EntityType>
+        <EntityType Name="Restock_Detail">
+          <Key>
+            <PropertyRef Name="RestockDetail_ID" />
+          </Key>
+          <Property Name="RestockDetail_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Restock_ID" Type="int" />
+          <Property Name="Product_ID" Type="int" />
+          <Property Name="Quantity_Added" Type="int" />
+          <Property Name="Total_Amount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Return_Item">
+          <Key>
+            <PropertyRef Name="Return_ID" />
+          </Key>
+          <Property Name="Return_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Transaction_ID" Type="int" />
+          <Property Name="Product_ID" Type="int" />
+          <Property Name="Return_Date" Type="date" />
+          <Property Name="Quantity_Returned" Type="int" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="50" />
+          <Property Name="Resellable" Type="bit" />
+          <Property Name="Customer_Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Salary">
+          <Key>
+            <PropertyRef Name="Salary_ID" />
+          </Key>
+          <Property Name="Salary_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Salary_Amount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Sales_Transaction">
+          <Key>
+            <PropertyRef Name="Transaction_ID" />
+          </Key>
+          <Property Name="Transaction_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_ID" Type="int" />
+          <Property Name="Total_Amount" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sales_Transaction_Details">
+          <Key>
+            <PropertyRef Name="Transaction_Detail_ID" />
+          </Key>
+          <Property Name="Transaction_Detail_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Transaction_ID" Type="int" />
+          <Property Name="Product_ID" Type="int" />
+          <Property Name="Total_Quantity" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="Discount_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="SSS">
+          <Key>
+            <PropertyRef Name="SSS_ID" />
+          </Key>
+          <Property Name="SSS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="SSS_Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Contribution_Rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Contribution_Amount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tax">
+          <Key>
+            <PropertyRef Name="Tax_ID" />
+          </Key>
+          <Property Name="Tax_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
+          <Property Name="Tax_Income" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Tax_Rate" Type="int" />
+          <Property Name="Tax_Amount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK__AuditTrai__Accou__59063A47">
+          <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="0..1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeAccount">
+              <PropertyRef Name="Account_ID" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeA__Emplo__267ABA7A">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="EmployeeAccount">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deduction_Employee">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="Deduction" Type="Self.Deduction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Deduction">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_Employee_ID">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Attendance_Account_ID">
+          <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="0..1" />
+          <End Role="Employee_Attendance" Type="Self.Employee_Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeAccount">
+              <PropertyRef Name="Account_ID" />
+            </Principal>
+            <Dependent Role="Employee_Attendance">
+              <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Loss_Damage_ID">
+          <End Role="Loss_Damages" Type="Self.Loss_Damages" Multiplicity="0..1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loss_Damages">
+              <PropertyRef Name="Loss_Damage_ID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="Loss_Damage_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Loss_Fraud_ID">
+          <End Role="Loss_Fraud" Type="Self.Loss_Fraud" Multiplicity="0..1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loss_Fraud">
+              <PropertyRef Name="Loss_Fraud_ID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="Loss_Fraud_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Payroll_Salary_ID">
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="0..1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payroll">
+              <PropertyRef Name="Payroll_ID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="Payroll_Salary_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurance_Employee_ID">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="Insurance" Type="Self.Insurance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Insurance">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leave_Request_Employee">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="Leave_Request" Type="Self.Leave_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Leave_Request">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loss_Damages_Product_ID">
+          <End Role="Product_Info" Type="Self.Product_Info" Multiplicity="0..1" />
+          <End Role="Loss_Damages" Type="Self.Loss_Damages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Loss_Damages">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loss_Fraud_Product_ID">
+          <End Role="Product_Info" Type="Self.Product_Info" Multiplicity="0..1" />
+          <End Role="Loss_Fraud" Type="Self.Loss_Fraud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Loss_Fraud">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pag_Ibig_Employee_ID">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="Pag_Ibig" Type="Self.Pag_Ibig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Pag_Ibig">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Attendance_ID">
+          <End Role="Employee_Attendance" Type="Self.Employee_Attendance" Multiplicity="0..1" />
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee_Attendance">
+              <PropertyRef Name="Attendance_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Attendance_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Deduction_ID">
+          <End Role="Deduction" Type="Self.Deduction" Multiplicity="0..1" />
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deduction">
+              <PropertyRef Name="Deduction_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Deduction_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Department_ID">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Employee_ID">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Leave_ID">
+          <End Role="Leave_Request" Type="Self.Leave_Request" Multiplicity="0..1" />
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leave_Request">
+              <PropertyRef Name="Leave_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Leave_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Salary_ID">
+          <End Role="Salary" Type="Self.Salary" Multiplicity="0..1" />
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salary">
+              <PropertyRef Name="Salary_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Salary_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Philhealth_Employee">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="Philhealth" Type="Self.Philhealth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Philhealth">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restock_Detail_Product_ID">
+          <End Role="Product_Info" Type="Self.Product_Info" Multiplicity="0..1" />
+          <End Role="Restock_Detail" Type="Self.Restock_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Restock_Detail">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restock_Detail_Restock_ID">
+          <End Role="Restock" Type="Self.Restock" Multiplicity="0..1" />
+          <End Role="Restock_Detail" Type="Self.Restock_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restock">
+              <PropertyRef Name="Restock_ID" />
+            </Principal>
+            <Dependent Role="Restock_Detail">
+              <PropertyRef Name="Restock_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Return_Item_Product_ID">
+          <End Role="Product_Info" Type="Self.Product_Info" Multiplicity="0..1" />
+          <End Role="Return_Item" Type="Self.Return_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Return_Item">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Return_Item_Transaction_ID">
+          <End Role="Sales_Transaction" Type="Self.Sales_Transaction" Multiplicity="0..1" />
+          <End Role="Return_Item" Type="Self.Return_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales_Transaction">
+              <PropertyRef Name="Transaction_ID" />
+            </Principal>
+            <Dependent Role="Return_Item">
+              <PropertyRef Name="Transaction_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salary_Employee">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Salary">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Account_ID">
+          <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="0..1" />
+          <End Role="Sales_Transaction" Type="Self.Sales_Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeAccount">
+              <PropertyRef Name="Account_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction">
+              <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Discount_ID">
+          <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+          <End Role="Sales_Transaction_Details" Type="Self.Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="Discount_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Discount_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Product_ID">
+          <End Role="Product_Info" Type="Self.Product_Info" Multiplicity="0..1" />
+          <End Role="Sales_Transaction_Details" Type="Self.Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Transaction_ID">
+          <End Role="Sales_Transaction" Type="Self.Sales_Transaction" Multiplicity="0..1" />
+          <End Role="Sales_Transaction_Details" Type="Self.Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales_Transaction">
+              <PropertyRef Name="Transaction_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Transaction_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SSS_Employee_ID">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="SSS" Type="Self.SSS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="SSS">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tax_Employee">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="Tax" Type="Self.Tax" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Tax">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DowntownAlley_DatabaseModelStoreContainer">
+          <EntitySet Name="AuditTrail" EntityType="Self.AuditTrail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deduction" EntityType="Self.Deduction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee_Attendance" EntityType="Self.Employee_Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeAccount" EntityType="Self.EmployeeAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeInformation" EntityType="Self.EmployeeInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Insurance" EntityType="Self.Insurance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Leave_Request" EntityType="Self.Leave_Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loss_Damages" EntityType="Self.Loss_Damages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loss_Fraud" EntityType="Self.Loss_Fraud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pag_Ibig" EntityType="Self.Pag_Ibig" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payroll" EntityType="Self.Payroll" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Philhealth" EntityType="Self.Philhealth" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_Info" EntityType="Self.Product_Info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restock" EntityType="Self.Restock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restock_Detail" EntityType="Self.Restock_Detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Return_Item" EntityType="Self.Return_Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales_Transaction" EntityType="Self.Sales_Transaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales_Transaction_Details" EntityType="Self.Sales_Transaction_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SSS" EntityType="Self.SSS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AuditTrai__Accou__59063A47" Association="Self.FK__AuditTrai__Accou__59063A47">
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccount" />
+            <End Role="AuditTrail" EntitySet="AuditTrail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeA__Emplo__267ABA7A" Association="Self.FK__EmployeeA__Emplo__267ABA7A">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deduction_Employee" Association="Self.FK_Deduction_Employee">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="Deduction" EntitySet="Deduction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_Employee_ID" Association="Self.FK_Department_Employee_ID">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Attendance_Account_ID" Association="Self.FK_Employee_Attendance_Account_ID">
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccount" />
+            <End Role="Employee_Attendance" EntitySet="Employee_Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Loss_Damage_ID" Association="Self.FK_Expenses_Loss_Damage_ID">
+            <End Role="Loss_Damages" EntitySet="Loss_Damages" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Loss_Fraud_ID" Association="Self.FK_Expenses_Loss_Fraud_ID">
+            <End Role="Loss_Fraud" EntitySet="Loss_Fraud" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Payroll_Salary_ID" Association="Self.FK_Expenses_Payroll_Salary_ID">
+            <End Role="Payroll" EntitySet="Payroll" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurance_Employee_ID" Association="Self.FK_Insurance_Employee_ID">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="Insurance" EntitySet="Insurance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leave_Request_Employee" Association="Self.FK_Leave_Request_Employee">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="Leave_Request" EntitySet="Leave_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loss_Damages_Product_ID" Association="Self.FK_Loss_Damages_Product_ID">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Loss_Damages" EntitySet="Loss_Damages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loss_Fraud_Product_ID" Association="Self.FK_Loss_Fraud_Product_ID">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Loss_Fraud" EntitySet="Loss_Fraud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pag_Ibig_Employee_ID" Association="Self.FK_Pag_Ibig_Employee_ID">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="Pag_Ibig" EntitySet="Pag_Ibig" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Attendance_ID" Association="Self.FK_Payroll_Attendance_ID">
+            <End Role="Employee_Attendance" EntitySet="Employee_Attendance" />
+            <End Role="Payroll" EntitySet="Payroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Deduction_ID" Association="Self.FK_Payroll_Deduction_ID">
+            <End Role="Deduction" EntitySet="Deduction" />
+            <End Role="Payroll" EntitySet="Payroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Department_ID" Association="Self.FK_Payroll_Department_ID">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Payroll" EntitySet="Payroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Employee_ID" Association="Self.FK_Payroll_Employee_ID">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="Payroll" EntitySet="Payroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Leave_ID" Association="Self.FK_Payroll_Leave_ID">
+            <End Role="Leave_Request" EntitySet="Leave_Request" />
+            <End Role="Payroll" EntitySet="Payroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Salary_ID" Association="Self.FK_Payroll_Salary_ID">
+            <End Role="Salary" EntitySet="Salary" />
+            <End Role="Payroll" EntitySet="Payroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Philhealth_Employee" Association="Self.FK_Philhealth_Employee">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="Philhealth" EntitySet="Philhealth" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restock_Detail_Product_ID" Association="Self.FK_Restock_Detail_Product_ID">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Restock_Detail" EntitySet="Restock_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restock_Detail_Restock_ID" Association="Self.FK_Restock_Detail_Restock_ID">
+            <End Role="Restock" EntitySet="Restock" />
+            <End Role="Restock_Detail" EntitySet="Restock_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Return_Item_Product_ID" Association="Self.FK_Return_Item_Product_ID">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Return_Item" EntitySet="Return_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Return_Item_Transaction_ID" Association="Self.FK_Return_Item_Transaction_ID">
+            <End Role="Sales_Transaction" EntitySet="Sales_Transaction" />
+            <End Role="Return_Item" EntitySet="Return_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salary_Employee" Association="Self.FK_Salary_Employee">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="Salary" EntitySet="Salary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Account_ID" Association="Self.FK_Sales_Transaction_Account_ID">
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccount" />
+            <End Role="Sales_Transaction" EntitySet="Sales_Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Discount_ID" Association="Self.FK_Sales_Transaction_Details_Discount_ID">
+            <End Role="Discount" EntitySet="Discount" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Product_ID" Association="Self.FK_Sales_Transaction_Details_Product_ID">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Transaction_ID" Association="Self.FK_Sales_Transaction_Details_Transaction_ID">
+            <End Role="Sales_Transaction" EntitySet="Sales_Transaction" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SSS_Employee_ID" Association="Self.FK_SSS_Employee_ID">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="SSS" EntitySet="SSS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tax_Employee" Association="Self.FK_Tax_Employee">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformation" />
+            <End Role="Tax" EntitySet="Tax" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DowntownAlley_DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EmployeeAccount">
+          <Key>
+            <PropertyRef Name="Account_ID" />
+          </Key>
+          <Property Name="Account_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="Self.FK__EmployeeA__Emplo__267ABA7A" FromRole="EmployeeAccount" ToRole="EmployeeInformation" />
+          <NavigationProperty Name="AuditTrails" Relationship="DowntownAlley_DatabaseModel.FK__AuditTrai__Accou__59063A47" FromRole="EmployeeAccount" ToRole="AuditTrail" />
+          <NavigationProperty Name="Employee_Attendance" Relationship="DowntownAlley_DatabaseModel.FK_Employee_Attendance_Account_ID" FromRole="EmployeeAccount" ToRole="Employee_Attendance" />
+          <NavigationProperty Name="Sales_Transaction" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Account_ID" FromRole="EmployeeAccount" ToRole="Sales_Transaction" />
+        </EntityType>
+        <EntityType Name="EmployeeInformation">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" />
+          <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Middle_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Phone_Number" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Birth_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EmployeeAccounts" Relationship="Self.FK__EmployeeA__Emplo__267ABA7A" FromRole="EmployeeInformation" ToRole="EmployeeAccount" />
+          <Property Name="Date_Hired" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Deductions" Relationship="DowntownAlley_DatabaseModel.FK_Deduction_Employee" FromRole="EmployeeInformation" ToRole="Deduction" />
+          <NavigationProperty Name="Departments" Relationship="DowntownAlley_DatabaseModel.FK_Department_Employee_ID" FromRole="EmployeeInformation" ToRole="Department" />
+          <NavigationProperty Name="Insurances" Relationship="DowntownAlley_DatabaseModel.FK_Insurance_Employee_ID" FromRole="EmployeeInformation" ToRole="Insurance" />
+          <NavigationProperty Name="Leave_Request" Relationship="DowntownAlley_DatabaseModel.FK_Leave_Request_Employee" FromRole="EmployeeInformation" ToRole="Leave_Request" />
+          <NavigationProperty Name="Pag_Ibig" Relationship="DowntownAlley_DatabaseModel.FK_Pag_Ibig_Employee_ID" FromRole="EmployeeInformation" ToRole="Pag_Ibig" />
+          <NavigationProperty Name="Payrolls" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Employee_ID" FromRole="EmployeeInformation" ToRole="Payroll" />
+          <NavigationProperty Name="Philhealths" Relationship="DowntownAlley_DatabaseModel.FK_Philhealth_Employee" FromRole="EmployeeInformation" ToRole="Philhealth" />
+          <NavigationProperty Name="Salaries" Relationship="DowntownAlley_DatabaseModel.FK_Salary_Employee" FromRole="EmployeeInformation" ToRole="Salary" />
+          <NavigationProperty Name="SSSes" Relationship="DowntownAlley_DatabaseModel.FK_SSS_Employee_ID" FromRole="EmployeeInformation" ToRole="SSS" />
+          <NavigationProperty Name="Taxes" Relationship="DowntownAlley_DatabaseModel.FK_Tax_Employee" FromRole="EmployeeInformation" ToRole="Tax" />
+        </EntityType>
+        <Association Name="FK__EmployeeA__Emplo__267ABA7A">
+          <End Role="EmployeeInformation" Type="Self.EmployeeInformation" Multiplicity="0..1" />
+          <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="EmployeeAccount">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseConnectionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EmployeeAccounts" EntityType="Self.EmployeeAccount" />
+          <EntitySet Name="EmployeeInformations" EntityType="Self.EmployeeInformation" />
+          <AssociationSet Name="FK__EmployeeA__Emplo__267ABA7A" Association="Self.FK__EmployeeA__Emplo__267ABA7A">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccounts" />
+          </AssociationSet>
+          <EntitySet Name="AuditTrails" EntityType="DowntownAlley_DatabaseModel.AuditTrail" />
+          <AssociationSet Name="FK__AuditTrai__Accou__59063A47" Association="DowntownAlley_DatabaseModel.FK__AuditTrai__Accou__59063A47">
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccounts" />
+            <End Role="AuditTrail" EntitySet="AuditTrails" />
+          </AssociationSet>
+          <EntitySet Name="Deductions" EntityType="DowntownAlley_DatabaseModel.Deduction" />
+          <EntitySet Name="Departments" EntityType="DowntownAlley_DatabaseModel.Department" />
+          <EntitySet Name="Discounts" EntityType="DowntownAlley_DatabaseModel.Discount" />
+          <EntitySet Name="Employee_Attendance" EntityType="DowntownAlley_DatabaseModel.Employee_Attendance" />
+          <EntitySet Name="Expenses" EntityType="DowntownAlley_DatabaseModel.Expens" />
+          <EntitySet Name="Insurances" EntityType="DowntownAlley_DatabaseModel.Insurance" />
+          <EntitySet Name="Leave_Request" EntityType="DowntownAlley_DatabaseModel.Leave_Request" />
+          <EntitySet Name="Loss_Damages" EntityType="DowntownAlley_DatabaseModel.Loss_Damages" />
+          <EntitySet Name="Loss_Fraud" EntityType="DowntownAlley_DatabaseModel.Loss_Fraud" />
+          <EntitySet Name="Pag_Ibig" EntityType="DowntownAlley_DatabaseModel.Pag_Ibig" />
+          <EntitySet Name="Payrolls" EntityType="DowntownAlley_DatabaseModel.Payroll" />
+          <EntitySet Name="Philhealths" EntityType="DowntownAlley_DatabaseModel.Philhealth" />
+          <EntitySet Name="Product_Info" EntityType="DowntownAlley_DatabaseModel.Product_Info" />
+          <EntitySet Name="Restocks" EntityType="DowntownAlley_DatabaseModel.Restock" />
+          <EntitySet Name="Restock_Detail" EntityType="DowntownAlley_DatabaseModel.Restock_Detail" />
+          <EntitySet Name="Return_Item" EntityType="DowntownAlley_DatabaseModel.Return_Item" />
+          <EntitySet Name="Salaries" EntityType="DowntownAlley_DatabaseModel.Salary" />
+          <EntitySet Name="Sales_Transaction" EntityType="DowntownAlley_DatabaseModel.Sales_Transaction" />
+          <EntitySet Name="Sales_Transaction_Details" EntityType="DowntownAlley_DatabaseModel.Sales_Transaction_Details" />
+          <EntitySet Name="SSSes" EntityType="DowntownAlley_DatabaseModel.SSS" />
+          <EntitySet Name="sysdiagrams" EntityType="DowntownAlley_DatabaseModel.sysdiagram" />
+          <EntitySet Name="Taxes" EntityType="DowntownAlley_DatabaseModel.Tax" />
+          <AssociationSet Name="FK_Deduction_Employee" Association="DowntownAlley_DatabaseModel.FK_Deduction_Employee">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="Deduction" EntitySet="Deductions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Deduction_ID" Association="DowntownAlley_DatabaseModel.FK_Payroll_Deduction_ID">
+            <End Role="Deduction" EntitySet="Deductions" />
+            <End Role="Payroll" EntitySet="Payrolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_Employee_ID" Association="DowntownAlley_DatabaseModel.FK_Department_Employee_ID">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Department_ID" Association="DowntownAlley_DatabaseModel.FK_Payroll_Department_ID">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Payroll" EntitySet="Payrolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Discount_ID" Association="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Discount_ID">
+            <End Role="Discount" EntitySet="Discounts" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Attendance_Account_ID" Association="DowntownAlley_DatabaseModel.FK_Employee_Attendance_Account_ID">
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccounts" />
+            <End Role="Employee_Attendance" EntitySet="Employee_Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Attendance_ID" Association="DowntownAlley_DatabaseModel.FK_Payroll_Attendance_ID">
+            <End Role="Employee_Attendance" EntitySet="Employee_Attendance" />
+            <End Role="Payroll" EntitySet="Payrolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Account_ID" Association="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Account_ID">
+            <End Role="EmployeeAccount" EntitySet="EmployeeAccounts" />
+            <End Role="Sales_Transaction" EntitySet="Sales_Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurance_Employee_ID" Association="DowntownAlley_DatabaseModel.FK_Insurance_Employee_ID">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="Insurance" EntitySet="Insurances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leave_Request_Employee" Association="DowntownAlley_DatabaseModel.FK_Leave_Request_Employee">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="Leave_Request" EntitySet="Leave_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pag_Ibig_Employee_ID" Association="DowntownAlley_DatabaseModel.FK_Pag_Ibig_Employee_ID">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="Pag_Ibig" EntitySet="Pag_Ibig" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Employee_ID" Association="DowntownAlley_DatabaseModel.FK_Payroll_Employee_ID">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="Payroll" EntitySet="Payrolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Philhealth_Employee" Association="DowntownAlley_DatabaseModel.FK_Philhealth_Employee">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="Philhealth" EntitySet="Philhealths" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salary_Employee" Association="DowntownAlley_DatabaseModel.FK_Salary_Employee">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="Salary" EntitySet="Salaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SSS_Employee_ID" Association="DowntownAlley_DatabaseModel.FK_SSS_Employee_ID">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="SSS" EntitySet="SSSes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tax_Employee" Association="DowntownAlley_DatabaseModel.FK_Tax_Employee">
+            <End Role="EmployeeInformation" EntitySet="EmployeeInformations" />
+            <End Role="Tax" EntitySet="Taxes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Loss_Damage_ID" Association="DowntownAlley_DatabaseModel.FK_Expenses_Loss_Damage_ID">
+            <End Role="Loss_Damages" EntitySet="Loss_Damages" />
+            <End Role="Expens" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Loss_Fraud_ID" Association="DowntownAlley_DatabaseModel.FK_Expenses_Loss_Fraud_ID">
+            <End Role="Loss_Fraud" EntitySet="Loss_Fraud" />
+            <End Role="Expens" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_Payroll_Salary_ID" Association="DowntownAlley_DatabaseModel.FK_Expenses_Payroll_Salary_ID">
+            <End Role="Payroll" EntitySet="Payrolls" />
+            <End Role="Expens" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Leave_ID" Association="DowntownAlley_DatabaseModel.FK_Payroll_Leave_ID">
+            <End Role="Leave_Request" EntitySet="Leave_Request" />
+            <End Role="Payroll" EntitySet="Payrolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loss_Damages_Product_ID" Association="DowntownAlley_DatabaseModel.FK_Loss_Damages_Product_ID">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Loss_Damages" EntitySet="Loss_Damages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loss_Fraud_Product_ID" Association="DowntownAlley_DatabaseModel.FK_Loss_Fraud_Product_ID">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Loss_Fraud" EntitySet="Loss_Fraud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payroll_Salary_ID" Association="DowntownAlley_DatabaseModel.FK_Payroll_Salary_ID">
+            <End Role="Salary" EntitySet="Salaries" />
+            <End Role="Payroll" EntitySet="Payrolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restock_Detail_Product_ID" Association="DowntownAlley_DatabaseModel.FK_Restock_Detail_Product_ID">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Restock_Detail" EntitySet="Restock_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Return_Item_Product_ID" Association="DowntownAlley_DatabaseModel.FK_Return_Item_Product_ID">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Return_Item" EntitySet="Return_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Product_ID" Association="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Product_ID">
+            <End Role="Product_Info" EntitySet="Product_Info" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Restock_Detail_Restock_ID" Association="DowntownAlley_DatabaseModel.FK_Restock_Detail_Restock_ID">
+            <End Role="Restock" EntitySet="Restocks" />
+            <End Role="Restock_Detail" EntitySet="Restock_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Return_Item_Transaction_ID" Association="DowntownAlley_DatabaseModel.FK_Return_Item_Transaction_ID">
+            <End Role="Sales_Transaction" EntitySet="Sales_Transaction" />
+            <End Role="Return_Item" EntitySet="Return_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Transaction_Details_Transaction_ID" Association="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Transaction_ID">
+            <End Role="Sales_Transaction" EntitySet="Sales_Transaction" />
+            <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AuditTrail">
+          <Key>
+            <PropertyRef Name="Login_ID" />
+          </Key>
+          <Property Name="Login_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_ID" Type="Int32" />
+          <Property Name="Activity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="EmployeeAccount" Relationship="DowntownAlley_DatabaseModel.FK__AuditTrai__Accou__59063A47" FromRole="AuditTrail" ToRole="EmployeeAccount" />
+        </EntityType>
+        <Association Name="FK__AuditTrai__Accou__59063A47">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeAccount" Role="EmployeeAccount" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.AuditTrail" Role="AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeAccount">
+              <PropertyRef Name="Account_ID" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Deduction">
+          <Key>
+            <PropertyRef Name="Deduction_ID" />
+          </Key>
+          <Property Name="Deduction_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Deduction_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount_Deducted" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Date_Of_Deduction" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="DowntownAlley_DatabaseModel.FK_Deduction_Employee" FromRole="Deduction" ToRole="EmployeeInformation" />
+          <NavigationProperty Name="Payrolls" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Deduction_ID" FromRole="Deduction" ToRole="Payroll" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Department_ID" />
+          </Key>
+          <Property Name="Department_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Department_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Salary_Range" Type="Int32" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="DowntownAlley_DatabaseModel.FK_Department_Employee_ID" FromRole="Department" ToRole="EmployeeInformation" />
+          <NavigationProperty Name="Payrolls" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Department_ID" FromRole="Department" ToRole="Payroll" />
+        </EntityType>
+        <EntityType Name="Discount">
+          <Key>
+            <PropertyRef Name="Discount_ID" />
+          </Key>
+          <Property Name="Discount_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Discount_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Discount_Amount" Type="Int32" />
+          <Property Name="Start_Date" Type="DateTime" Precision="0" />
+          <Property Name="End_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Sales_Transaction_Details" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Discount_ID" FromRole="Discount" ToRole="Sales_Transaction_Details" />
+        </EntityType>
+        <EntityType Name="Employee_Attendance">
+          <Key>
+            <PropertyRef Name="Attendance_ID" />
+          </Key>
+          <Property Name="Attendance_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_ID" Type="Int32" />
+          <Property Name="Time_In" Type="DateTime" Precision="3" />
+          <Property Name="Time_Out" Type="DateTime" Precision="3" />
+          <Property Name="Total_Hour_Worked" Type="Time" Precision="7" />
+          <Property Name="Absent" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EmployeeAccount" Relationship="DowntownAlley_DatabaseModel.FK_Employee_Attendance_Account_ID" FromRole="Employee_Attendance" ToRole="EmployeeAccount" />
+          <NavigationProperty Name="Payrolls" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Attendance_ID" FromRole="Employee_Attendance" ToRole="Payroll" />
+        </EntityType>
+        <EntityType Name="Expens">
+          <Key>
+            <PropertyRef Name="Expenses_ID" />
+          </Key>
+          <Property Name="Expenses_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Loss_Damage_ID" Type="Int32" />
+          <Property Name="Loss_Fraud_ID" Type="Int32" />
+          <Property Name="Electric_Bill" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Water_Bill" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Internet_Bill" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Rentals" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Payroll_Salary_ID" Type="Int32" />
+          <Property Name="Date_Time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Loss_Damages" Relationship="DowntownAlley_DatabaseModel.FK_Expenses_Loss_Damage_ID" FromRole="Expens" ToRole="Loss_Damages" />
+          <NavigationProperty Name="Loss_Fraud" Relationship="DowntownAlley_DatabaseModel.FK_Expenses_Loss_Fraud_ID" FromRole="Expens" ToRole="Loss_Fraud" />
+          <NavigationProperty Name="Payroll" Relationship="DowntownAlley_DatabaseModel.FK_Expenses_Payroll_Salary_ID" FromRole="Expens" ToRole="Payroll" />
+        </EntityType>
+        <EntityType Name="Insurance">
+          <Key>
+            <PropertyRef Name="Insurance_ID" />
+          </Key>
+          <Property Name="Insurance_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Insurance_Provider" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="insurance_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="DowntownAlley_DatabaseModel.FK_Insurance_Employee_ID" FromRole="Insurance" ToRole="EmployeeInformation" />
+        </EntityType>
+        <EntityType Name="Leave_Request">
+          <Key>
+            <PropertyRef Name="Leave_ID" />
+          </Key>
+          <Property Name="Leave_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Leave_Request1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Leave_Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Start_Date" Type="DateTime" Precision="0" />
+          <Property Name="End_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="DowntownAlley_DatabaseModel.FK_Leave_Request_Employee" FromRole="Leave_Request" ToRole="EmployeeInformation" />
+          <NavigationProperty Name="Payrolls" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Leave_ID" FromRole="Leave_Request" ToRole="Payroll" />
+        </EntityType>
+        <EntityType Name="Loss_Damages">
+          <Key>
+            <PropertyRef Name="Loss_Damage_ID" />
+          </Key>
+          <Property Name="Loss_Damage_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_ID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Expenses" Relationship="DowntownAlley_DatabaseModel.FK_Expenses_Loss_Damage_ID" FromRole="Loss_Damages" ToRole="Expens" />
+          <NavigationProperty Name="Product_Info" Relationship="DowntownAlley_DatabaseModel.FK_Loss_Damages_Product_ID" FromRole="Loss_Damages" ToRole="Product_Info" />
+        </EntityType>
+        <EntityType Name="Loss_Fraud">
+          <Key>
+            <PropertyRef Name="Loss_Fraud_ID" />
+          </Key>
+          <Property Name="Loss_Fraud_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_ID" Type="Int32" />
+          <Property Name="Date_Time" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Expenses" Relationship="DowntownAlley_DatabaseModel.FK_Expenses_Loss_Fraud_ID" FromRole="Loss_Fraud" ToRole="Expens" />
+          <NavigationProperty Name="Product_Info" Relationship="DowntownAlley_DatabaseModel.FK_Loss_Fraud_Product_ID" FromRole="Loss_Fraud" ToRole="Product_Info" />
+        </EntityType>
+        <EntityType Name="Pag_Ibig">
+          <Key>
+            <PropertyRef Name="PagIbig_ID" />
+          </Key>
+          <Property Name="PagIbig_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="PagIbig_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contribution_Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Contribution_Amount" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="DowntownAlley_DatabaseModel.FK_Pag_Ibig_Employee_ID" FromRole="Pag_Ibig" ToRole="EmployeeInformation" />
+        </EntityType>
+        <EntityType Name="Payroll">
+          <Key>
+            <PropertyRef Name="Payroll_ID" />
+          </Key>
+          <Property Name="Payroll_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Department_ID" Type="Int32" />
+          <Property Name="Deduction_ID" Type="Int32" />
+          <Property Name="Salary_ID" Type="Int32" />
+          <Property Name="Leave_ID" Type="Int32" />
+          <Property Name="Attendance_ID" Type="Int32" />
+          <Property Name="Attendance" Type="DateTime" Precision="0" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Total_Salary" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Deduction" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Deduction_ID" FromRole="Payroll" ToRole="Deduction" />
+          <NavigationProperty Name="Department" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Department_ID" FromRole="Payroll" ToRole="Department" />
+          <NavigationProperty Name="Employee_Attendance" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Attendance_ID" FromRole="Payroll" ToRole="Employee_Attendance" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Employee_ID" FromRole="Payroll" ToRole="EmployeeInformation" />
+          <NavigationProperty Name="Expenses" Relationship="DowntownAlley_DatabaseModel.FK_Expenses_Payroll_Salary_ID" FromRole="Payroll" ToRole="Expens" />
+          <NavigationProperty Name="Leave_Request" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Leave_ID" FromRole="Payroll" ToRole="Leave_Request" />
+          <NavigationProperty Name="Salary" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Salary_ID" FromRole="Payroll" ToRole="Salary" />
+        </EntityType>
+        <EntityType Name="Philhealth">
+          <Key>
+            <PropertyRef Name="Philhealth_ID" />
+          </Key>
+          <Property Name="Philhealth_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Philhealth_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contribution_Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Contribution_Amount" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="DowntownAlley_DatabaseModel.FK_Philhealth_Employee" FromRole="Philhealth" ToRole="EmployeeInformation" />
+        </EntityType>
+        <EntityType Name="Product_Info">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="Is_Archived" Type="Boolean" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Stock_Level" Type="Int32" />
+          <NavigationProperty Name="Loss_Damages" Relationship="DowntownAlley_DatabaseModel.FK_Loss_Damages_Product_ID" FromRole="Product_Info" ToRole="Loss_Damages" />
+          <NavigationProperty Name="Loss_Fraud" Relationship="DowntownAlley_DatabaseModel.FK_Loss_Fraud_Product_ID" FromRole="Product_Info" ToRole="Loss_Fraud" />
+          <NavigationProperty Name="Restock_Detail" Relationship="DowntownAlley_DatabaseModel.FK_Restock_Detail_Product_ID" FromRole="Product_Info" ToRole="Restock_Detail" />
+          <NavigationProperty Name="Return_Item" Relationship="DowntownAlley_DatabaseModel.FK_Return_Item_Product_ID" FromRole="Product_Info" ToRole="Return_Item" />
+          <NavigationProperty Name="Sales_Transaction_Details" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Product_ID" FromRole="Product_Info" ToRole="Sales_Transaction_Details" />
+        </EntityType>
+        <EntityType Name="Restock">
+          <Key>
+            <PropertyRef Name="Restock_ID" />
+          </Key>
+          <Property Name="Restock_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Total_Amount" Type="Int32" />
+          <NavigationProperty Name="Restock_Detail" Relationship="DowntownAlley_DatabaseModel.FK_Restock_Detail_Restock_ID" FromRole="Restock" ToRole="Restock_Detail" />
+        </EntityType>
+        <EntityType Name="Restock_Detail">
+          <Key>
+            <PropertyRef Name="RestockDetail_ID" />
+          </Key>
+          <Property Name="RestockDetail_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Restock_ID" Type="Int32" />
+          <Property Name="Product_ID" Type="Int32" />
+          <Property Name="Quantity_Added" Type="Int32" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Product_Info" Relationship="DowntownAlley_DatabaseModel.FK_Restock_Detail_Product_ID" FromRole="Restock_Detail" ToRole="Product_Info" />
+          <NavigationProperty Name="Restock" Relationship="DowntownAlley_DatabaseModel.FK_Restock_Detail_Restock_ID" FromRole="Restock_Detail" ToRole="Restock" />
+        </EntityType>
+        <EntityType Name="Return_Item">
+          <Key>
+            <PropertyRef Name="Return_ID" />
+          </Key>
+          <Property Name="Return_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Transaction_ID" Type="Int32" />
+          <Property Name="Product_ID" Type="Int32" />
+          <Property Name="Return_Date" Type="DateTime" Precision="0" />
+          <Property Name="Quantity_Returned" Type="Int32" />
+          <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Resellable" Type="Boolean" />
+          <Property Name="Customer_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product_Info" Relationship="DowntownAlley_DatabaseModel.FK_Return_Item_Product_ID" FromRole="Return_Item" ToRole="Product_Info" />
+          <NavigationProperty Name="Sales_Transaction" Relationship="DowntownAlley_DatabaseModel.FK_Return_Item_Transaction_ID" FromRole="Return_Item" ToRole="Sales_Transaction" />
+        </EntityType>
+        <EntityType Name="Salary">
+          <Key>
+            <PropertyRef Name="Salary_ID" />
+          </Key>
+          <Property Name="Salary_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Salary_Amount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="DowntownAlley_DatabaseModel.FK_Salary_Employee" FromRole="Salary" ToRole="EmployeeInformation" />
+          <NavigationProperty Name="Payrolls" Relationship="DowntownAlley_DatabaseModel.FK_Payroll_Salary_ID" FromRole="Salary" ToRole="Payroll" />
+        </EntityType>
+        <EntityType Name="Sales_Transaction">
+          <Key>
+            <PropertyRef Name="Transaction_ID" />
+          </Key>
+          <Property Name="Transaction_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_ID" Type="Int32" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="EmployeeAccount" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Account_ID" FromRole="Sales_Transaction" ToRole="EmployeeAccount" />
+          <NavigationProperty Name="Return_Item" Relationship="DowntownAlley_DatabaseModel.FK_Return_Item_Transaction_ID" FromRole="Sales_Transaction" ToRole="Return_Item" />
+          <NavigationProperty Name="Sales_Transaction_Details" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Transaction_ID" FromRole="Sales_Transaction" ToRole="Sales_Transaction_Details" />
+        </EntityType>
+        <EntityType Name="Sales_Transaction_Details">
+          <Key>
+            <PropertyRef Name="Transaction_Detail_ID" />
+          </Key>
+          <Property Name="Transaction_Detail_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Transaction_ID" Type="Int32" />
+          <Property Name="Product_ID" Type="Int32" />
+          <Property Name="Total_Quantity" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Discount_ID" Type="Int32" />
+          <NavigationProperty Name="Discount" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Discount_ID" FromRole="Sales_Transaction_Details" ToRole="Discount" />
+          <NavigationProperty Name="Product_Info" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Product_ID" FromRole="Sales_Transaction_Details" ToRole="Product_Info" />
+          <NavigationProperty Name="Sales_Transaction" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Transaction_ID" FromRole="Sales_Transaction_Details" ToRole="Sales_Transaction" />
+        </EntityType>
+        <EntityType Name="SSS">
+          <Key>
+            <PropertyRef Name="SSS_ID" />
+          </Key>
+          <Property Name="SSS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="SSS_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contribution_Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Contribution_Amount" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="DowntownAlley_DatabaseModel.FK_SSS_Employee_ID" FromRole="SSS" ToRole="EmployeeInformation" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tax">
+          <Key>
+            <PropertyRef Name="Tax_ID" />
+          </Key>
+          <Property Name="Tax_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_ID" Type="Int32" />
+          <Property Name="Tax_Income" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Tax_Rate" Type="Int32" />
+          <Property Name="Tax_Amount" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="EmployeeInformation" Relationship="DowntownAlley_DatabaseModel.FK_Tax_Employee" FromRole="Tax" ToRole="EmployeeInformation" />
+        </EntityType>
+        <Association Name="FK_Deduction_Employee">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeInformation" Role="EmployeeInformation" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Deduction" Role="Deduction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Deduction">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Deduction_ID">
+          <End Type="DowntownAlley_DatabaseModel.Deduction" Role="Deduction" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Payroll" Role="Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Deduction">
+              <PropertyRef Name="Deduction_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Deduction_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_Employee_ID">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeInformation" Role="EmployeeInformation" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Department" Role="Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Department_ID">
+          <End Type="DowntownAlley_DatabaseModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Payroll" Role="Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Department_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Discount_ID">
+          <End Type="DowntownAlley_DatabaseModel.Discount" Role="Discount" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Sales_Transaction_Details" Role="Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="Discount_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Discount_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Attendance_Account_ID">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeAccount" Role="EmployeeAccount" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Employee_Attendance" Role="Employee_Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeAccount">
+              <PropertyRef Name="Account_ID" />
+            </Principal>
+            <Dependent Role="Employee_Attendance">
+              <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Attendance_ID">
+          <End Type="DowntownAlley_DatabaseModel.Employee_Attendance" Role="Employee_Attendance" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Payroll" Role="Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee_Attendance">
+              <PropertyRef Name="Attendance_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Attendance_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Account_ID">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeAccount" Role="EmployeeAccount" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Sales_Transaction" Role="Sales_Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeAccount">
+              <PropertyRef Name="Account_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction">
+              <PropertyRef Name="Account_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurance_Employee_ID">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeInformation" Role="EmployeeInformation" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Insurance" Role="Insurance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Insurance">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leave_Request_Employee">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeInformation" Role="EmployeeInformation" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Leave_Request" Role="Leave_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Leave_Request">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pag_Ibig_Employee_ID">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeInformation" Role="EmployeeInformation" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Pag_Ibig" Role="Pag_Ibig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Pag_Ibig">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Employee_ID">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeInformation" Role="EmployeeInformation" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Payroll" Role="Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Philhealth_Employee">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeInformation" Role="EmployeeInformation" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Philhealth" Role="Philhealth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Philhealth">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salary_Employee">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeInformation" Role="EmployeeInformation" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Salary" Role="Salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Salary">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SSS_Employee_ID">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeInformation" Role="EmployeeInformation" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.SSS" Role="SSS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="SSS">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tax_Employee">
+          <End Type="DowntownAlley_DatabaseModel.EmployeeInformation" Role="EmployeeInformation" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Tax" Role="Tax" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeInformation">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="Tax">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Loss_Damage_ID">
+          <End Type="DowntownAlley_DatabaseModel.Loss_Damages" Role="Loss_Damages" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Expens" Role="Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loss_Damages">
+              <PropertyRef Name="Loss_Damage_ID" />
+            </Principal>
+            <Dependent Role="Expens">
+              <PropertyRef Name="Loss_Damage_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Loss_Fraud_ID">
+          <End Type="DowntownAlley_DatabaseModel.Loss_Fraud" Role="Loss_Fraud" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Expens" Role="Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Loss_Fraud">
+              <PropertyRef Name="Loss_Fraud_ID" />
+            </Principal>
+            <Dependent Role="Expens">
+              <PropertyRef Name="Loss_Fraud_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenses_Payroll_Salary_ID">
+          <End Type="DowntownAlley_DatabaseModel.Payroll" Role="Payroll" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Expens" Role="Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payroll">
+              <PropertyRef Name="Payroll_ID" />
+            </Principal>
+            <Dependent Role="Expens">
+              <PropertyRef Name="Payroll_Salary_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Leave_ID">
+          <End Type="DowntownAlley_DatabaseModel.Leave_Request" Role="Leave_Request" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Payroll" Role="Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leave_Request">
+              <PropertyRef Name="Leave_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Leave_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loss_Damages_Product_ID">
+          <End Type="DowntownAlley_DatabaseModel.Product_Info" Role="Product_Info" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Loss_Damages" Role="Loss_Damages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Loss_Damages">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loss_Fraud_Product_ID">
+          <End Type="DowntownAlley_DatabaseModel.Product_Info" Role="Product_Info" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Loss_Fraud" Role="Loss_Fraud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Loss_Fraud">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payroll_Salary_ID">
+          <End Type="DowntownAlley_DatabaseModel.Salary" Role="Salary" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Payroll" Role="Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salary">
+              <PropertyRef Name="Salary_ID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="Salary_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restock_Detail_Product_ID">
+          <End Type="DowntownAlley_DatabaseModel.Product_Info" Role="Product_Info" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Restock_Detail" Role="Restock_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Restock_Detail">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Return_Item_Product_ID">
+          <End Type="DowntownAlley_DatabaseModel.Product_Info" Role="Product_Info" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Return_Item" Role="Return_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Return_Item">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Product_ID">
+          <End Type="DowntownAlley_DatabaseModel.Product_Info" Role="Product_Info" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Sales_Transaction_Details" Role="Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Info">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Restock_Detail_Restock_ID">
+          <End Type="DowntownAlley_DatabaseModel.Restock" Role="Restock" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Restock_Detail" Role="Restock_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restock">
+              <PropertyRef Name="Restock_ID" />
+            </Principal>
+            <Dependent Role="Restock_Detail">
+              <PropertyRef Name="Restock_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Return_Item_Transaction_ID">
+          <End Type="DowntownAlley_DatabaseModel.Sales_Transaction" Role="Sales_Transaction" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Return_Item" Role="Return_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales_Transaction">
+              <PropertyRef Name="Transaction_ID" />
+            </Principal>
+            <Dependent Role="Return_Item">
+              <PropertyRef Name="Transaction_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Transaction_Details_Transaction_ID">
+          <End Type="DowntownAlley_DatabaseModel.Sales_Transaction" Role="Sales_Transaction" Multiplicity="0..1" />
+          <End Type="DowntownAlley_DatabaseModel.Sales_Transaction_Details" Role="Sales_Transaction_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales_Transaction">
+              <PropertyRef Name="Transaction_ID" />
+            </Principal>
+            <Dependent Role="Sales_Transaction_Details">
+              <PropertyRef Name="Transaction_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DowntownAlley_DatabaseModelStoreContainer" CdmEntityContainer="DatabaseConnectionEntities">
+          <EntitySetMapping Name="EmployeeAccounts">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.EmployeeAccount">
+              <MappingFragment StoreEntitySet="EmployeeAccount">
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeInformations">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.EmployeeInformation">
+              <MappingFragment StoreEntitySet="EmployeeInformation">
+                <ScalarProperty Name="Date_Hired" ColumnName="Date_Hired" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Middle_Name" ColumnName="Middle_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Birth_Date" ColumnName="Birth_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditTrails">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.AuditTrail">
+              <MappingFragment StoreEntitySet="AuditTrail">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Activity" ColumnName="Activity" />
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="Login_ID" ColumnName="Login_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deductions">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Deduction">
+              <MappingFragment StoreEntitySet="Deduction">
+                <ScalarProperty Name="Date_Of_Deduction" ColumnName="Date_Of_Deduction" />
+                <ScalarProperty Name="Amount_Deducted" ColumnName="Amount_Deducted" />
+                <ScalarProperty Name="Deduction_Type" ColumnName="Deduction_Type" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Deduction_ID" ColumnName="Deduction_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Salary_Range" ColumnName="Salary_Range" />
+                <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Discounts">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Discount">
+              <MappingFragment StoreEntitySet="Discount">
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Discount_Amount" ColumnName="Discount_Amount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Discount_Name" ColumnName="Discount_Name" />
+                <ScalarProperty Name="Discount_ID" ColumnName="Discount_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee_Attendance">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Employee_Attendance">
+              <MappingFragment StoreEntitySet="Employee_Attendance">
+                <ScalarProperty Name="Absent" ColumnName="Absent" />
+                <ScalarProperty Name="Total_Hour_Worked" ColumnName="Total_Hour_Worked" />
+                <ScalarProperty Name="Time_Out" ColumnName="Time_Out" />
+                <ScalarProperty Name="Time_In" ColumnName="Time_In" />
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="Attendance_ID" ColumnName="Attendance_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Expens">
+              <MappingFragment StoreEntitySet="Expenses">
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+                <ScalarProperty Name="Payroll_Salary_ID" ColumnName="Payroll_Salary_ID" />
+                <ScalarProperty Name="Rentals" ColumnName="Rentals" />
+                <ScalarProperty Name="Internet_Bill" ColumnName="Internet_Bill" />
+                <ScalarProperty Name="Water_Bill" ColumnName="Water_Bill" />
+                <ScalarProperty Name="Electric_Bill" ColumnName="Electric_Bill" />
+                <ScalarProperty Name="Loss_Fraud_ID" ColumnName="Loss_Fraud_ID" />
+                <ScalarProperty Name="Loss_Damage_ID" ColumnName="Loss_Damage_ID" />
+                <ScalarProperty Name="Expenses_ID" ColumnName="Expenses_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Insurances">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Insurance">
+              <MappingFragment StoreEntitySet="Insurance">
+                <ScalarProperty Name="insurance_Type" ColumnName="insurance_Type" />
+                <ScalarProperty Name="Insurance_Provider" ColumnName="Insurance_Provider" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Insurance_ID" ColumnName="Insurance_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leave_Request">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Leave_Request">
+              <MappingFragment StoreEntitySet="Leave_Request">
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Leave_Description" ColumnName="Leave_Description" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Leave_Request1" ColumnName="Leave_Request" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Leave_ID" ColumnName="Leave_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loss_Damages">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Loss_Damages">
+              <MappingFragment StoreEntitySet="Loss_Damages">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Loss_Damage_ID" ColumnName="Loss_Damage_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loss_Fraud">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Loss_Fraud">
+              <MappingFragment StoreEntitySet="Loss_Fraud">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Loss_Fraud_ID" ColumnName="Loss_Fraud_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pag_Ibig">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Pag_Ibig">
+              <MappingFragment StoreEntitySet="Pag_Ibig">
+                <ScalarProperty Name="Contribution_Amount" ColumnName="Contribution_Amount" />
+                <ScalarProperty Name="Contribution_Rate" ColumnName="Contribution_Rate" />
+                <ScalarProperty Name="PagIbig_Number" ColumnName="PagIbig_Number" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="PagIbig_ID" ColumnName="PagIbig_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payrolls">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Payroll">
+              <MappingFragment StoreEntitySet="Payroll">
+                <ScalarProperty Name="Total_Salary" ColumnName="Total_Salary" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Attendance" ColumnName="Attendance" />
+                <ScalarProperty Name="Attendance_ID" ColumnName="Attendance_ID" />
+                <ScalarProperty Name="Leave_ID" ColumnName="Leave_ID" />
+                <ScalarProperty Name="Salary_ID" ColumnName="Salary_ID" />
+                <ScalarProperty Name="Deduction_ID" ColumnName="Deduction_ID" />
+                <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Payroll_ID" ColumnName="Payroll_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Philhealths">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Philhealth">
+              <MappingFragment StoreEntitySet="Philhealth">
+                <ScalarProperty Name="Contribution_Amount" ColumnName="Contribution_Amount" />
+                <ScalarProperty Name="Contribution_Rate" ColumnName="Contribution_Rate" />
+                <ScalarProperty Name="Philhealth_Number" ColumnName="Philhealth_Number" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Philhealth_ID" ColumnName="Philhealth_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_Info">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Product_Info">
+              <MappingFragment StoreEntitySet="Product_Info">
+                <ScalarProperty Name="Stock_Level" ColumnName="Stock_Level" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Is_Archived" ColumnName="Is_Archived" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Product_Code" ColumnName="Product_Code" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restocks">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Restock">
+              <MappingFragment StoreEntitySet="Restock">
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Restock_ID" ColumnName="Restock_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restock_Detail">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Restock_Detail">
+              <MappingFragment StoreEntitySet="Restock_Detail">
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Quantity_Added" ColumnName="Quantity_Added" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Restock_ID" ColumnName="Restock_ID" />
+                <ScalarProperty Name="RestockDetail_ID" ColumnName="RestockDetail_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Return_Item">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Return_Item">
+              <MappingFragment StoreEntitySet="Return_Item">
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Resellable" ColumnName="Resellable" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="Quantity_Returned" ColumnName="Quantity_Returned" />
+                <ScalarProperty Name="Return_Date" ColumnName="Return_Date" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Transaction_ID" ColumnName="Transaction_ID" />
+                <ScalarProperty Name="Return_ID" ColumnName="Return_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salaries">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Salary">
+              <MappingFragment StoreEntitySet="Salary">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Salary_Amount" ColumnName="Salary_Amount" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Salary_ID" ColumnName="Salary_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales_Transaction">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Sales_Transaction">
+              <MappingFragment StoreEntitySet="Sales_Transaction">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Account_ID" ColumnName="Account_ID" />
+                <ScalarProperty Name="Transaction_ID" ColumnName="Transaction_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales_Transaction_Details">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Sales_Transaction_Details">
+              <MappingFragment StoreEntitySet="Sales_Transaction_Details">
+                <ScalarProperty Name="Discount_ID" ColumnName="Discount_ID" />
+                <ScalarProperty Name="Total_Quantity" ColumnName="Total_Quantity" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Transaction_ID" ColumnName="Transaction_ID" />
+                <ScalarProperty Name="Transaction_Detail_ID" ColumnName="Transaction_Detail_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SSSes">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.SSS">
+              <MappingFragment StoreEntitySet="SSS">
+                <ScalarProperty Name="Contribution_Amount" ColumnName="Contribution_Amount" />
+                <ScalarProperty Name="Contribution_Rate" ColumnName="Contribution_Rate" />
+                <ScalarProperty Name="SSS_Number" ColumnName="SSS_Number" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="SSS_ID" ColumnName="SSS_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Taxes">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Tax">
+              <MappingFragment StoreEntitySet="Tax">
+                <ScalarProperty Name="Tax_Amount" ColumnName="Tax_Amount" />
+                <ScalarProperty Name="Tax_Rate" ColumnName="Tax_Rate" />
+                <ScalarProperty Name="Tax_Income" ColumnName="Tax_Income" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Tax_ID" ColumnName="Tax_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

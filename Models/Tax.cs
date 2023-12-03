@@ -12,13 +12,14 @@ namespace SBIT3J_SuperSystem_Final.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AuditTrail
+    public partial class Tax
     {
-        public int Login_ID { get; set; }
-        public Nullable<int> Account_ID { get; set; }
-        public string Activity { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public int Tax_ID { get; set; }
+        public Nullable<int> Employee_ID { get; set; }
+        public Nullable<decimal> Tax_Income { get; set; }
+        public Nullable<int> Tax_Rate { get; set; }
+        public Nullable<decimal> Tax_Amount { get; set; }
     
-        public virtual EmployeeAccount EmployeeAccount { get; set; }
+        public virtual EmployeeInformation EmployeeInformation { get; set; }
     }
 }

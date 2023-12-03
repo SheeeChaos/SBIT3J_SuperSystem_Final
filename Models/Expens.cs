@@ -17,15 +17,15 @@ namespace SBIT3J_SuperSystem_Final.Models
         public int Expenses_ID { get; set; }
         public Nullable<int> Loss_Damage_ID { get; set; }
         public Nullable<int> Loss_Fraud_ID { get; set; }
-        public Nullable<int> Electric_Bill { get; set; }
-        public Nullable<int> Water_Bill { get; set; }
-        public Nullable<int> Internet_Bill { get; set; }
+        public Nullable<decimal> Electric_Bill { get; set; }
+        public Nullable<decimal> Water_Bill { get; set; }
+        public Nullable<decimal> Internet_Bill { get; set; }
+        public Nullable<decimal> Rentals { get; set; }
         public Nullable<int> Payroll_Salary_ID { get; set; }
-        public Nullable<int> Other_Services_ID { get; set; }
         public Nullable<System.DateTime> Date_Time { get; set; }
     
         public virtual Loss_Damages Loss_Damages { get; set; }
         public virtual Loss_Fraud Loss_Fraud { get; set; }
-        public virtual Other_Services Other_Services { get; set; }
+        public virtual Payroll Payroll { get; set; }
     }
 }

@@ -12,19 +12,23 @@ namespace SBIT3J_SuperSystem_Final.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Other_Services
+    public partial class Employee_Attendance
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Other_Services()
+        public Employee_Attendance()
         {
-            this.Expenses = new HashSet<Expens>();
+            this.Payrolls = new HashSet<Payroll>();
         }
     
-        public int OtherServices_ID { get; set; }
-        public string Services_Name { get; set; }
-        public Nullable<int> Amount { get; set; }
+        public int Attendance_ID { get; set; }
+        public Nullable<int> Account_ID { get; set; }
+        public Nullable<System.DateTime> Time_In { get; set; }
+        public Nullable<System.DateTime> Time_Out { get; set; }
+        public Nullable<System.TimeSpan> Total_Hour_Worked { get; set; }
+        public Nullable<System.DateTime> Absent { get; set; }
     
+        public virtual EmployeeAccount EmployeeAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Expens> Expenses { get; set; }
+        public virtual ICollection<Payroll> Payrolls { get; set; }
     }
 }

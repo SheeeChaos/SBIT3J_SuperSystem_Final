@@ -12,13 +12,14 @@ namespace SBIT3J_SuperSystem_Final.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AuditTrail
+    public partial class Philhealth
     {
-        public int Login_ID { get; set; }
-        public Nullable<int> Account_ID { get; set; }
-        public string Activity { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public int Philhealth_ID { get; set; }
+        public Nullable<int> Employee_ID { get; set; }
+        public string Philhealth_Number { get; set; }
+        public Nullable<decimal> Contribution_Rate { get; set; }
+        public Nullable<decimal> Contribution_Amount { get; set; }
     
-        public virtual EmployeeAccount EmployeeAccount { get; set; }
+        public virtual EmployeeInformation EmployeeInformation { get; set; }
     }
 }

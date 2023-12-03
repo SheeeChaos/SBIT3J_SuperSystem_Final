@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -44,10 +45,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -114,15 +115,15 @@
     <Content Include="Image\Group1-Assets\RevenueIcon.png" />
     <Content Include="Image\Group1-Assets\Stocks on hand.png" />
     <Content Include="Image\Group1-Assets\TotalProductsIcon.png" />
-    <Content Include="Models\SuperSystemDataModel.Context.tt">
+    <Content Include="Models\SuperSystemDatabaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SuperSystemDataModel.Context.cs</LastGenOutput>
-      <DependentUpon>SuperSystemDataModel.edmx</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.edmx</DependentUpon>
+      <LastGenOutput>SuperSystemDatabaseModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\SuperSystemDataModel.tt">
+    <Content Include="Models\SuperSystemDatabaseModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SuperSystemDataModel.edmx</DependentUpon>
-      <LastGenOutput>SuperSystemDataModel.cs</LastGenOutput>
+      <DependentUpon>SuperSystemDatabaseModel.edmx</DependentUpon>
+      <LastGenOutput>SuperSystemDatabaseModel.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
@@ -143,63 +144,105 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuditTrail.cs">
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Deduction.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Department.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Discount.cs">
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmployeeAccount.cs">
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmployeeInformation.cs">
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee_Attendance.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Expens.cs">
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Insurance.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Leave_Request.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Loss_Damages.cs">
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Loss_Fraud.cs">
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Other_Services.cs">
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+    <Compile Include="Models\Pag_Ibig.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payroll.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Philhealth.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product_Info.cs">
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Restock.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Restock_Detail.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Return_Item.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Salary.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sales_Transaction.cs">
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sales_Transaction_Details.cs">
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SuperSystemDataModel.Context.cs">
+    <Compile Include="Models\SSS.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SuperSystemDatabaseModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SuperSystemDataModel.Context.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SuperSystemDataModel.cs">
+    <Compile Include="Models\SuperSystemDatabaseModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SuperSystemDataModel.tt</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SuperSystemDataModel.Designer.cs">
+    <Compile Include="Models\SuperSystemDatabaseModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SuperSystemDataModel.edmx</DependentUpon>
+      <DependentUpon>SuperSystemDatabaseModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tax.cs">
+      <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <EntityDeploy Include="Models\SuperSystemDataModel.edmx">
+    <EntityDeploy Include="Models\SuperSystemDatabaseModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SuperSystemDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>SuperSystemDatabaseModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\SuperSystemDataModel.edmx.diagram">
-      <DependentUpon>SuperSystemDataModel.edmx</DependentUpon>
+    <Content Include="Models\SuperSystemDatabaseModel.edmx.diagram">
+      <DependentUpon>SuperSystemDatabaseModel.edmx</DependentUpon>
     </Content>
     <Content Include="GET THE DATABASE HERE\DBver2.bacpac" />
     <None Include="packages.config" />
@@ -224,7 +267,6 @@
     <Content Include="Views\AdminMonitoring\Losses.cshtml" />
     <Content Include="Views\AdminMonitoring\CashierLogs.cshtml" />
     <Content Include="Views\AdminMonitoring\OverallActivities.cshtml" />
-    <Content Include="Views\AdminMonitoring\Inventory.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -273,7 +315,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

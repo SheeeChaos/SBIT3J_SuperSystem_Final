@@ -12,13 +12,12 @@ namespace SBIT3J_SuperSystem_Final.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AuditTrail
+    public partial class sysdiagram
     {
-        public int Login_ID { get; set; }
-        public Nullable<int> Account_ID { get; set; }
-        public string Activity { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-    
-        public virtual EmployeeAccount EmployeeAccount { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

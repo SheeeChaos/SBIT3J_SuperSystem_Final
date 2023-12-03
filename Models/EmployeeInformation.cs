@@ -18,6 +18,16 @@ namespace SBIT3J_SuperSystem_Final.Models
         public EmployeeInformation()
         {
             this.EmployeeAccounts = new HashSet<EmployeeAccount>();
+            this.Deductions = new HashSet<Deduction>();
+            this.Departments = new HashSet<Department>();
+            this.Insurances = new HashSet<Insurance>();
+            this.Leave_Request = new HashSet<Leave_Request>();
+            this.Pag_Ibig = new HashSet<Pag_Ibig>();
+            this.Payrolls = new HashSet<Payroll>();
+            this.Philhealths = new HashSet<Philhealth>();
+            this.Salaries = new HashSet<Salary>();
+            this.SSSes = new HashSet<SSS>();
+            this.Taxes = new HashSet<Tax>();
         }
     
         public int Employee_ID { get; set; }
@@ -29,8 +39,29 @@ namespace SBIT3J_SuperSystem_Final.Models
         public string Phone_Number { get; set; }
         public string Email { get; set; }
         public Nullable<System.DateTime> Birth_Date { get; set; }
+        public Nullable<System.DateTime> Date_Hired { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeAccount> EmployeeAccounts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Deduction> Deductions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Department> Departments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Insurance> Insurances { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Leave_Request> Leave_Request { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pag_Ibig> Pag_Ibig { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Payroll> Payrolls { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Philhealth> Philhealths { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Salary> Salaries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SSS> SSSes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tax> Taxes { get; set; }
     }
 }
