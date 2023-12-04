@@ -97,6 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Content\Styles\Group1Stylesheets\Dashboard.css" />
     <Content Include="Content\Styles\Group1Stylesheets\SalesRevenueStyle.css" />
     <Content Include="Content\Styles\LoginPage.css" />
@@ -267,6 +268,9 @@
     <Content Include="Views\AdminMonitoring\Losses.cshtml" />
     <Content Include="Views\AdminMonitoring\CashierLogs.cshtml" />
     <Content Include="Views\AdminMonitoring\OverallActivities.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\EmployeeManagement\SampleView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
