@@ -18,5 +18,9 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         {
             return View();
         }
+        public ActionResult bagongview()
+        {
+            return View();
+        }
     }
 }
