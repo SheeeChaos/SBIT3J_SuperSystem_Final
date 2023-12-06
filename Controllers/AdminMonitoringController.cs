@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
 
-    //[Authorize]
+    [Authorize]
     public class AdminMonitoringController : Controller
     {
         // GET: AdminMonitoring
