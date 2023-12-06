@@ -116,6 +116,15 @@
     <Content Include="Image\Group1-Assets\RevenueIcon.png" />
     <Content Include="Image\Group1-Assets\Stocks on hand.png" />
     <Content Include="Image\Group1-Assets\TotalProductsIcon.png" />
+    <Content Include="Image\Group4\background\Logo-background.jpg" />
+    <Content Include="Image\Group4\ICONS\EmployeeAttendance.png" />
+    <Content Include="Image\Group4\ICONS\EmployeeList.png" />
+    <Content Include="Image\Group4\ICONS\exit icon.png" />
+    <Content Include="Image\Group4\ICONS\Home.png" />
+    <Content Include="Image\Group4\ICONS\LeaveRequest.png" />
+    <Content Include="Image\Group4\ICONS\LogoutCog.png" />
+    <Content Include="Image\Group4\ICONS\Payroll.png" />
+    <Content Include="Image\Group4\LogoDTA.png" />
     <Content Include="Models\SuperSystemDatabaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SuperSystemDatabaseModel.edmx</DependentUpon>
@@ -272,6 +281,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\EmployeeManagement\SampleView.cshtml" />
     <Content Include="Views\EmployeeManagement\bagongview.cshtml" />
+    <Content Include="Views\EmployeeManagement\Hr_Employee_L.cshtml" />
+    <Content Include="Views\EmployeeManagement\Hr_Attendance_L.cshtml" />
+    <Content Include="Views\EmployeeManagement\Hr_RequestLeave.cshtml" />
+    <Content Include="Views\EmployeeManagement\Create.cshtml" />
+    <Content Include="Views\EmployeeManagement\Details.cshtml" />
+    <Content Include="Views\EmployeeManagement\Delete.cshtml" />
+    <Content Include="Views\EmployeeManagement\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -283,6 +299,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Scripts\" />
     <Folder Include="Image\NewFolder1\" />
+    <Folder Include="Views\EmployeeManagement\ToBeDeleted\" />
     <Folder Include="Views\Products\" />
     <Folder Include="Views\RestockDetails\" />
     <Folder Include="Views\Restocks\" />
