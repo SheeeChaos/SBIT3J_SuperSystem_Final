@@ -26,64 +26,65 @@
                     overflow: hidden;
                 }
 
-                .titlehder {
-                    font-family: 'Times New Roman';
-                    position: absolute;
-                    left: 15%;
-                    top: 5%;
-                    font-size: 52px;
-                    color: white;
-                }
+        .titlehder {
+            font-family: 'Times New Roman';
+            position: absolute;
+            left: 15%;
+            top: 5%;
+            font-size: 38px;
+            color: white;
+        }
 
 
-                .logo-img {
-                    position: relative;
-                    display: block;
-                    width: 60%;
-                    border-radius: 55%;
-                    border: 0.5px solid #808080;
-                    top: 10px;
-                    margin-left: 60px;
-                    margin-right: auto;
-                    z-index: 2;
-                }
+        .logo-img {
+            position: relative;
+            display: block;
+            width: 70%;
+            border-radius: 55%;
+            border: 0.5px solid #808080;
+            top: -10px;
+            margin-left: 40px;
+            margin-right: auto;
+            z-index: 2;
+        }
 
-                nav {
-                    margin-left: -50px;
-                    width: 430px;
-                    height: auto;
-                    overflow-x: hidden;
-                    overflow-y: scroll;
-                }
+        nav {
+            margin-left: 20px;
+            margin-top: -20px;
+            width: 240px;
+            height: 740px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
 
-                    nav::-webkit-scrollbar {
-                        display: none;
-                    }
+            nav::-webkit-scrollbar {
+                display: none;
+            }
 
-                .navitem {
-                    position: relative;
-                    display: block;
-                    background-color: ghostwhite;
-                    padding: 5px;
-                    margin-top: 10%;
-                    margin-right: auto;
-                    margin-left: auto;
-                    width: 130px;
-                    height: 130px;
-                    border-radius: 55%;
-                    border: 1px solid rgba(0,0,0,1);
-                }
+        .navitem {
+            position: relative;
+            display: block;
+            background-color: ghostwhite;
+            padding: 5px;
+            margin-top: 13%;
+            margin-right: auto;
+            margin-left: auto;
+            width: 100px;
+            height: 100px;
+            border-radius: 55%;
+            border: 1px solid rgba(0,0,0,1);
+        }
 
-                .cogicon {
-                    position: absolute;
-                    background-color: white;
-                    border: 5px solid rgba(0,0,0,1);
-                    border-radius: 55%;
-                    right: 50px;
-                    top: 50px;
-                    width: 180px;
-                    height: auto;
-                }
+        .cogicon {
+            position: absolute;
+            background-color: white;
+            border: 5px solid rgba(0,0,0,1);
+            border-radius: 55%;
+            right: 50px;
+            top: 50px;
+            width: 120px;
+            height: auto;
+        }
 
                 .modal {
                     display: none;
@@ -165,15 +166,16 @@
                 .container {
                     position: absolute;
                     background-color: lightgrey;
-                    top: 240px;
+                    top: 190px;
                     margin: 0 auto;
-                    margin-left: 13%;
+                    margin-left: 14%;
                     padding: 20px;
                     border: 1px solid #ccc;
                     border-radius: 40px 40px 40px 40px;
-                    height: 78%;
-                    width: 87%;
-                    overflow: hidden;
+                    height: 75%;
+                    width: 86%;
+                    overflow-x: hidden;
+                    overflow-y: scroll;
                 }
 
                     .container::-webkit-scrollbar {
@@ -312,7 +314,8 @@
 
     <!-- vvv NAVBAR SECTION vvv -->
     <nav>
-
+        <br>
+        <br>
         <img src="~/Image/Group4/LogoDTA.png" class="logo-img" />
 
         <!-- Employee List -->
@@ -345,86 +348,88 @@
 
 
 
-            <h1>
-                @Html.DisplayFor(model => model.Last_Name)
-            </h1>
+            <div class="ContainerHeader">
+                <h1 style="font-size:38px; font-family: 'Times New Roman'; text-align:center;">
+                   | EMPLOYEE INFORMATION DETAILS |
+                </h1>
+                </div>
 
 
 
-            <table class="crud-table" style="width:100%;">
-                <tr>
-                    <th class="crud-header-cell" style="width:5%;">
-                        First Name
-                    </th>
-                    <td class="crud-data-cell" style="width:95%;">
-                        @Html.DisplayFor(model => model.First_Name)
-                    </td>
-                </tr>
-                <tr>
-                    <th class="crud-header-cell" style="width:5%;">
-                        Middle Name
-                    </th>
-                    <td class="crud-data-cell" style="width:95%;">
-                        @Html.DisplayFor(model => model.Middle_Name)
-                    </td>
-                </tr>
-                <tr>
-                    <th class="crud-header-cell" style="width:5%;">
-                        Last Name
-                    </th>
-                    <td class="crud-data-cell" style="width:95%;">
-                        @Html.DisplayFor(model => model.Last_Name)
-                    </td>
-                </tr>
-                <tr>
-                    <th class="crud-header-cell" style="width:5%;">
-                        Sex
-                    </th>
-                    <td class="crud-data-cell" style="width:5%;">
-                        @Html.DisplayFor(model => model.Sex)
-                    </td>
-                </tr>
-                <tr>
-                    <th class="crud-header-cell" style="width:17%;">
-                        Address
-                    </th>
-                    <td class="crud-data-cell" style="width:17%;">
-                        @Html.DisplayFor(model => model.Address)
-                    </td>
-                </tr>
-                <tr>
-                    <th class="crud-header-cell" style="width:15%;">
-                        Phone Number
-                    </th>
-                    <td class="crud-data-cell" style="width:15%;">
-                        @Html.DisplayFor(model => model.Phone_Number)
-                    </td>
-                </tr>
-                <tr>
-                    <th class="crud-header-cell" style="width:15%;">
-                        Email
-                    </th>
-                    <td class="crud-data-cell" style="width:15%;">
-                        @Html.DisplayFor(model => model.Email)
-                    </td>
-                </tr>
-                <tr>
-                    <th class="crud-header-cell" style="width:5%;">
-                        Birth Date
-                    </th>
-                    <td class="crud-data-cell" style="width:5%;">
-                        @Html.DisplayFor(model => model.Birth_Date)
-                    </td>
-                </tr>
-                <tr>
-                    <th class="crud-header-cell" style="width:5%;">
-                        Date Hired
-                    </th>
-                    <td class="crud-data-cell" style="width:5%;">
-                        @Html.DisplayFor(model => model.Date_Hired)
-                    </td>
-                </tr>
-            </table>
+                <table class="crud-table" style="width:100%;">
+                    <tr>
+                        <th class="crud-header-cell" style="width:5%;">
+                            First Name
+                        </th>
+                        <td class="crud-data-cell" style="width:95%;">
+                            @Html.DisplayFor(model => model.First_Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="crud-header-cell" style="width:5%;">
+                            Middle Name
+                        </th>
+                        <td class="crud-data-cell" style="width:95%;">
+                            @Html.DisplayFor(model => model.Middle_Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="crud-header-cell" style="width:5%;">
+                            Last Name
+                        </th>
+                        <td class="crud-data-cell" style="width:95%;">
+                            @Html.DisplayFor(model => model.Last_Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="crud-header-cell" style="width:5%;">
+                            Sex
+                        </th>
+                        <td class="crud-data-cell" style="width:5%;">
+                            @Html.DisplayFor(model => model.Sex)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="crud-header-cell" style="width:17%;">
+                            Address
+                        </th>
+                        <td class="crud-data-cell" style="width:17%;">
+                            @Html.DisplayFor(model => model.Address)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="crud-header-cell" style="width:15%;">
+                            Phone Number
+                        </th>
+                        <td class="crud-data-cell" style="width:15%;">
+                            @Html.DisplayFor(model => model.Phone_Number)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="crud-header-cell" style="width:15%;">
+                            Email
+                        </th>
+                        <td class="crud-data-cell" style="width:15%;">
+                            @Html.DisplayFor(model => model.Email)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="crud-header-cell" style="width:5%;">
+                            Birth Date
+                        </th>
+                        <td class="crud-data-cell" style="width:5%;">
+                            @Html.DisplayFor(model => model.Birth_Date)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="crud-header-cell" style="width:5%;">
+                            Date Hired
+                        </th>
+                        <td class="crud-data-cell" style="width:5%;">
+                            @Html.DisplayFor(model => model.Date_Hired)
+                        </td>
+                    </tr>
+                </table>
 
 
 
@@ -432,8 +437,8 @@
                 <p>
                     <div class="custom-btn">@Html.ActionLink("Back to List", "Hr_Employee_L")</div>
                 </p>
-                
-            
-        </div>
+
+
+            </div>
 </body>
 </html>

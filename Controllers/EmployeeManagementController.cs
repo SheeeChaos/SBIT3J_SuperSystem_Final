@@ -46,7 +46,38 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         }
         public ActionResult Hr_RequestLeave()
         {
-            return View();
+            DatabaseConnectionEntities dbe = new DatabaseConnectionEntities();
+            List<Leave_Request> Lr = dbe.Leave_Request.ToList();
+
+            return View(dbe.Leave_Request.ToList());
+        }
+        public ActionResult Hr_Leave_C(Leave_Request dbe)
+        {
+            try
+            {
+
+                using (DatabaseConnectionEntities dbModel = new
+                DatabaseConnectionEntities())
+
+                {
+
+                    dbModel.Leave_Request.Add(dbe);
+
+                    dbModel.SaveChanges();
+
+                }
+
+                return RedirectToAction("Hr_LeaveRequest");
+
+            }
+
+            catch
+
+
+            {
+
+                return View(dbe);
+            }
         }
         public ActionResult Create(EmployeeInformation dbe)
         {
