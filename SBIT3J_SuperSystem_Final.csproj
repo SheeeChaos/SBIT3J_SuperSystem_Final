@@ -98,7 +98,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Styles\Group1Stylesheets\CompanyProfitStyle.css" />
     <Content Include="Content\Styles\Group1Stylesheets\Dashboard.css" />
+    <Content Include="Content\Styles\Group1Stylesheets\LossesStyle.css" />
+    <Content Include="Content\Styles\Group1Stylesheets\OverallActivitiesStyle.css" />
     <Content Include="Content\Styles\Group1Stylesheets\SalesRevenueStyle.css" />
     <Content Include="Content\Styles\LoginPage.css" />
     <Content Include="Content\Styles\Group1Stylesheets\_AdminMonitoring_Layout.css" />
@@ -168,6 +171,7 @@
     <Compile Include="Models\EmployeeAccount.cs">
       <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeExampleInfo.cs" />
     <Compile Include="Models\EmployeeInformation.cs">
       <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
@@ -189,6 +193,7 @@
     <Compile Include="Models\Loss_Fraud.cs">
       <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OverallActivitiesModel.cs" />
     <Compile Include="Models\Pag_Ibig.cs">
       <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
@@ -272,7 +277,6 @@
     <Content Include="Views\EmployeeLOGS\Index.cshtml" />
     <Content Include="Views\Shared\_TimeInTimeOutLayout.cshtml" />
     <Content Include="Views\AdminMonitoring\SalesRevenue.cshtml" />
-    <Content Include="Views\AdminMonitoring\ProductRevenue.cshtml" />
     <Content Include="Views\AdminMonitoring\Profit.cshtml" />
     <Content Include="Views\AdminMonitoring\Losses.cshtml" />
     <Content Include="Views\AdminMonitoring\CashierLogs.cshtml" />
@@ -288,6 +292,7 @@
     <Content Include="Views\EmployeeManagement\Details.cshtml" />
     <Content Include="Views\EmployeeManagement\Delete.cshtml" />
     <Content Include="Views\EmployeeManagement\Edit.cshtml" />
+    <Content Include="Views\AdminMonitoring\ProductRevenue.cshtml" />
     <Content Include="Views\EmployeeManagement\CreateLeave.cshtml" />
     <Content Include="Views\EmployeeManagement\Hr_Leave_C.cshtml" />
     <None Include="Web.Debug.config">
