@@ -31,7 +31,8 @@ h2{
     border: 2px solid black;
     padding: 15px;
     display: flex;
-    column-gap:10px;
+    column-gap: 10px;
+    border-radius: 5px;
 }
 
 @media (max-width: 800px) {
@@ -53,7 +54,6 @@ h2{
     }
 
 }
-
 .total-logo{
     display:grid;
     place-items:center;

@@ -23,7 +23,7 @@ namespace SBIT3J_SuperSystem_Final.Models
         public int Discount_ID { get; set; }
         public string Discount_Name { get; set; }
         public string Description { get; set; }
-        public Nullable<int> Discount_Amount { get; set; }
+        public Nullable<decimal> Discount_Amount { get; set; }
         public Nullable<System.DateTime> Start_Date { get; set; }
         public Nullable<System.DateTime> End_Date { get; set; }
     
