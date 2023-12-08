@@ -70,7 +70,15 @@
             $("#ChangeConfirm").click(function () {
                 CalculateChange();
             });
+            $("#btnProcessOrderAndPrintReceipt").click(function () {
+                ProcessOrderAndPrintReceipt();
+            });
         });
+
+        function ProcessOrderAndPrintReceipt() {
+            FinalPayment();
+            PrintReceipt();
+        }
 
         function FinalPayment() {
             var objSalesTransaction = {};
@@ -176,6 +184,8 @@
             var change = customerMoney - finalTotalVatIncluded;
 
             $("#CustomerChange").val(change.toFixed(2));
+
+
         }
 
 
@@ -421,8 +431,7 @@
                     </div>
 
                     <div class="text-center mt-1">
-                        <input type="button" class="btn btn-success" name="name" value="Print Receipt" onclick="PrintReceipt()" />
-                        <input type="button" class="btn btn-success" name="name" value="Finalpayment" onclick="FinalPayment()" />
+                        <input type="button" class="btn btn-success" name="name" value="Print Receipt" id="btnProcessOrderAndPrintReceipt" />
                     </div>
 
                 </div>

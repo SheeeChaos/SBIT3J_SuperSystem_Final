@@ -1,0 +1,46 @@
+﻿@model List<SBIT3J_SuperSystem_Final.Models.Sales_Transaction_Details>
+
+@{
+    ViewBag.Title = "Sales Transaction Details";
+    Layout = "~/Views/Shared/_InventoryLayout.cshtml";
+}
+<div class="container-fluid rounded-1 p-3 h-100">
+
+    <h2>Sales Transaction Details</h2>
+    <div class="col bg-light mx-2 border-3 rounded-1 shadow p-3">
+
+        @if (Model != null && Model.Count > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Transaction Detail ID</th>
+                        <th>Transaction ID</th>
+                        <th>Product ID</th>
+                        <th>Total Quantity</th>
+                        <th>Discount ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Transaction_Detail_ID</td>
+                            <td>@item.Transaction_ID</td>
+                            <td>@item.Product_ID</td>
+                            <td>@item.Total_Quantity</td>
+                            <td>@item.Discount_ID</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No sales transaction details found.</p>
+        }
+
+        <p>
+            @Html.ActionLink("Back", "Index", "Inventory")
+        </p>
+    </div>
