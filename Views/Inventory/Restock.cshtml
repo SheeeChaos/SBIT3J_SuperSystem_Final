@@ -18,7 +18,7 @@
             GetUnitPrice(productId);
         });
         $("#restockButton").click(function () {
-            FinalPayment();
+            AddRestock();
         });
 
         var button = $("#clickMeButton");
@@ -62,6 +62,9 @@
 
     });
 
+
+
+
     function GetUnitPrice(ProductID) {
         $.ajax({
             async: true,
@@ -80,7 +83,7 @@
         });
     }
 
-    function FinalPayment() {
+    function AddRestock() {
         var objRestock = {};
         var ListofRestockViewModel = new Array();
         var totalamount = 0.00;
@@ -108,6 +111,11 @@
             url: '/Inventory/AddRestock',
             success: function (data) {
                 alert(data);
+                if (data === 'Restock saved!') {
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                }
             },
             error: function (xhr, status, error) {
                 console.error("AJAX error:", status, error);

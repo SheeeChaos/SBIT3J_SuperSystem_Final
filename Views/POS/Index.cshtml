@@ -116,9 +116,7 @@
                 }
 
             });
-            $("#FinalTotalBill, #vat, #FinalSubTotal, #CustomerChange, #CustomerMoney").val("");
-            $("#tblOrder tbody").empty();
-            ResetItem()
+ 
         }
 
 
@@ -194,6 +192,7 @@
             var finalSubTotal = $("#FinalSubTotal").val();
             var vat = $("#vat").val();
             var finalTotalBill = $("#FinalTotalBill").val();
+            var customerMoney = $("#CustomerMoney").val();
             var customerChange = $("#CustomerChange").val();
 
             // Construct the receipt content with table items
@@ -203,7 +202,7 @@
             receiptContent += "   Quezon City, 1999\n";
             receiptContent += "   Phone: (123) 456-7890\n";
             receiptContent += "   Email: DowntownAlley@gmail.com\n";
-            receiptContent += "   Website: www.Downtown Alley.com\n";
+            receiptContent += "   Website: www.DowntownAlley.com\n";
             receiptContent += "   =========================\n\n";
             receiptContent += "Receipt No: 006\n";
             receiptContent += "Date/Time: " + getCurrentDateTime() + "\n";
@@ -213,21 +212,22 @@
             receiptContent += "-------------------------------------------\n";
 
             // Iterate through table rows
-            $("#tblOrder").find("tr:gt(0)").each(function () {
-                var itemName = $(this).find("td:eq(1)").text();
-                var itemQuantity = $(this).find("td:eq(3)").text();
-                var discountamount = $(this).find("td:eq(4)").text();
-                var itemPrice = $(this).find("td:eq(2)").text();
-                receiptContent += itemName + "     |   " + itemQuantity + "   |  ₱" + itemPrice + "   |  ₱" + discountamount + " |  ₱" + ((itemQuantity * itemPrice) - discountamount).toFixed(2) + "\n\n";
+            $("#tblOrder tbody tr").each(function () {
+                var productName = $(this).find("td:eq(1)").text();
+                var price = $(this).find("td:eq(2)").text();
+                var quantity = $(this).find("td:eq(3)").text();
+                var discountAmount = $(this).find("td:eq(4)").text();
+                var total = $(this).find("td:eq(5)").text();
+
+                receiptContent += productName + " | " + quantity + " | ₱" + price + " | ₱" + discountAmount + " | ₱" + total + "\n";
             });
 
             receiptContent += "\n-------------------------------------------\n";
             receiptContent += "Subtotal:                        ₱" + finalSubTotal + "\n";
             receiptContent += "Sales Tax (12%):                 ₱" + vat + "\n";
-            receiptContent += "Total Amount:                   ₱" + finalTotalBill + "\n\n";
-            receiptContent += "Payment Information:\n";
-            receiptContent += "Amount Paid:   ₱" + (parseFloat(finalTotalBill) + parseFloat(customerChange)).toFixed(2) + "\n";
-            receiptContent += "Change Due:    ₱" + customerChange + "\n\n";
+            receiptContent += "Total Amount:                   ₱" + finalTotalBill + "\n";
+            receiptContent += "Amount Tendered:                ₱" + customerMoney + "\n";
+            receiptContent += "Change Due:                     ₱" + customerChange + "\n\n";
             receiptContent += "Thank you for shopping with us!\n\n";
             receiptContent += "[Return/Exchange Policy]\n";
             receiptContent += "- Items must be returned within 30 days.\n";
@@ -251,6 +251,9 @@
             $("#tblOrder tbody").empty();
             ResetItem();
         }
+
+
+
 
         function getCurrentDateTime() {
             var currentDateTime = new Date();
@@ -298,6 +301,9 @@
         }
 
 
+        function FilterProducts(products) {
+            return products.filter(product => !product.Is_Archived && product.Stock_Level > 0);
+        }
 
         function GetUnitPrice(ProductID) {
             $.ajax({
@@ -308,7 +314,13 @@
                 data: { ProductID: ProductID },
                 url: '/POS/getItemUnitPrice',
                 success: function (data) {
-                    $("#unitprice").val(parseFloat(data).toFixed(2));
+                    var filteredProducts = FilterProducts(data);
+                    if (filteredProducts.length > 0) {
+                        $("#unitprice").val(parseFloat(filteredProducts[0]).toFixed(2));
+                    } else {
+                        alert("Product not found or is archived.");
+                        // You might want to handle this case differently based on your requirements.
+                    }
                 },
                 error: function (xhr, status, error) {
                     console.error("AJAX error: " + status, error);
@@ -316,7 +328,6 @@
                 }
             });
         }
-
 
         function GetDiscount(DiscountId) {
             $.ajax({
@@ -333,9 +344,9 @@
                     console.error("AJAX error: " + status, error);
                     alert("There is some problem getting the Discount Amount. Check the console for details.");
                 }
-
             });
         }
+
     </script>
 
 
@@ -346,25 +357,27 @@
         <main class="container-fluid pt-4 row">
 
             <div class="col">
+                <div class="bg-light mx-2 border-3 rounded-1 shadow p-3">
 
-                <div style="height:80%;">
-                    <table id="tblOrder" style="width:100%;">
-                        <thead>
-                            <tr>
-                                <th hidden>Product ID</th>
-                                <th>Product Code</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Discount Amount</th>
-                                <th>Total</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Table rows will be added dynamically here -->
-                        </tbody>
-                    </table>
+                    <div style="height:80%;">
+                        <table id="tblOrder" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th hidden>Product ID</th>
+                                    <th>Product Code</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Discount Amount</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Table rows will be added dynamically here -->
+                            </tbody>
+                        </table>
 
+                    </div>
                 </div>
             </div>
 
