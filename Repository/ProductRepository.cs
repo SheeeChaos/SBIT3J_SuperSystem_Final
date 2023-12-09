@@ -18,14 +18,18 @@ namespace SBIT3J_SuperSystem_Final.Repository
         public IEnumerable<SelectListItem> GetAllProduct()
         {
             IEnumerable<SelectListItem> objSelectListItems = new List<SelectListItem>();
+
             objSelectListItems = (from obj in objSBIT3JEntities.Product_Info
+                                  where (!obj.Is_Archived.HasValue || !obj.Is_Archived.Value) && obj.Stock_Level > 0
                                   select new SelectListItem()
                                   {
                                       Text = obj.Product_Code,
                                       Value = obj.Product_ID.ToString(),
                                       Selected = true
                                   }).ToList();
+
             return objSelectListItems;
         }
+
     }
 }

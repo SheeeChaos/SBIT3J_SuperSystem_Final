@@ -305,6 +305,7 @@
             return products.filter(product => !product.Is_Archived && product.Stock_Level > 0);
         }
 
+
         function GetUnitPrice(ProductID) {
             $.ajax({
                 async: true,
@@ -314,13 +315,7 @@
                 data: { ProductID: ProductID },
                 url: '/POS/getItemUnitPrice',
                 success: function (data) {
-                    var filteredProducts = FilterProducts(data);
-                    if (filteredProducts.length > 0) {
-                        $("#unitprice").val(parseFloat(filteredProducts[0]).toFixed(2));
-                    } else {
-                        alert("Product not found or is archived.");
-                        // You might want to handle this case differently based on your requirements.
-                    }
+                    $("#unitprice").val(parseFloat(data).toFixed(2));
                 },
                 error: function (xhr, status, error) {
                     console.error("AJAX error: " + status, error);
