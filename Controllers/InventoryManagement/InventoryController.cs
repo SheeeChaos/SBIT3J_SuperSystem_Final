@@ -239,14 +239,11 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
         public ActionResult Restock()
         {
-            // Get all products for the dropdown
-            ProductRepository objProductRepository = new ProductRepository();
-            var products = objProductRepository.GetAllProduct();
+            RestockRepository objProductRepository = new RestockRepository();
+            var products = objProductRepository.GetAllProductforRestock();
 
-            // Get all restocks for the view
             var restocks = objDatabaseConnectionEntities.Restocks.ToList();
 
-            // Create a model to hold both the products and restocks
             var objMultipleModel = new Tuple<IEnumerable<SelectListItem>, List<Restock>>(products, restocks);
 
             return View(objMultipleModel);

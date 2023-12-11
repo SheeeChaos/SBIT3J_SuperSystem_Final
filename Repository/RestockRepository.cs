@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SBIT3J_SuperSystem_Final.Repository
 {
@@ -13,6 +14,21 @@ namespace SBIT3J_SuperSystem_Final.Repository
         public RestockRepository()
         {
             objSBIT3JEntities = new DatabaseConnectionEntities();
+        }
+
+        public IEnumerable<SelectListItem> GetAllProductforRestock()
+        {
+            IEnumerable<SelectListItem> objSelectListItems = new List<SelectListItem>();
+
+            objSelectListItems = (from obj in objSBIT3JEntities.Product_Info
+                                  select new SelectListItem()
+                                  {
+                                      Text = obj.Product_Code,
+                                      Value = obj.Product_ID.ToString(),
+                                      Selected = true
+                                  }).ToList();
+
+            return objSelectListItems;
         }
 
         public bool AddRestock(Restock objRestock)
@@ -42,7 +58,6 @@ namespace SBIT3J_SuperSystem_Final.Repository
                             objSBIT3JEntities.Restock_Detail.Add(objRestock_Detail);
                             objSBIT3JEntities.SaveChanges();
 
-                            // Update Stock Level
                             UpdateStockLevel((int)item.Product_ID, (int)item.Quantity_Added);
                         }
 

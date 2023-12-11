@@ -23,10 +23,7 @@
 
         var button = $("#clickMeButton");
 
-        function RemoveItem(item) {
-            $(item).closest('tr').remove();
-            FinalOrderTotal();
-        }
+
 
         // Add a click event listener to the button
         button.on("click", function () {
@@ -63,7 +60,9 @@
     });
 
 
-
+    function RemoveItem(itemID) {
+        $(itemID).closest('tr').remove();
+    }
 
     function GetUnitPrice(ProductID) {
         $.ajax({
