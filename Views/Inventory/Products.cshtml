@@ -26,10 +26,10 @@
             <table class="table table-hover ">
                 <tr class="">
                     <th>
-                        @Html.DisplayNameFor(model => model.Product_Code)
+                        Product Code
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Product_Name)
+                        Product Name
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Category)
@@ -47,7 +47,7 @@
                         @Html.DisplayNameFor(model => model.Price)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Stock_Level)
+                        Stock Level
                     </th>
                     <th></th>
                 </tr>
@@ -73,7 +73,7 @@
                         <td>
                             @if (item.Sex.HasValue)
                             {
-                                <text>@(item.Sex.Value ? "Woman" : "Men")</text>
+                                <text>@(item.Sex.Value ? "Women" : "Men")</text>
                             }
                             else
                             {
