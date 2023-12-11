@@ -220,13 +220,13 @@
     <Content Include="Content\scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Content\scripts\respond.min.js" />
     <None Include="Content\scripts\_references.js" />
-
     <Content Include="Content\Site.css" />
     <Content Include="Content\Styles\Group1Stylesheets\CompanyProfitStyle.css" />
     <Content Include="Content\Styles\Group1Stylesheets\Dashboard.css" />
     <Content Include="Content\Styles\Group1Stylesheets\InventoryListStyle.css" />
     <Content Include="Content\Styles\Group1Stylesheets\LossesStyle.css" />
     <Content Include="Content\Styles\Group1Stylesheets\OverallActivitiesStyle.css" />
+    <Content Include="Content\Styles\Group1Stylesheets\ProductRevenueStyle.css" />
     <Content Include="Content\Styles\Group1Stylesheets\SalesRevenueStyle.css" />
     <Content Include="Content\Styles\LoginPage.css" />
     <Content Include="Content\Styles\Group1Stylesheets\_AdminMonitoring_Layout.css" />
@@ -457,6 +457,7 @@
     <Content Include="Views\AdminMonitoring\Inventory.cshtml" />
     <Content Include="Views\AdminMonitoring\InventoryListPrintPdf.cshtml" />
     <Content Include="Views\AdminMonitoring\SalesTransactionListPrintPdf.cshtml" />
+    <Content Include="Views\AdminMonitoring\ProductRevenuePrintPdf.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

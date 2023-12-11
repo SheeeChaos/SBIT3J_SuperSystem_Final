@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SBIT3J_SuperSystem_Final.Models.SalesRevenueModel>
+﻿@model IEnumerable<SBIT3J_SuperSystem_Final.Models.Sales_Transaction>
 
 @{
     ViewBag.Title = "SalesRevenue";
@@ -13,10 +13,10 @@
         <h3>Total Sales</h3>
         <h1>@ViewBag.totalSales</h1>
     </div>
-    <div class="Sales-total-container">
+    @*<div class="Sales-total-container">
         <h3>Total Sales Per Day</h3>
         <h1>4,000,000.00</h1>
-    </div>
+    </div>*@
     <div class="Sales-total-container">
         <h3>Daily average Sales</h3>
         <h1>@ViewBag.AverageDailySales</h1>
@@ -50,7 +50,7 @@
         </div>
 
         <!-- Add this link for PDF generation -->
-        <a href="@Url.Action("GenerateSalesTransactionList", new { searchFilter = Request.QueryString["searchFilter"], startDate = Request.QueryString["startDate"], endDate = Request.QueryString["endDate"] })" class="btn btn-primary">
+        <a href="@Url.Action("GenerateSalesTransactionList", new { searchFilter = Request.QueryString["searchFilter"], startDate = Request.QueryString["startDate"], endDate = Request.QueryString["endDate"] })" class="btn btn-primary" target="_blank">
             <div class="print-pdf-btn">
                 <p>Print</p>
             </div>
@@ -64,18 +64,14 @@
         <tr>
             <th>Transaction ID</th>
             <th>Total Amount</th>
-            <th>Discount Amount</th>
-            <th>Total Sales</th>
             <th>Date</th>
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.TransactionID</td>
-                <td>@item.TotalAmount</td>
-                <td>@item.DiscountAmount</td>
-                <td>@item.TotalSales</td>
+                <td>@item.Transaction_ID</td>
+                <td>@item.Total_Amount</td>
                 <td>@item.Date</td>
             </tr>
         }

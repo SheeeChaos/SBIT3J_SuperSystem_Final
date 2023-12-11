@@ -14,6 +14,7 @@ using Rotativa;
 using Rotativa.Options;
 using System.Drawing;
 using System.Net.NetworkInformation;
+using System.Runtime.Remoting.Contexts;
 
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
@@ -59,9 +60,27 @@ namespace SBIT3J_SuperSystem_Final.Controllers
                     MonthlySales = monthlySalesData
                 };
 
+                var CritStock = dbcon.Product_Info
+                   .Where(p => p.Stock_Level <= 20)
+                   .Count();
+                ViewBag.CritStock = CritStock;
+
+                var totalProduct = dbcon.Product_Info.Count();
+                ViewBag.TotalProducts = totalProduct;
+
+                var currentDailySale = dbcon.Sales_Transaction
+                    .Where(st => DbFunctions.TruncateTime(st.Date.Value) ==
+                DbFunctions.TruncateTime(DateTime.UtcNow))
+                     .Sum(st => st.Total_Amount);
+                ViewBag.CurrentDailySale = currentDailySale;
+
+               var totalStockLevel = dbcon.Product_Info.Sum(p => p.Stock_Level);
+                ViewBag.TotalStockLevel = totalStockLevel;
+
+
                 return View(salesGraphData);
             }
-           
+
         }
 
 
@@ -69,42 +88,31 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
         public ActionResult SalesRevenue(string searchFilter, DateTime? startDate, DateTime? endDate, string filterType)
         {
-
-            var query = from std in dbcon.Sales_Transaction_Details
-                        join st in dbcon.Sales_Transaction on std.Transaction_ID equals st.Transaction_ID
-                        join d in dbcon.Discounts on std.Discount_ID equals d.Discount_ID into discountGroup
-                        from discount in discountGroup.DefaultIfEmpty()
-                        select new SalesRevenueModel
-                        {
-                            TransactionDetailID = std.Transaction_Detail_ID,
-                            TransactionID = st.Transaction_ID,
-                            TotalAmount = st.Total_Amount,
-                            DiscountAmount = discount != null ? discount.Discount_Amount : 0,
-                            TotalSales = st.Total_Amount - (discount != null ? discount.Discount_Amount : 0),
-                            Date = st.Date
-                        };
+            var query = dbcon.Sales_Transaction.ToList(); // Convert to List
 
             if (!string.IsNullOrEmpty(searchFilter) && filterType == "search")
             {
                 query = query.Where(x =>
-                    x.TransactionID.ToString().Contains(searchFilter) ||
-                    x.TotalAmount.ToString().Contains(searchFilter)
-                );
+                    x.Transaction_ID.ToString().Contains(searchFilter) ||
+                    x.Total_Amount.ToString().Contains(searchFilter)
+                ).ToList(); // Convert to List
             }
 
             if (startDate != null && endDate != null && filterType == "date")
             {
-                query = query.Where(x => x.Date >= startDate && x.Date <= endDate);
+                query = query.Where(x => x.Date >= startDate && x.Date <= endDate).ToList(); // Convert to List
             }
 
-            decimal? totalAmountSum = query.Sum(x => x.TotalAmount);
+            decimal? totalAmountSum = query.Sum(x => x.Total_Amount);
             ViewBag.totalSales = totalAmountSum;
 
             int totalCount = query.Count();
             ViewBag.TotalCount = totalCount;
 
             decimal? averageDailySales = totalCount > 0 ? totalAmountSum / totalCount : 0;
-            ViewBag.AverageDailySales = averageDailySales;
+            decimal roundedAverageDailySales = Math.Round(averageDailySales.Value, 2);
+            ViewBag.AverageDailySales = roundedAverageDailySales;
+         
 
             return View(query.ToList());
         }
@@ -117,7 +125,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
             var pdfResult = new ViewAsPdf("SalesTransactionListPrintPdf", query)
             {
-                FileName = "SalesTransactions.pdf",
+                FileName = "Sales Revenue .pdf",
                 PageSize = Rotativa.Options.Size.A4,
                 PageOrientation = Rotativa.Options.Orientation.Landscape,
                 CustomSwitches = "--no-images", // Optional: Use this switch if you want to exclude images
@@ -128,19 +136,19 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
         private List<Sales_Transaction>GetSalesTransactionFiltered(string searchFilter, DateTime? startDate, DateTime? endDate)
         {
-            var query = dbcon.Sales_Transaction.AsQueryable();
+            var query = dbcon.Sales_Transaction.ToList(); // Convert to List
 
-            if (!string.IsNullOrEmpty(searchFilter))
+            if (!string.IsNullOrEmpty(searchFilter) )
             {
                 query = query.Where(x =>
                     x.Transaction_ID.ToString().Contains(searchFilter) ||
                     x.Total_Amount.ToString().Contains(searchFilter)
-                );
+                ).ToList(); // Convert to List
             }
 
-            if (startDate != null && endDate != null)
+            if (startDate != null && endDate != null )
             {
-                query = query.Where(x => x.Date >= startDate && x.Date <= endDate);
+                query = query.Where(x => x.Date >= startDate && x.Date <= endDate).ToList(); // Convert to List
             }
 
             decimal? totalAmountSum = query.Sum(x => x.Total_Amount);
@@ -150,30 +158,123 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             ViewBag.TotalCount = totalCount;
 
             decimal? averageDailySales = totalCount > 0 ? totalAmountSum / totalCount : 0;
-            ViewBag.AverageDailySales = averageDailySales;
+            decimal roundedAverageDailySales = Math.Round(averageDailySales.Value, 2);
+            ViewBag.AverageDailySales = roundedAverageDailySales;
 
             return query.ToList();
         }
 
+
+        //decimal? totalAmountSum = query.Sum(x => x.Total_Amount);
+        //ViewBag.totalSales = totalAmountSum;
+
+        //    int totalCount = query.Count();
+        //ViewBag.TotalCount = totalCount;
+
+        //    decimal? averageDailySales = totalCount > 0 ? totalAmountSum / totalCount : 0;
+        //ViewBag.AverageDailySales = averageDailySales;
+
         ////////////////           THIS PART IS FOR PRODUCT REVENUE                   //////////////////////////
-        public ActionResult ProductRevenue()
+        public ActionResult ProductRevenue(string searchFilter, string filterType)
         {
-            var query = (from pi in dbcon.Product_Info
-                                    join std in dbcon.Sales_Transaction_Details on pi.Product_ID equals std.Product_ID
-                                    group new { pi, std } by new { pi.Product_Code, pi.Product_Name, pi.Price }
-                                    into g
-                                    select new ProductRevenueModel
-                                    {
-                                        Product_Code = g.Key.Product_Code,
-                                        Product_Name = g.Key.Product_Name,
-                                        Price = g.Key.Price,
-                                        Total_Quantity = g.Sum(x => x.std.Total_Quantity),
-                                        Total_Amount = g.Sum(x => x.std.Total_Quantity * x.pi.Price)
-                                    }).ToList();
+            var query = (from std in dbcon.Sales_Transaction_Details
+                         join pi in dbcon.Product_Info on std.Product_ID equals pi.Product_ID
+                         join d in dbcon.Discounts on std.Discount_ID equals d.Discount_ID into discountGroup
+                         from dg in discountGroup.DefaultIfEmpty()
+                         group new { pi, std, dg } by new { pi.Product_Code, pi.Product_Name }
+                               into g
+                         select new ProductRevenueModel
+                         {
+                             Product_Code = g.Key.Product_Code,
+                             Product_Name = g.Key.Product_Name,
+                             Total_Quantity = g.Sum(x => x.std.Total_Quantity),
+                             Price = g.Max(x => x.pi.Price),
+                             Total_Discount = g.Sum(x => x.dg.Discount_Amount) ?? 0,
+                             Total_Amount = g.Sum(x => (x.std.Total_Quantity * x.pi.Price) - (x.dg.Discount_Amount ?? 0))
+                         }).OrderByDescending(x => x.Total_Amount).ToList();
+
+
+            if (!string.IsNullOrEmpty(searchFilter) && filterType == "search")
+            {
+                searchFilter = searchFilter.ToLower(); // Convert to lowercase for case-insensitive search
+
+                query = query.Where(x =>
+                    x.Product_Code.ToLower().Contains(searchFilter) ||
+                    x.Product_Name.ToLower().Contains(searchFilter) ||
+                    x.Price.ToString().Contains(searchFilter) ||
+                    x.Total_Quantity.ToString().Contains(searchFilter) ||
+                    x.Total_Amount.ToString().Contains(searchFilter)
+                ).ToList();
+            }
+            decimal? totalAmountSum = query.Sum(x => x.Total_Amount);
+            ViewBag.totalSalesofProduct = totalAmountSum;
+
+            decimal? totalDiscountAmount = query.Sum(x => x.Total_Discount);
+            ViewBag.totalDiscAmount= totalDiscountAmount;
+
+            decimal? totaItemSold= query.Sum(x => x.Total_Quantity);
+            ViewBag.totalSoldItem = totaItemSold;
 
             return View(query);
+            }
+        public ActionResult GenerateProductRevenueList(string searchFilter)
+        {
+            var query = GetProductRevenueFiltered(searchFilter);
 
+            var pdfResult = new ViewAsPdf("ProductRevenuePrintPdf", query)
+            {
+                FileName = "Product Revenue List.pdf",
+                PageSize = Rotativa.Options.Size.A4,
+                PageOrientation = Rotativa.Options.Orientation.Landscape,
+                CustomSwitches = "--no-images", // Optional: Use this switch if you want to exclude images
+            };
+
+            return pdfResult;
         }
+
+        private List<ProductRevenueModel> GetProductRevenueFiltered(string searchFilter)
+        {
+            var query = (from std in dbcon.Sales_Transaction_Details
+                         join pi in dbcon.Product_Info on std.Product_ID equals pi.Product_ID
+                         join d in dbcon.Discounts on std.Discount_ID equals d.Discount_ID into discountGroup
+                         from dg in discountGroup.DefaultIfEmpty()
+                         group new { pi, std, dg } by new { pi.Product_Code, pi.Product_Name }
+                         into g
+                         select new ProductRevenueModel
+                         {
+                             Product_Code = g.Key.Product_Code,
+                             Product_Name = g.Key.Product_Name,
+                             Total_Quantity = g.Sum(x => x.std.Total_Quantity),
+                             Price = g.Max(x => x.pi.Price),
+                             Total_Discount = g.Sum(x => x.dg.Discount_Amount) ?? 0,
+                             Total_Amount = g.Sum(x => (x.std.Total_Quantity * x.pi.Price) - (x.dg.Discount_Amount ?? 0))
+                         }).OrderByDescending(x => x.Total_Amount).ToList();
+
+
+            if (!string.IsNullOrEmpty(searchFilter))
+            {
+                searchFilter = searchFilter.ToLower(); // Convert to lowercase for case-insensitive search
+
+                query = query.Where(x =>
+                    x.Product_Code.ToLower().Contains(searchFilter) ||
+                    x.Product_Name.ToLower().Contains(searchFilter) ||
+                    x.Price.ToString().Contains(searchFilter) ||
+                    x.Total_Quantity.ToString().Contains(searchFilter) ||
+                    x.Total_Amount.ToString().Contains(searchFilter)
+                ).ToList();
+            }
+            decimal? totalAmountSum = query.Sum(x => x.Total_Amount);
+            ViewBag.totalSalesofProduct = totalAmountSum;
+
+            decimal? totalDiscountAmount = query.Sum(x => x.Total_Discount);
+            ViewBag.totalDiscAmount = totalDiscountAmount;
+
+            decimal? totaItemSold = query.Sum(x => x.Total_Quantity);
+            ViewBag.totalSoldItem = totaItemSold;
+
+            return query.ToList();
+        }
+
         public ActionResult Profit()
         {
             return View();
