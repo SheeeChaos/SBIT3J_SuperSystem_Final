@@ -5,11 +5,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static SBIT3J_SuperSystem_Final.Models.Sales_Transaction;
 
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
 
-    //[Authorize]
+    [Authorize]
     public class AdminMonitoringController : Controller
     {
         // GET: AdminMonitoring
@@ -22,8 +23,31 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
         public ActionResult Dashboard()
         {
-            return View();  
+            List<MonthlySalesData> monthlySales = new List<MonthlySalesData>();
+            
+            using (DatabaseConnectionEntities context = new DatabaseConnectionEntities())
+            { // wala munang gagalaw nito -mark :>
+                int[] salesPerMonth = new int[12];
+                var query = context.Database.SqlQuery<MonthlySalesData>(@"
+                    SELECT MONTH(Date) AS MonthNumber,
+                           DATENAME(MONTH, Date) AS MonthName,
+                           SUM(Total_Amount) AS TotalSales
+                    FROM Sales_Transaction
+                    WHERE YEAR(Date) = YEAR(GETDATE())
+                    GROUP BY MONTH(Date), DATENAME(MONTH, Date)
+                    ORDER BY MonthNumber;
+                "); // sum all transactionshits each month of the current year
+
+                monthlySales = query.ToList();
+                for (int i = 0; i < monthlySales.Count; i++)
+                {
+                    salesPerMonth[monthlySales[i].MonthNumber - 1] = (int)(monthlySales[i].TotalSales ?? 0);
+                }
+            }
+
+            return View(monthlySales);
         }
+
 
         public ActionResult SalesRevenue()
         {
@@ -46,7 +70,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
             return View(employeeData);
         }
- 
+
 
         public ActionResult Profit()
         {
@@ -64,7 +88,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             return View(dbcon.AuditTrails.ToList());
         }
 
-        public ActionResult OverallActivities(string searchFilter) 
+        public ActionResult OverallActivities(string searchFilter)
         {
             var query = from ea in dbcon.EmployeeAccounts
                         join ei in dbcon.EmployeeInformations on ea.Employee_ID equals ei.Employee_ID

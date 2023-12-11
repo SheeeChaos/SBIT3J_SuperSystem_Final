@@ -50,52 +50,51 @@
     </div>
 </div>
 
-@*<div class="dashboard-top-container">
-        <div class="dashboard-total-container" id="dashboard-total-container-CriticalItems">
-            <div class="total-logo">
-                <img src="~/Image/Group1-Assets/CriticalLevelIcon.png" />
-            </div>
-            <div class="total-information-container">
-                <h2>10000</h2>
-                <h4>Critical Items</h4>
-                <h5>Total Critical items recorded in the Inventory</h5>
-            </div>
-        </div>
-        <div class="dashboard-total-container" id="dashboard-total-container-CriticalItems">
-            <div class="total-logo">
-                <img src="~/Image/Group1-Assets/TotalProductsIcon.png" />
-            </div>
-            <div class="total-information-container">
-                <h2>30</h2>
-                <h4>Total Products</h4>
-                <h5>Total product recorded in the inventory. </h5>
-            </div>
-        </div>
-        <div class="dashboard-total-container" id="dashboard-total-container-CriticalItems">
-            <div class="total-logo">
-                <img src="~/Image/Group1-Assets/DailySales.png" />
-            </div>
-            <div class="total-information-container">
-                <h2>1,759.00</h2>
-                <h4>Daily Sales</h4>
-                <h5>Total daily sales recorded in the inventory.</h5>
-            </div>
-        </div>
-        <div class="dashboard-total-container" id="dashboard-total-container-CriticalItems">
-            <div class="total-logo">
-                <img src="~/Image/Group1-Assets/Stocks on hand.png" />
-            </div>
-            <div class="total-information-container">
-                <h2>1,087</h2>
-                <h4>Stocks</h4>
-                <h5>Total product stock on hand.</h5>
-            </div>
-        </div>
+<center><h2>2023 Monthly Sales</h2></center>
+<div class="graph-container" style="display: flex; align-items: center; justify-content: center;">
+    
+
+    <div style="height: 90vh; width: 80vw;">
+        <canvas id="myChart"></canvas>
     </div>
 
-    <div class="graph-container">
-        <h1>Product Revenue Graph Goes Here</h1>
-    </div>*@
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('myChart');
 
+    @{
+        int[] salesPerMonth = new int[12];
+        for (int i = 0; i < Model.Count; i++)
+        {
+            salesPerMonth[Model[i].MonthNumber - 1] = (int)(Model[i].TotalSales ?? 0);
+        }
+    }
 
+    var data = [];
+    @for (int i = 0; i < salesPerMonth.Length; i++)
+    {
+        @:data.push(@salesPerMonth[i]);
+    }
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                //label: '# of Votes',
+                data: data, // ito yung array na yon
+                borderWidth: 0,
+                backgroundColor: 'rgba(84, 22, 35, 1)'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+ });
+</script>

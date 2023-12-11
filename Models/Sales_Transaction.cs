@@ -15,6 +15,14 @@ namespace SBIT3J_SuperSystem_Final.Models
     public partial class Sales_Transaction
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+
+        public class MonthlySalesData
+        {
+            public int MonthNumber { get; set; }
+            public string MonthName { get; set; }
+            public decimal? TotalSales { get; set; }
+        }
+
         public Sales_Transaction()
         {
             this.Return_Item = new HashSet<Return_Item>();
