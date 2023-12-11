@@ -37,6 +37,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.transacID = id;
 
             return View(Sales_Transaction_DetailsList);
         }
@@ -85,9 +86,18 @@ namespace SBIT3J_SuperSystem_Final.Controllers
                     "HeadWear",
                     "Accesory"
                 };
-
-                // Pass the products and categories to the view
-                ViewBag.Categories = new SelectList(hardcodedCategories);
+            var hardcodedSizes = new List<string>
+                {
+                    "XS",
+                    "S",
+                    "M",
+                    "L",
+                    "XL",
+                    "XXL"
+                };
+            // Pass the products and categories to the view
+            ViewBag.Categories = new SelectList(hardcodedCategories);
+            ViewBag.Sizes = new SelectList(hardcodedSizes);
                 return View();
             }
 
@@ -102,7 +112,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
                 {
                     objDatabaseConnectionEntities.Product_Info.Add(product_Info);
                     objDatabaseConnectionEntities.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Products");
                 }
 
                 return View(product_Info);
