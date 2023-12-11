@@ -220,6 +220,7 @@
     <Content Include="Content\scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Content\scripts\respond.min.js" />
     <None Include="Content\scripts\_references.js" />
+
     <Content Include="Content\Site.css" />
     <Content Include="Content\Styles\Group1Stylesheets\CompanyProfitStyle.css" />
     <Content Include="Content\Styles\Group1Stylesheets\Dashboard.css" />
@@ -319,6 +320,7 @@
     <Compile Include="Models\Loss_Fraud.cs">
       <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MonthlySalesViewModel.cs" />
     <Compile Include="Models\OverallActivitiesModel.cs" />
     <Compile Include="Models\Pag_Ibig.cs">
       <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
