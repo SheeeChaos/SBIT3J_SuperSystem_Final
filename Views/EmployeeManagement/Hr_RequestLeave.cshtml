@@ -1,0 +1,451 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+
+
+    @{
+        Layout = null;
+    }
+    @model IEnumerable<SBIT3J_SuperSystem_Final.Models.Leave_Request>
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    outline: none;
+                    border: none;
+                    text-decoration: none;
+                    box-sizing: border-box;
+                    font-family: Arial;
+                }
+
+                body {
+                    background: rgba(75,6,15,255);
+                    background-attachment: fixed;
+                    overflow: hidden;
+                }
+
+            .titlehder {
+                font-family: 'Times New Roman';
+                position: absolute;
+                left: 15%;
+                top: 5%;
+                font-size: 38px;
+                color: white;
+            }
+
+
+            .logo-img {
+                position: relative;
+                display: block;
+                width: 70%;
+                border-radius: 55%;
+                border: 0.5px solid #808080;
+                top: -10px;
+                margin-left: 40px;
+                margin-right: auto;
+                z-index: 2;
+            }
+
+            nav {
+                margin-left: 20px;
+                margin-top: -20px;
+                width: 240px;
+                height: 740px;
+                overflow-x: hidden;
+                overflow-y: scroll;
+            }
+
+                nav::-webkit-scrollbar {
+                    display: none;
+                }
+
+            .navitem {
+                position: relative;
+                display: block;
+                background-color: ghostwhite;
+                padding: 5px;
+                margin-top: 13%;
+                margin-right: auto;
+                margin-left: auto;
+                width: 100px;
+                height: 100px;
+                border-radius: 55%;
+                border: 1px solid rgba(0,0,0,1);
+            }
+
+            .cogicon {
+                position: absolute;
+                background-color: white;
+                border: 5px solid rgba(0,0,0,1);
+                border-radius: 55%;
+                right: 50px;
+                top: 50px;
+                width: 120px;
+                height: auto;
+            }
+
+                .modal {
+                    display: none;
+                    position: fixed;
+                    z-index: 1;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    overflow: auto;
+                    background-color: rgb(0,0,0);
+                    background-color: rgba(0,0,0,0.4);
+                }
+
+                .modal-content {
+                    background-color: #fefefe;
+                    margin: 15% auto;
+                    padding: 20px;
+                    border: 1px solid #888;
+                    width: 40%;
+                }
+
+                .close {
+                    color: #aaaaaa;
+                    float: right;
+                    font-size: 28px;
+                    font-weight: bold;
+                }
+
+                    .close:hover,
+                    .close:focus {
+                        color: #000;
+                        text-decoration: none;
+                        cursor: pointer;
+                    }
+
+                .exitt {
+                    position: absolute;
+                    padding: 0;
+                    margin: auto;
+                    margin-left: 80%;
+                    margin-bottom: -60px;
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .btnn {
+                    text-align: center;
+                    background-color: dodgerblue;
+                    width: 70px;
+                    height: 50px;
+                }
+
+                .dvlogout {
+                    position: absolute;
+                    text-align: center;
+                    background-color: deepskyblue;
+                }
+
+            .curvenav {
+                position: absolute;
+                background-color: ghostwhite;
+                border-radius: 140px, 0, 0, 40px;
+                transition: 0.5s ease-in-out;
+                width: 240px;
+                height: 120px;
+                border: 1px, solid, rgba(0,0,0,1);
+                top: 475px;
+                margin-left: 78px;
+                border-radius: 80px 0 0 80px;
+                border: 3px solid rgba(100,21,4,255);
+                z-index: -2;
+            }
+
+            .btnn:hover {
+                background-color: blue;
+            }
+
+            .container {
+                position: absolute;
+                background-color: lightgrey;
+                top: 190px;
+                margin: 0 auto;
+                margin-left: 14%;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 40px 40px 40px 40px;
+                height: 75%;
+                width: 86%;
+                overflow-x: hidden;
+                overflow-y: scroll;
+            }
+
+                    .container::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                .logobg {
+                    opacity: 0.15;
+                    position: absolute;
+                    margin: 0;
+                    padding: 0;
+                    top: -170px;
+                    left: -70px;
+                    width: 2720px;
+                    z-index: -1;
+                }
+
+                .ContainerHeader {
+                    background-color: white;
+                    width: 100%;
+                    height: 38px;
+                    top: 30px;
+                }
+
+                .lgout-btn {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    margin: 5px;
+                    margin-left: 40%;
+                    margin-right: 40%;
+                    font-size: 18px;
+                    color: #ffffff;
+                    background-color: #007bff;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    transition: background-color 0.3s;
+                }
+
+                    .lgout-btn:hover {
+                        background-color: #0056b3;
+                    }
+
+                h2.crud-header {
+                    color: black;
+                    font-size: 42px;
+                    margin-bottom: 0;
+                    text-align: left;
+                    background-color: white;
+                    height: 42px;
+                }
+
+                table.crud-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 20px;
+                }
+
+            th.crud-header-cell, td.crud-data-cell {
+                padding: 3px;
+                border: 2px solid rgba(0,0,0,0.7);
+                text-align: left;
+                font-size: 18px;
+            }
+
+            th.crud-header-cell {
+                background-color: #f2f2f2;
+                font-size: 24px;
+            }
+
+                tr.crud-row:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
+
+                /*tr.crud-row:hover {
+                background-color: #e5e5e5;
+            }*/
+                .crud-row {
+                    background-color: white;
+                }
+
+                .custom-btn {
+                    display: inline-block;
+                    padding: 7px 13px;
+                    margin: 5px;
+                    font-size: 24px;
+                    color: white;
+                    background-color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    transition: background-color 0.3s;
+                }
+
+                    .custom-btn:hover {
+                        background-color: dodgerblue;
+                        color: white;
+                    }
+
+            .cleave {
+                position: fixed;
+                display: inline-block;
+                padding: 7px 10px;
+                top: 195px;
+                right: 24px;
+                margin: 5px;
+                font-size: 38px;
+                color: white;
+                background-color: skyblue;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                text-decoration: none;
+                transition: background-color 0.3s;
+            }
+
+            .cleave:hover{
+                background-color:dodgerblue;
+            }
+
+        </style>
+        <meta name="viewport" content="width=device-width" />
+        <title>LEAVE REQUEST</title>
+    </head>
+    <body>
+        <div>
+        </div>
+
+        <h1 class="titlehder">DOWNTOWN ALLEY<br />EMPLOYEE RECORD SYSTEM</h1>
+
+
+        <!-- MODAL FOR LOGOUT COG-ICON -->
+
+        <div class="cogcenter">
+            <button id="openModal">
+                <img src="~/Image/Group4/ICONS/LogoutCog.png" class="cogicon" />
+            </button>
+
+            <div id="myModal" class="modal">
+
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+
+                    <h1>DO YOU WANT TO LOGOUT?</h1>
+
+                    <!--href="Url.Action("Login", "Accounts")"-->
+                    <a class="lgout-btn">LOGOUT</a>
+
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="curvenav"></div>
+
+        <!-- vvv NAVBAR SECTION vvv -->
+        <nav>
+            <br>
+            <br>
+
+            <img src="~/Image/Group4/LogoDTA.png" class="logo-img" />
+
+            <!-- Employee List -->
+            <a href="@Url.Action("Hr_Employee_L","EmployeeManagement")">
+
+                <img src="~/Image/Group4/ICONS/EmployeeList.png" class="navitem" />
+
+                </a>
+                <hr>
+
+                <!-- Attendance List -->
+                <a href="@Url.Action("Hr_Attendance_L","EmployeeManagement")">
+                    <img src="~/Image/Group4/ICONS/EmployeeAttendance.png" class="navitem" />
+                </a>
+                <hr>
+
+                <!-- Leave Request -->
+                
+                    <img src="~/Image/Group4/ICONS/LeaveRequest.png" class="navitem" />
+                
+
+                <!-- Payroll - DIRECTLY TO ANOTHER SYSTEM -->
+                <!--<a href="Url.Action("Payroll","Payroll")">-->
+                <img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
+            </a>
+            <hr>
+
+        </nav>
+        <!-- ^^^ NAVBAR SECTION ^^^ -->
+        <!-- CONTAINER -->
+
+
+        <div class="container">
+
+
+            <div class="ContainerHeader"><h1 style="font-family: 'Times New Roman'; font-size:38px;">Leave Request</h1></div>
+            <br>
+            <div class="wthin_container">
+
+                <table class="crud-table" style="width:100%;">
+
+                    <tr>
+                        <th class="crud-header-cell" style="width:5%;">
+                            ID
+                        </th>
+                        <th class="crud-header-cell" style="width:17%;">
+                            Leave Request
+                        </th>
+                        <th class="crud-header-cell" style="width:14%;">
+                            Department
+                        </th>
+                        <th class="crud-header-cell" style="width:17%;">
+                            Leave Description
+                        </th>
+                        <th class="crud-header-cell" style="width:10%;">
+                            Start Date
+                        </th>
+                        <th class="crud-header-cell" style="width:10%;">
+                            End Date
+                        </th>
+
+                        <a href="@Url.Action("Hr_Leave_C", "EmployeeManagement")" class="cleave"><h4 style="color:peru;">Create</h4></a>
+
+
+                    </tr>
+                </table>
+
+
+
+                @foreach (var item in Model)
+                {
+                    <table class="crud-table">
+
+
+                        <tr class="crud-row">
+                            <td class="crud-data-cell" style="width:5%;">@Html.DisplayFor(modelItem => item.Employee_ID)</td>
+                            <td class="crud-data-cell" style="width:17%;">@Html.DisplayFor(modelItem => item.Leave_Request1)</td>
+                            <td class="crud-data-cell" style="width:14%;">@Html.DisplayFor(modelItem => item.Department)</td>
+                            <td class="crud-data-cell" style="width:17%;">@Html.DisplayFor(modelItem => item.Leave_Description)</td>
+                            <td class="crud-data-cell" style="width:10%;">@Html.DisplayFor(modelItem => item.Start_Date)</td>
+                            <td class="crud-data-cell" style="width:10%;" colspan="2">@Html.DisplayFor(modelItem => item.End_Date)</td>
+
+                        </tr>
+
+
+
+                    </table>
+                }
+
+
+            </div>
+
+            
+        </div>
+        
+    </body>
+</html>

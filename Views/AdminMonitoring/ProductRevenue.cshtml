@@ -1,8 +1,26 @@
-﻿
+﻿@model List<SBIT3J_SuperSystem_Final.Models.ProductRevenueModel>
 @{
     ViewBag.Title = "ProductRevenue";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
 <h2>ProductRevenue</h2>
 
+<table>
+    <tr>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total Amoun</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Product_Code</td>
+            <td>@item.Product_Name</td>
+            <td>@item.Price</td>
+            <td>@item.Total_Quantity</td>
+            <td>@item.Total_Amount</td>
+        </tr>
+    }
+</table>

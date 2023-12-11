@@ -40,7 +40,7 @@
           <Property Name="Discount_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Discount_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="Discount_Amount" Type="int" />
+          <Property Name="Discount_Amount" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Start_Date" Type="date" />
           <Property Name="End_Date" Type="date" />
         </EntityType>
@@ -181,7 +181,7 @@
           <Property Name="Color" Type="varchar" MaxLength="50" />
           <Property Name="Sex" Type="bit" />
           <Property Name="Is_Archived" Type="bit" />
-          <Property Name="Price" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Stock_Level" Type="int" />
         </EntityType>
         <EntityType Name="Restock">
@@ -240,7 +240,7 @@
           <Property Name="Transaction_Detail_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Transaction_ID" Type="int" />
           <Property Name="Product_ID" Type="int" />
-          <Property Name="Total_Quantity" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="Total_Quantity" Type="int" />
           <Property Name="Discount_ID" Type="int" />
         </EntityType>
         <EntityType Name="SSS">
@@ -1055,7 +1055,7 @@
           <Property Name="Discount_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Discount_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Discount_Amount" Type="Int32" />
+          <Property Name="Discount_Amount" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Start_Date" Type="DateTime" Precision="0" />
           <Property Name="End_Date" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Sales_Transaction_Details" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Discount_ID" FromRole="Discount" ToRole="Sales_Transaction_Details" />
@@ -1193,7 +1193,7 @@
           <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Sex" Type="Boolean" />
           <Property Name="Is_Archived" Type="Boolean" />
-          <Property Name="Price" Type="Int32" />
+          <Property Name="Price" Type="Decimal" />
           <Property Name="Stock_Level" Type="Int32" />
           <NavigationProperty Name="Loss_Damages" Relationship="DowntownAlley_DatabaseModel.FK_Loss_Damages_Product_ID" FromRole="Product_Info" ToRole="Loss_Damages" />
           <NavigationProperty Name="Loss_Fraud" Relationship="DowntownAlley_DatabaseModel.FK_Loss_Fraud_Product_ID" FromRole="Product_Info" ToRole="Loss_Fraud" />
@@ -1267,7 +1267,7 @@
           <Property Name="Transaction_Detail_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Transaction_ID" Type="Int32" />
           <Property Name="Product_ID" Type="Int32" />
-          <Property Name="Total_Quantity" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Total_Quantity" Type="Int32" />
           <Property Name="Discount_ID" Type="Int32" />
           <NavigationProperty Name="Discount" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Discount_ID" FromRole="Sales_Transaction_Details" ToRole="Discount" />
           <NavigationProperty Name="Product_Info" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Product_ID" FromRole="Sales_Transaction_Details" ToRole="Product_Info" />

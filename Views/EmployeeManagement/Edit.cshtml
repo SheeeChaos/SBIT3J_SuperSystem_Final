@@ -1,0 +1,455 @@
+﻿@model SBIT3J_SuperSystem_Final.Models.EmployeeInformation
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+}
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        box-sizing: border-box;
+        font-family: Arial;
+    }
+
+    body {
+        background: rgba(75,6,15,255);
+        background-attachment: fixed;
+        overflow: hidden;
+    }
+
+    .titlehder {
+        font-family: 'Times New Roman';
+        position: absolute;
+        left: 15%;
+        top: 5%;
+        font-size: 52px;
+        color: white;
+    }
+
+
+    .logo-img {
+        position: relative;
+        display: block;
+        width: 60%;
+        border-radius: 55%;
+        border: 0.5px solid #808080;
+        top: 10px;
+        margin-left: 60px;
+        margin-right: auto;
+        z-index: 2;
+    }
+
+    nav {
+        margin-left: -50px;
+        width: 430px;
+        height: auto;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+
+        nav::-webkit-scrollbar {
+            display: none;
+        }
+
+    .navitem {
+        position: relative;
+        display: block;
+        background-color: ghostwhite;
+        padding: 5px;
+        margin-top: 10%;
+        margin-right: auto;
+        margin-left: auto;
+        width: 130px;
+        height: 130px;
+        border-radius: 55%;
+        border: 1px solid rgba(0,0,0,1);
+    }
+
+    .cogicon {
+        position: absolute;
+        background-color: white;
+        border: 5px solid rgba(0,0,0,1);
+        border-radius: 55%;
+        right: 50px;
+        top: 50px;
+        width: 180px;
+        height: auto;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 30px;
+        border: 1px solid #888;
+        width: 40%;
+        
+    }
+
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    .exitt {
+        position: absolute;
+        padding: 0;
+        margin: auto;
+        margin-left: 80%;
+        margin-bottom: -60px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .btnn {
+        text-align: center;
+        background-color: dodgerblue;
+        width: 70px;
+        height: 50px;
+    }
+
+    .dvlogout {
+        position: absolute;
+        text-align: center;
+        background-color: deepskyblue;
+    }
+
+    .curvenav {
+        position: absolute;
+        background-color: ghostwhite;
+        border-radius: 140px, 0, 0, 40px;
+        transition: 0.5s ease-in-out;
+        width: 300px;
+        height: 160px;
+        border: 1px, solid, rgba(0,0,0,1);
+        top: 285px;
+        margin-left: 88px;
+        border-radius: 80px 0 0 80px;
+        border: 3px solid rgba(100,21,4,255);
+        z-index: -2;
+    }
+
+    .btnn:hover {
+        background-color: blue;
+    }
+
+    .container {
+        position: absolute;
+        background-color: lightgrey;
+        top: 240px;
+        margin: 0 auto;
+        margin-left: 13%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 40px 40px 40px 40px;
+        height: 73%;
+        width: 87%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+
+        .container::-webkit-scrollbar {
+            display: none;
+        }
+
+    .logobg {
+        opacity: 0.15;
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        top: -170px;
+        left: -70px;
+        width: 2720px;
+        z-index: -1;
+    }
+
+    .ContainerHeader {
+        background-color: white;
+        width: 100%;
+        height: 52px;
+        top: 30px;
+    }
+
+    .lgout-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 5px;
+        margin-left: 40%;
+        margin-right: 40%;
+        font-size: 18px;
+        color: #ffffff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .lgout-btn:hover {
+            background-color: #0056b3;
+        }
+
+    h2.crud-header {
+        color: black;
+        font-size: 42px;
+        margin-bottom: 0;
+        text-align: left;
+        background-color: white;
+        height: 42px;
+    }
+
+    table.crud-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th.crud-header-cell, td.crud-data-cell {
+        padding: 12px;
+        border: 2px solid rgba(0,0,0,0.7);
+        text-align: left;
+        font-size: 24px;
+    }
+
+    th.crud-header-cell {
+        background-color: #f2f2f2;
+        font-size: 24px;
+    }
+
+    tr.crud-row:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    /*tr.crud-row:hover {
+        background-color: #e5e5e5;
+    }*/
+    .crud-row {
+        background-color: white;
+    }
+
+    .custom-btn {
+        display: inline-block;
+        padding: 7px 13px;
+        margin: 5px;
+        font-size: 42px;
+        color: black;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .custom-btn:hover {
+            color: white;
+            background-color: dodgerblue;
+        }
+
+    .textbox {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        font-size: 16px;
+    }
+
+</style>
+
+<h1 class="titlehder">DOWNTOWN ALLEY<br />EMPLOYEE RECORD SYSTEM</h1>
+
+
+<!-- MODAL FOR LOGOUT COG-ICON -->
+
+<div class="cogcenter">
+    <button id="openModal">
+        <img src="~/Image/Group4/ICONS/LogoutCog.png" class="cogicon" />
+    </button>
+
+    <div id="myModal" class="modal">
+
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <h1>DO YOU WANT TO LOGOUT?</h1>
+
+            <!--"-->
+            <a class="lgout-btn" href="@Url.Action("Logout", "Accounts")">LOGOUT</a>
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- vvv NAVBAR SECTION vvv -->
+<nav>
+
+    <img src="~/Image/Group4/LogoDTA.png" class="logo-img" />
+
+    <!-- Employee List -->
+    <a href="@Url.Action("Hr_Employee_L","EmployeeManagement")">
+        <img src="~/Image/Group4/ICONS/EmployeeList.png" class="navitem" />
+    </a>
+    <hr>
+
+    <!-- Attendance List -->
+    <a href="@Url.Action("Hr_Attendance_L","EmployeeManagement")">
+        <img src="~/Image/Group4/ICONS/EmployeeAttendance.png" class="navitem" />
+    </a>
+    <hr>
+
+    <!-- Leave Request -->
+    <a href="@Url.Action("Hr_RequestLeave","EmployeeManagement")">
+        <img src="~/Image/Group4/ICONS/LeaveRequest.png" class="navitem" />
+    </a>
+
+    <!-- Payroll - DIRECTLY TO ANOTHER SYSTEM -->
+    <!--<a href="Url.Action("Payroll","Payroll")">-->
+    <img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
+    </a>
+    <hr>
+
+</nav>
+
+<div class="container">
+    <div class="Text-header">
+
+        @using (Html.BeginForm())
+        {
+            
+                @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h1>Employee Information</h1>
+            <br>
+            <br>
+            <hr />
+            
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Employee_ID)
+
+                <div class="form-group">
+                
+                    
+                        <h2>First Name:</h2>
+                    
+                    <div class="col-md-10">
+                        
+                        @Html.EditorFor(model => model.First_Name, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.First_Name, "", new { @class = "text-danger" })
+                        
+                    </div>
+                
+                </div>
+
+                <div class="form-group">
+                    <h2>Middle Name:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Middle_Name, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Middle_Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Last Name:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Last_Name, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Last_Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Sex:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Address:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Phone Number:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Email:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Birth Date:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Birth_Date, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Birth_Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Date Hired:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Date_Hired, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Date_Hired, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+               
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="custom-btn btn-default" />
+                    </div>
+                </div>
+        </div>
+                }
+
+                <div class="custom-btn">
+                    @Html.ActionLink("Back to List", "Hr_Employee_L")
+                </div>
