@@ -33,8 +33,34 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
         public ActionResult Dashboard()
         {
-            ViewBag.TotalProducts = dbcon.Product_Info.Count();
-            return View();  
+            using (dbcon)
+            {
+                var monthlySalesData = dbcon.Sales_Transaction
+                    .Where(s => s.Date != null) // Exclude null dates
+                    .GroupBy(s => new { Year = s.Date.Value.Year, Month = s.Date.Value.Month })
+                    .Select(g => new
+                    {
+                        Year = g.Key.Year,
+                        Month = g.Key.Month,
+                        TotalSales = g.Sum(s => s.Total_Amount) ?? 0 // Use 0 as the default value if Total_Amount is null
+                    })
+                    .AsEnumerable() // Switch to LINQ to Objects
+                    .Select(g => new MonthlySalesViewModel
+                    {
+                        Month = $"{g.Year}-{g.Month}",
+                        TotalSales = g.TotalSales
+                    })
+                    .OrderBy(g => g.Month)
+                    .ToList();
+
+                var salesGraphData = new SalesGraphViewModel
+                {
+                    MonthlySales = monthlySalesData
+                };
+
+                return View(salesGraphData);
+            }
+           
         }
 
 

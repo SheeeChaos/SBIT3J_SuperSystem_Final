@@ -293,6 +293,7 @@
     <Compile Include="Models\Loss_Fraud.cs">
       <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MonthlySalesViewModel.cs" />
     <Compile Include="Models\OverallActivitiesModel.cs" />
     <Compile Include="Models\Pag_Ibig.cs">
       <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
