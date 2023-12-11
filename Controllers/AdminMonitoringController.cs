@@ -33,6 +33,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
         public ActionResult Dashboard()
         {
+
             using (dbcon)
             {
                 var monthlySalesData = dbcon.Sales_Transaction
