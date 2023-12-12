@@ -290,6 +290,8 @@
     <Content Include="Views\EmployeeManagement\Edit.cshtml" />
     <Content Include="Views\EmployeeManagement\CreateLeave.cshtml" />
     <Content Include="Views\EmployeeManagement\Hr_Leave_C.cshtml" />
+    <Content Include="Views\EmployeeManagement\HR_Leave.cshtml" />
+    <Content Include="Views\EmployeeManagement\Time_In.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

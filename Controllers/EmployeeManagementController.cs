@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
     public class EmployeeManagementController : Controller
 
     {
-        DatabaseConnectionEntities dt = new DatabaseConnectionEntities();
+        private DatabaseConnectionEntities dt = new DatabaseConnectionEntities();
         // GET: EmployeeManagement
         public ActionResult Index()
         {
@@ -25,7 +26,8 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         public ActionResult Time_In()
         {
             DatabaseConnectionEntities db = new DatabaseConnectionEntities();
-            List<EmployeeInformation> emplist = new List<EmployeeInformation>();
+            List<Employee_Attendance> emplist = new List<Employee_Attendance>();
+
             return View();
         }
         public ActionResult Time_Out()
@@ -51,34 +53,26 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
             return View(dbe.Leave_Request.ToList());
         }
-        public ActionResult Hr_Leave_C(Leave_Request dbe)
+
+        public ActionResult HR_Leave(Leave_Request model)
         {
-            try
+            
+            if (ModelState.IsValid)
             {
 
-                using (DatabaseConnectionEntities dbModel = new
-                DatabaseConnectionEntities())
+                dt.Leave_Request.Add(model);
+                dt.SaveChanges();
 
-                {
 
-                    dbModel.Leave_Request.Add(dbe);
-
-                    dbModel.SaveChanges();
-
-                }
-
-                return RedirectToAction("Hr_LeaveRequest");
-
+                return RedirectToAction("Hr_RequestLeave");
             }
 
-            catch
 
-
-            {
-
-                return View(dbe);
-            }
+            return View(model);
         }
+
+
+
         public ActionResult Create(EmployeeInformation dbe)
         {
             try
