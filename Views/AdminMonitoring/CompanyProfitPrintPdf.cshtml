@@ -1,0 +1,77 @@
+﻿@model IEnumerable<SBIT3J_SuperSystem_Final.Models.AllSalesDetail>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Company Profit Print Details</title>
+    <style>
+
+        /* Add your styles for PDF here */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+
+<body>
+    <h1>Company Profit</h1>
+
+    <p>Total Sales:  <span>@ViewBag.totalSales</span></p>
+    <p>Total Capital:  <span>@ViewBag.TotalCapital</span></p>
+    <p>Net Profit:  <span>@ViewBag.TotalNet</span></p>
+    <p>Date Printed:  <span> @DateTime.Now</span></p>
+
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Transaction Detail ID</th>
+                <th>Product Code</th>
+                <th>Product Name</th>
+                <th>Total Quantity</th>
+                <th>Capital Price</th>
+                <th>Price</th>
+                <th>Discount Amount</th>
+                <th>Total Capital</th>
+                <th>Total Amount</th>
+                <th>Date</th>
+            </tr>
+
+            @foreach (var transaction in Model)
+            {
+                <tr>
+                    <td>@transaction.Transaction_ID</td>
+                    <td>@transaction.Transaction_Detail_ID</td>
+                    <td>@transaction.Product_Code</td>
+                    <td>@transaction.Product_Name</td>
+                    <td>@transaction.Total_Quantity</td>
+                    <td>@transaction.Capital_Price</td>
+                    <td>@transaction.Price</td>
+                    <td>@(transaction.Discount_Amount?? 0)</td>
+                    <td>@transaction.Total_Capital</td>
+                    <td>@transaction.Total_Amount</td>
+                    <td>@transaction.Date</td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

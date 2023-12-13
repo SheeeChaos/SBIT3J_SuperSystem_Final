@@ -13,10 +13,6 @@
         <h3>Total Sales</h3>
         <h1>@ViewBag.totalSales</h1>
     </div>
-    @*<div class="Sales-total-container">
-        <h3>Total Sales Per Day</h3>
-        <h1>4,000,000.00</h1>
-    </div>*@
     <div class="Sales-total-container">
         <h3>Daily average Sales</h3>
         <h1>@ViewBag.AverageDailySales</h1>
@@ -65,6 +61,7 @@
             <th>Transaction ID</th>
             <th>Total Amount</th>
             <th>Date</th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model)
@@ -73,6 +70,7 @@
                 <td>@item.Transaction_ID</td>
                 <td>@item.Total_Amount</td>
                 <td>@item.Date</td>
+                <td>@Html.ActionLink("View Details", "Sales_Transaction_Details", new { id = item.Transaction_ID }, new { @class = "btn btn-info" })</td>
             </tr>
         }
     </table>

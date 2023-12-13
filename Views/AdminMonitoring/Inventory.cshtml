@@ -20,7 +20,7 @@
         <button type="submit" name="filterType" value="search" style="display:none;">Apply Search Filter</button>
 
         <!-- Add this link for PDF generation -->
-        <a href="@Url.Action("GenerateInventoryList", new { searchFilter = Request.QueryString["searchFilter"] })" class="btn btn-primary">
+        <a href="@Url.Action("GenerateInventoryList", new { searchFilter = Request.QueryString["searchFilter"] })" class="btn btn-primary" target="_blank">
             <div class="print-pdf-btn">
                 <p>Print</p>
             </div>

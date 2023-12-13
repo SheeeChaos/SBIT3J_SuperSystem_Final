@@ -1,25 +1,21 @@
-﻿using SBIT3J_SuperSystem_Final.Models;
+﻿using Rotativa;
+using SBIT3J_SuperSystem_Final.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
-using System.Web;
+using System.Net;
+using System.Runtime.Remoting.Messaging;
+using System.Security.Principal;
 using System.Web.Mvc;
-using System.IO;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Kernel.Geom;
-using Rotativa;
-using Rotativa.Options;
-using System.Drawing;
-using System.Net.NetworkInformation;
-using System.Runtime.Remoting.Contexts;
+using System.Web.Security;
 
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
 
-    //[Authorize]
+    [Authorize]
     public class AdminMonitoringController : Controller
     {
         // GET: AdminMonitoring
@@ -125,10 +121,10 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
             var pdfResult = new ViewAsPdf("SalesTransactionListPrintPdf", query)
             {
-                FileName = "Sales Revenue .pdf",
-                PageSize = Rotativa.Options.Size.A4,
-                PageOrientation = Rotativa.Options.Orientation.Landscape,
-                CustomSwitches = "--no-images", // Optional: Use this switch if you want to exclude images
+                //FileName = "Sales Revenue .pdf",
+               PageSize = Rotativa.Options.Size.A4,
+               PageOrientation = Rotativa.Options.Orientation.Landscape,
+               CustomSwitches = "--no-images", // Optional: Use this switch if you want to exclude images
             };
 
             return pdfResult;
@@ -165,14 +161,48 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         }
 
 
-        //decimal? totalAmountSum = query.Sum(x => x.Total_Amount);
-        //ViewBag.totalSales = totalAmountSum;
+        // GET: Product_Info/Details/5
+        public ActionResult Sales_Transaction_Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-        //    int totalCount = query.Count();
-        //ViewBag.TotalCount = totalCount;
+            List<TransactionDetailsModel> model;
 
-        //    decimal? averageDailySales = totalCount > 0 ? totalAmountSum / totalCount : 0;
-        //ViewBag.AverageDailySales = averageDailySales;
+            using (var dbcon = new DatabaseConnectionEntities())
+            {
+                var query = dbcon.Database.SqlQuery<TransactionDetailsModel>(
+                    $@" SELECT
+                            st.Transaction_ID AS TransactionID,
+                            std.Transaction_Detail_ID AS TransactionDetailID,
+                            pi.Product_Code AS ProductCode,
+                            pi.Product_Name AS ProductName,
+                            std.Total_Quantity AS TotalQuantity,
+                            pi.Price,
+                            ISNULL(d.Discount_Amount, 0) AS DiscountAmount,
+                            ROUND((std.Total_Quantity * pi.Price - ISNULL(d.Discount_Amount, 0)), 2) AS TotalAmount,
+                            ROUND((0.12 * (std.Total_Quantity * pi.Price)), 2) AS ValueAddedTax
+                        FROM
+                            Sales_Transaction st
+                        INNER JOIN
+                            Sales_Transaction_Details std ON st.Transaction_ID = std.Transaction_ID
+                        INNER JOIN
+                            Product_Info pi ON std.Product_ID = pi.Product_ID
+                        LEFT JOIN
+                            Discount d ON std.Discount_ID = d.Discount_ID
+                        WHERE
+                            st.Transaction_ID = {id}
+                        ORDER BY
+                            st.Transaction_ID, std.Transaction_Detail_ID"
+              );
+
+                model = query.ToList();
+            }
+            return View(model);
+        }
+
 
         ////////////////           THIS PART IS FOR PRODUCT REVENUE                   //////////////////////////
         public ActionResult ProductRevenue(string searchFilter, string filterType)
@@ -223,7 +253,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
             var pdfResult = new ViewAsPdf("ProductRevenuePrintPdf", query)
             {
-                FileName = "Product Revenue List.pdf",
+                //FileName = "Product Revenue List.pdf",
                 PageSize = Rotativa.Options.Size.A4,
                 PageOrientation = Rotativa.Options.Orientation.Landscape,
                 CustomSwitches = "--no-images", // Optional: Use this switch if you want to exclude images
@@ -275,16 +305,112 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             return query.ToList();
         }
 
-        public ActionResult Profit()
+        ////////////////           THIS PART IS FOR PROFIT           //////////////////////////
+        public ActionResult Profit(string filterType, string searchFilter, DateTime? startDate, DateTime? endDate)
+        {
+            IQueryable<AllSalesDetail> query = dbcon.AllSalesDetails;
+
+            // Apply search filter
+            if (!string.IsNullOrEmpty(searchFilter))
+            {
+                query = query.Where(x =>
+                    x.Product_Name.Contains(searchFilter) ||
+                    x.Product_Code.Contains(searchFilter) ||
+                    (x.Total_Quantity.HasValue && x.Total_Quantity.ToString().Contains(searchFilter)) ||
+                    (x.Price.HasValue && x.Price.ToString().Contains(searchFilter)) ||
+                    (x.Discount_Amount.HasValue && x.Discount_Amount.ToString().Contains(searchFilter))
+                );
+            }
+
+            // Convert query string date values to DateTime format
+            DateTime? parsedStartDate = !string.IsNullOrEmpty(Request.QueryString["startDate"])
+                ? DateTime.ParseExact(Request.QueryString["startDate"], "yyyy-MM-dd", CultureInfo.InvariantCulture)
+                : (DateTime?)null;
+
+            DateTime? parsedEndDate = !string.IsNullOrEmpty(Request.QueryString["endDate"])
+                ? DateTime.ParseExact(Request.QueryString["endDate"], "yyyy-MM-dd", CultureInfo.InvariantCulture)
+                : (DateTime?)null;
+
+            // Apply date filter
+            if (startDate.HasValue && endDate.HasValue)
+            {
+                query = query.Where(x => x.Date >= startDate && x.Date <= endDate);
+            }
+
+            decimal? totalSales = query.Select(x => x.Total_Amount).Distinct().Sum();
+            decimal? totalCapital = query.Sum(x => x.Total_Capital);
+            decimal? totalNetProfit = totalSales - totalCapital;
+
+            ViewBag.TotalSales = (decimal)(totalSales ?? 0);
+            ViewBag.TotalCapital = totalCapital ?? 0;
+            ViewBag.TotalNet = totalNetProfit ?? 0;
+
+            var result = query.ToList();
+            return View(result);
+        }
+        public ActionResult GenerateProfitList(string filterType, string searchFilter, DateTime? startDate, DateTime? endDate)
+        {
+            var query = GetProfitFiltered( filterType, searchFilter, startDate, endDate);
+
+            var pdfResult = new ViewAsPdf("CompanyProfitPrintPdf", query)
+            {
+                //FileName = "Product Revenue List.pdf",
+                PageSize = Rotativa.Options.Size.A4,
+                PageOrientation = Rotativa.Options.Orientation.Landscape,
+                CustomSwitches = "--no-images", // Optional: Use this switch if you want to exclude images
+            };
+
+            return pdfResult;
+        }
+
+
+        private List<AllSalesDetail> GetProfitFiltered(string filterType, string searchFilter, DateTime? startDate, DateTime? endDate)
+        {
+            IQueryable<AllSalesDetail> query = dbcon.AllSalesDetails;
+
+            // Apply search filter
+            if (!string.IsNullOrEmpty(searchFilter))
+            {
+                query = query.Where(x =>
+                    x.Product_Name.Contains(searchFilter) ||
+                    x.Product_Code.Contains(searchFilter) ||
+                    (x.Total_Quantity.HasValue && x.Total_Quantity.ToString().Contains(searchFilter)) ||
+                    (x.Price.HasValue && x.Price.ToString().Contains(searchFilter)) ||
+                    (x.Discount_Amount.HasValue && x.Discount_Amount.ToString().Contains(searchFilter))
+                );
+            }
+
+            // Convert query string date values to DateTime format
+            DateTime? parsedStartDate = !string.IsNullOrEmpty(Request.QueryString["startDate"])
+                ? DateTime.ParseExact(Request.QueryString["startDate"], "yyyy-MM-dd", CultureInfo.InvariantCulture)
+                : (DateTime?)null;
+
+            DateTime? parsedEndDate = !string.IsNullOrEmpty(Request.QueryString["endDate"])
+                ? DateTime.ParseExact(Request.QueryString["endDate"], "yyyy-MM-dd", CultureInfo.InvariantCulture)
+                : (DateTime?)null;
+
+            // Apply date filter
+            if (startDate.HasValue && endDate.HasValue)
+            {
+                query = query.Where(x => x.Date >= startDate && x.Date <= endDate);
+            }
+
+            decimal? totalSales = query.Select(x => x.Total_Amount).Distinct().Sum();
+            decimal? totalCapital = query.Sum(x => x.Total_Capital);
+            decimal? totalNetProfit = totalSales - totalCapital;
+
+            ViewBag.TotalSales = (decimal)(totalSales ?? 0);
+            ViewBag.TotalCapital = totalCapital ?? 0;
+            ViewBag.TotalNet = totalNetProfit ?? 0;
+
+            return query.ToList();
+        }
+
+
+        public ActionResult ChangePassword()
         {
             return View();
         }
-
-        public ActionResult Losses()
-        {
-            return View();
-        }
-
         public ActionResult CashierLogs()
         {
 
@@ -334,7 +460,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
             var pdfResult = new ViewAsPdf("PrintPdf", query)
             {
-                FileName = "OverallActivities.pdf",
+                //FileName = "OverallActivities.pdf",
                 PageSize = Rotativa.Options.Size.A4,
                 PageOrientation = Rotativa.Options.Orientation.Landscape,
                 CustomSwitches = "--no-images", // Optional: Use this switch if you want to exclude images
@@ -418,7 +544,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
             var pdfResult = new ViewAsPdf("InventoryListPrintPdf", query)
             {
-                FileName = "InventoryList.pdf",
+    
                 PageSize = Rotativa.Options.Size.A4,
                 PageOrientation = Rotativa.Options.Orientation.Landscape,
                 CustomSwitches = "--no-images", // Optional: Use this switch if you want to exclude images
