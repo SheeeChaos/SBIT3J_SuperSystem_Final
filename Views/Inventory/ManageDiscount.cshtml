@@ -1,0 +1,59 @@
+﻿@model IEnumerable<SBIT3J_SuperSystem_Final.Models.Discount>
+
+@{
+    ViewBag.Title = "ManageDiscount";
+    Layout = "~/Views/Shared/_InventoryLayout.cshtml";
+}
+<div class="container-fluid rounded-1 p-3 h-100">
+
+    <h2>ManageDiscount</h2>
+    <div class="col bg-light mx-2 border-3 rounded-1 shadow p-3">
+
+        <div class="d-flex justify-content-between">
+            <p>
+                @Html.ActionLink("Create New", "ManageDiscountCreate", null, new { @class = "btn btn-success" })
+            </p>
+            <p>
+                @Html.ActionLink("Disabled", "DisabledDiscount", null, new { @class = "btn btn-success" })
+            </p>
+        </div>
+
+        <div class="table-container" style="max-height: 70dvh; overflow-y: auto;">
+
+            <table class="table table-hover">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Discount_Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Discount_Amount)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Discount_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Discount_Amount)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "ManageDiscountEdit", new { id = item.Discount_ID }, new { @class = "btn btn-warning" }) |
+                            @Html.ActionLink("Disable", "ManageDiscountdisable", new { id = item.Discount_ID }, new { @class = "btn btn-danger", @onclick = "return confirm('Are you sure you want to Disable this discount?');" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+        </div>

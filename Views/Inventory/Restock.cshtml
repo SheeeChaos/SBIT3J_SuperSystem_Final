@@ -1,0 +1,265 @@
+﻿@model Tuple<IEnumerable<SelectListItem>, List<SBIT3J_SuperSystem_Final.Models.Restock>>
+
+
+@{
+    ViewBag.Title = "Restock";
+    Layout = "~/Views/Shared/_InventoryLayout.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#ProductId').val(0).change(function () {
+            var productId = $('#ProductId').val();
+            GetUnitPrice(productId);
+        });
+        $("#restockButton").click(function () {
+            AddRestock();
+        });
+        $("#clear").click(function () {
+            reset();
+        });
+        var button = $("#clickMeButton");
+        
+
+
+        // Add a click event listener to the button
+        button.on("click", function () {
+            var tblItemList = $("#tblRestock");
+            var productId = $("#ProductId").val();
+            var productName = $("#ProductId option:selected").text();
+            var quantity = $("#txtQuantity").val();
+            var unitprice = $("#unitprice").val();
+            var TotalAmount = quantity * unitprice; // Assuming TotalAmount should be the same as quantity
+
+            if (productId === "" || quantity === "" ) {
+                alert("Please select a product and enter a valid quantity.");
+                return;
+            }
+            if (quantity <= 0 ) {
+                alert("Quantity must be greater than 0");
+                return;
+            }
+            if (quantity >= 10000) {
+                alert("Quantity must be less than 10,000");
+                return;
+            }
+
+            // Check if the product already exists in the table
+            var existingRow = tblItemList.find("tr:has(td:first-child:contains('" + productId + "'))");
+
+            if (existingRow.length > 0) {
+                // Product already exists, update quantity and total amount
+                var existingQuantity = parseFloat(existingRow.find("td:eq(3)").text());
+                var newQuantity = parseFloat(quantity) + existingQuantity;
+                var newTotalAmount = newQuantity * unitprice;
+
+                existingRow.find("td:eq(3)").text(newQuantity);
+                existingRow.find("td:eq(4)").text(newTotalAmount.toFixed(2));
+            } else {
+                // Product does not exist, add a new row
+                var itemlist = `<tr>
+            <td hidden>${productId}</td>
+            <td>${productName}</td>
+            <td>${unitprice}</td>
+            <td>${quantity}</td>
+            <td>${TotalAmount.toFixed(2)}</td>
+            <td>
+                <input type='button' value='Remove' name='remove' class='btn btn-danger' onclick='RemoveItem(this)' />
+            </td>
+            </tr>`;
+
+                tblItemList.append(itemlist);
+            }
+
+            $("#ProductId, #txtQuantity").val("");
+            $("#unitprice").val(0.00);
+        });
+
+    });
+
+    function reset() {
+        $("#tblRestock tbody").empty();
+        $("#ProductId, #txtQuantity").val("");
+        $("#unitprice").val(0.00);
+    }
+    function RemoveItem(itemID) {
+        $(itemID).closest('tr').remove();
+    }
+
+    function GetUnitPrice(ProductID) {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            data: { ProductID: ProductID },
+            url: '/Inventory/getItemUnitPrice',
+            success: function (data) {
+                $("#unitprice").val(parseFloat(data).toFixed(2));
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error: " + status, error);
+                alert("There is some problem getting the Unit Price. Check the console for details.");
+            }
+        });
+    }
+
+    function AddRestock() {
+        var objRestock = {};
+        var ListofRestockViewModel = new Array();
+        var totalamount = 0.00;
+        $("#tblRestock").find("tr:gt(0)").each(function () {
+            totalamount += parseFloat($(this).find("td:eq(4)").text());
+        });
+
+        objRestock.Total_Amount = totalamount
+
+        $("#tblRestock").find("tr:gt(0)").each(function () {
+            var restockDetail = {};
+            restockDetail.Product_ID = $(this).find("td:eq(0)").text();
+            restockDetail.Quantity_Added = $(this).find("td:eq(3)").text();
+            restockDetail.Total_Amount = $(this).find("td:eq(4)").text();
+
+            ListofRestockViewModel.push(restockDetail);
+        });
+        objRestock.ListofRestockDetailViewModel = ListofRestockViewModel
+        $.ajax({
+            async: true,
+            type: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(objRestock),
+            url: '/Inventory/AddRestock',
+            success: function (data) {
+                alert(data);
+                if (data === 'Restock saved!') {
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 500);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error:", status, error);
+
+                var errorMessage = "There is an error adding the data.";
+                if (xhr.responseJSON && xhr.responseJSON.Message) {
+                    errorMessage += " " + xhr.responseJSON.Message;
+                }
+
+                alert(errorMessage);
+            }
+        });
+
+    }
+
+</script>
+
+<div class="container-fluid rounded-1 p-3 h-100">
+
+    <h2>Restock</h2>
+
+    <div class="col bg-light mx-2 border-3 rounded-1 shadow p-3">
+
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+            Create
+        </button>
+        <div class="table-container" style="max-height: 70dvh; overflow-y: auto;">
+
+            <table class="table">
+
+                <tr>
+                    <th>RestockID</th>
+                    <th>Date</th>
+                    <th>Total Amount</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Item2)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Restock_ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total_Amount)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Details", "RestockDetails", new { id = item.Restock_ID }, new { @class = "btn btn-info" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Restock</h4>
+                        </div>
+
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="d-flex  gap-4">
+                                    <div class="form-group">
+                                        Product Code:
+                                        @Html.DropDownList("ProductId", new SelectList(Model.Item1, "Value", "Text"), new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        Quantity:
+                                        <input type="number" name="Quantity" value="" id="txtQuantity" class="form-control" />
+                                    </div>
+                                    <div class="mt-4">
+                                        <button id="clickMeButton" class="btn btn-success">Add</button>
+                                    </div>
+                                </div>
+
+                                Price:
+                                <input type="text" name="productprice" value="0.00" id="unitprice" class="form-control" />
+
+                                    <div class="table-container bg-light" style="max-height: 30dvh; overflow-y: auto; max-width: 70dvh; overflow-x: auto; ">
+
+                                        <table id="tblRestock" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th hidden>Product ID</th>
+                                                    <th>Product Code</th>
+                                                    <th>Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>TotalAmount</th>
+                                                    <th></th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Table rows will be added dynamically here -->
+                                            </tbody>
+                                        </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button id="restockButton" class="btn btn-success">Restock</button>
+                            <button id="clear" class="btn btn-danger">Clear</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

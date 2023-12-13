@@ -11,7 +11,8 @@ namespace SBIT3J_SuperSystem_Final.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class EmployeeAccount
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,13 +22,17 @@ namespace SBIT3J_SuperSystem_Final.Models
             this.Employee_Attendance = new HashSet<Employee_Attendance>();
             this.Sales_Transaction = new HashSet<Sales_Transaction>();
         }
-    
+
         public int Account_ID { get; set; }
+
         public Nullable<int> Employee_ID { get; set; }
+
         public string Username { get; set; }
+
         public string Password { get; set; }
+
         public string Role { get; set; }
-    
+
         public virtual EmployeeInformation EmployeeInformation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AuditTrail> AuditTrails { get; set; }

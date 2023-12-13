@@ -193,7 +193,7 @@
                 }
 
                 .ContainerHeader {
-                    background-color: white;
+                    
                     width: 100%;
                     height: 38px;
                     top: 30px;
@@ -231,7 +231,7 @@
                 table.crud-table {
                     width: 100%;
                     border-collapse: collapse;
-                    margin-bottom: 20px;
+                    margin-bottom: -2px;
                 }
 
                 th.crud-header-cell, td.crud-data-cell {
@@ -261,9 +261,25 @@
             display: inline-block;
             padding: 4px 9px;
             margin: 5px;
-            font-size: 18px;
+            
+            font-size: 14px;
             color: white;
             background-color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .custom-btn2 {
+            position:absolute;
+            display: inline-block;
+            padding: 4px 9px;
+            margin: 5px;
+            right:40px;
+            font-size: 14px;
+            color: white;
+            background-color: maroon;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -275,6 +291,10 @@
                 background-color: dodgerblue;
                 color: white;
             }
+        .custom-btn2:hover {
+            background-color: red;
+            color: white;
+        }
 
 
     </style>
@@ -341,12 +361,13 @@
         </a>
 
         <!-- Payroll - DIRECTLY TO ANOTHER SYSTEM -->
-        <!--<a href="Url.Action("Payroll","Payroll")">-->
+        <a href="@Url.Action("HR_CreateAccount","EmployeeManagement")">
         <img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
         </a>
         <hr>
 
     </nav>
+    
     <!-- ^^^ NAVBAR SECTION ^^^ -->
     <!-- CONTAINER -->
 
@@ -355,7 +376,14 @@
         <div class="ContainerHeader"><h1 style="font-family: 'Times New Roman'; font-size:38px;">EMPLOYEE LIST</h1></div>
 
         <table class="crud-table" style="width:100%;">
+            <tr>
+                <a href="@Url.Action("Create", "EmployeeManagement")" class="custom-btn2"><h1 style="color: white;">ADD EMPLOYEE</h1></a>
+                
+                <br>
+                <br>
+                <br>
 
+            </tr>
             <tr>
                 <th class="crud-header-cell" style="width:5%;">
                     ID
@@ -379,8 +407,8 @@
                     Details
                 </th>
                 <th class="crud-header-cell" style="width:20%;">
+                    Actions
 
-                    <a href="@Url.Action("Create", "EmployeeManagement")" class="custom-btn"><h1 style="color: royalblue;">Create</h1></a>
                 </th>
             </tr>
         </table>
