@@ -1,0 +1,359 @@
+﻿@model SBIT3J_SuperSystem_Final.Models.EmployeeAccount
+@{
+    ViewBag.Title = "TimeInn";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time In</title>
+    <!--<link href="~/Content/Content/LoginSheet.css" rel="stylesheet" /> -->
+    <style>
+        body {
+            background-color: rgba(78,15,34,255);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 20%;
+            border-radius: 55%;
+            border: 1px solid #ddd;
+        }
+
+        .img_img2 {
+            position: absolute;
+            margin-left: 30px;
+            margin-top: 30px;
+            width: 70%;
+            border-radius: 55%;
+            border: 1px solid #ddd;
+        }
+
+        .container {
+            background-color: gainsboro;
+            width: 720px;
+            height: 520px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-card {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 50px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 230px;
+            font-size: 24px;
+        }
+
+        .box1t {
+            background-color: ghostwhite;
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0;
+            margin-left: 0;
+            overflow: hidden;
+        }
+
+        .box2t {
+            background-color: ghostwhite;
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+            margin-left: 270px;
+            margin-top: -250px;
+        }
+
+        .for-btn {
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .login-btn {
+            margin-top: 10%;
+        }
+
+        .modal.open, .overlay.open {
+            display: block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            padding: 0.5rem;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            background-color: rgba(92,12,15,0.9);
+            border: 1px solid #ccc;
+            border-radius: 10%;
+            z-index: 10;
+        }
+
+        .repeaticon {
+            position: absolute;
+            margin: 0;
+            margin-top: -340px;
+            margin-left: 750px;
+            width: 100px;
+            height: 100px;
+            border-radius: 55%;
+        }
+
+        #login-div {
+            position: absolute;
+            margin-left: 62px;
+        }
+
+        .custom-input {
+            width: 250px;
+            padding: 10px;
+            font-size: 18px;
+            box-sizing: border-box;
+            border: 2px solid black;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            margin-left: -180px;
+        }
+
+        .custom-text {
+        }
+
+        .validation-message {
+            position: relative;
+            color: firebrick;
+            padding: 2px;
+            margin: 0;
+            margin-left: -100px;
+            margin-top: -50px;
+        }
+
+        .validation-message-transition {
+            transition: margin-left 1s ease-in-out;
+        }
+
+        .go-back {
+            position: absolute;
+            background-color: aquamarine;
+            width: 100px;
+            height: 50px;
+            border-radius: 30%;
+            font-family: 'Agency FB';
+            font-size: 24px;
+            margin-top: -170px;
+        }
+
+        #webcamFeed {
+            margin-top: -85px;
+            margin-left: -95px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="container">
+
+        <img src="/img/383286228_2539034899589350_4642980508465631777_n.png" style="background-size: 50px;">
+        <div class="row justify-content-center align-items-center vh-100">
+            <button class="go-back">Back</button>
+            <div class="col-md-4">
+                <div class="login-card">
+                    <h2 class="text-center" style="color: black; font-family: 'Times New Roman';">EMPLOYEE<br>TIME IN</h2>
+                    <!--777using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                    777Html.ValidationSummary(true, "", new { class = "text-danger" })-->
+                    <div class="form-group" style="color: ghostwhite">
+
+                        <div id="login-div">
+                            @using (Html.BeginForm())
+
+                            {
+                                <table>
+
+                                    <tr>
+                                        <td><div style="margin-left:-130px; color:black; font-family: 'Times New Roman';">@Html.LabelFor(model => model.Username):</div></td>
+                                        <td>@Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "custom-input" } })</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="validation-message">@Html.ValidationMessageFor(model => model.Username)</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><div style="margin-left: -130px; color: black; font-family: 'Times New Roman'">@Html.LabelFor(model => model.Password):</div></td>
+                                        <td>@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "custom-input" } })</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="validation-message">@Html.ValidationMessageFor(model => model.Password)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <input data-open-modal class="btn btn-primary btn-block" type="submit" />
+                                            <div data-ovelay class="overlay"></div>
+                                            <div data-modal class="modal">
+                                                <h2 class="text-center" style="color: ghostwhite;">TIME IN</h2>
+
+                                                <div class="form-group" style="color: ghostwhite">
+                                                    <div class="box1t">
+
+                                                        <video id="webcamFeed" width="440" height="420" autoplay></video>
+
+                                                    </div>
+                                                    <div class="box2t">
+                                                        <label style="color: black; position: absolute; margin-left:-60px; margin-top: 75px;">@DateTime.Now.ToShortTimeString()<br><br>@DateTime.Now.ToShortDateString()</label>
+                                                    </div>
+                                                    <br>
+                                                    <button data-close-modal class="btn btn-primary" style="margin-left:-10px;">Close</button>
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                </div>
+                <div class="login-btn">
+                    <!--<a href="Url.Action("TimeIn", "Login")" class="btn btn-primary btn-block">Time In</a>-->
+
+
+                </div>
+            </div>
+        </div>
+        </>
+
+
+
+        <script src="~/Scripts/jquery-1.8.0.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+        <script>
+        const openButton = document.querySelector("[data-open-modal]")
+        const closeButton = document.querySelector("[data-close-modal]")
+        const modal = document.querySelector("[data-modal]")
+        const overlay = document.querySelector("[data-overlay]")
+
+        openButton.addEventListener("click", () => {
+            modal.classList.add("open")
+            overlay.classList.add("open")
+        })
+
+        closeButton.addEventListener("click", () => {
+            modal.classList.remove("open")
+            overlay.classList.remove("open")
+        })
+
+        </script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+        $(document).ready(function () {
+            // Function to start the webcam feed
+            function startWebcam() {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function (stream) {
+                        var videoElement = document.getElementById('webcamFeed');
+                        videoElement.srcObject = stream;
+                    })
+                    .catch(function (err) {
+                        console.error('Error accessing webcam: ', err);
+                    });
+            }
+
+            // Start the webcam feed when the page loads
+            startWebcam();
+
+            // Handle form submission
+            $("form").submit(function (event) {
+                // Check if any required fields are empty
+                var isValid = true;
+                $(this).find(".custom-input[required]").each(function () {
+                    if (!$(this).val()) {
+                        isValid = false;
+                        $(this).next(".validation-message").html("This field is required.");
+                    } else {
+                        $(this).next(".validation-message").html("");
+                    }
+                });
+
+                // If any required field is empty, prevent form submission
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+
+            // Handle modal opening
+            $("[data-open-modal]").click(function () {
+                // Only open the modal if the form is valid
+                if ($("form")[0].checkValidity()) {
+                    $("[data-modal]").addClass("open");
+                    $("[data-overlay]").addClass("open");
+                }
+            });
+
+            // Handle modal closing
+            $("[data-close-modal]").click(function () {
+                $("[data-modal]").removeClass("open");
+                $("[data-overlay]").removeClass("open");
+            });
+        });
+        </script>
+
+
+</body>
+</html>

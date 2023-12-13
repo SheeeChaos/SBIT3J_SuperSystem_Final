@@ -27,7 +27,7 @@
         position: absolute;
         left: 15%;
         top: 5%;
-        font-size: 52px;
+        font-size: 38px;
         color: white;
     }
 
@@ -35,19 +35,20 @@
     .logo-img {
         position: relative;
         display: block;
-        width: 60%;
+        width: 70%;
         border-radius: 55%;
         border: 0.5px solid #808080;
-        top: 10px;
-        margin-left: 60px;
+        top: 5px;
+        margin-left: 40px;
         margin-right: auto;
         z-index: 2;
     }
 
     nav {
-        margin-left: -50px;
-        width: 430px;
-        height: auto;
+        margin-left: 5px;
+        margin-top: 20px;
+        width: 240px;
+        height: 740px;
         overflow-x: hidden;
         overflow-y: scroll;
     }
@@ -61,11 +62,11 @@
         display: block;
         background-color: ghostwhite;
         padding: 5px;
-        margin-top: 10%;
+        margin-top: 13%;
         margin-right: auto;
         margin-left: auto;
-        width: 130px;
-        height: 130px;
+        width: 100px;
+        height: 100px;
         border-radius: 55%;
         border: 1px solid rgba(0,0,0,1);
     }
@@ -77,7 +78,7 @@
         border-radius: 55%;
         right: 50px;
         top: 50px;
-        width: 180px;
+        width: 120px;
         height: auto;
     }
 
@@ -97,10 +98,9 @@
     .modal-content {
         background-color: #fefefe;
         margin: 15% auto;
-        padding: 30px;
+        padding: 20px;
         border: 1px solid #888;
         width: 40%;
-        
     }
 
     .close {
@@ -162,14 +162,14 @@
     .container {
         position: absolute;
         background-color: lightgrey;
-        top: 240px;
+        top: 190px;
         margin: 0 auto;
-        margin-left: 13%;
+        margin-left: 14%;
         padding: 20px;
         border: 1px solid #ccc;
         border-radius: 40px 40px 40px 40px;
-        height: 73%;
-        width: 87%;
+        height: 75%;
+        width: 86%;
         overflow-x: hidden;
         overflow-y: scroll;
     }
@@ -190,7 +190,6 @@
     }
 
     .ContainerHeader {
-        background-color: white;
         width: 100%;
         height: 52px;
         top: 30px;
@@ -256,10 +255,11 @@
 
     .custom-btn {
         display: inline-block;
+        background-color:maroon;
         padding: 7px 13px;
         margin: 5px;
         font-size: 42px;
-        color: black;
+        color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
@@ -268,8 +268,28 @@
     }
 
         .custom-btn:hover {
-            color: white;
-            background-color: dodgerblue;
+            
+            background-color: red;
+        }
+    .custom-btn2 {
+        position: absolute;
+        display: inline-block;
+        
+        right: 20px;
+        top: 15px;
+        padding: 7px 13px;
+        margin: 5px;
+        font-size: 32px;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .custom-btn2:hover {
+           
         }
 
     .textbox {
@@ -347,109 +367,109 @@
 </nav>
 
 <div class="container">
+    <a href="@Url.Action("Hr_Employee_L", "EmployeeManagement")" class="custom-btn2"><h4 style="color:maroon;">←</h4></a>
     <div class="Text-header">
-
+        
         @using (Html.BeginForm())
         {
-            
-                @Html.AntiForgeryToken()
+
+            @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h1>Employee Information</h1>
+            <h1 style="text-decoration:underline; font-family: 'Times New Roman'; font-size:32px;">EMPLOYEE INFORMATION</h1>
+
             <br>
             <br>
             <hr />
-            
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.Employee_ID)
 
-                <div class="form-group">
-                
-                    
-                        <h2>First Name:</h2>
-                    
-                    <div class="col-md-10">
-                        
-                        @Html.EditorFor(model => model.First_Name, new { htmlAttributes = new { @class = "textbox" } })
-                        @Html.ValidationMessageFor(model => model.First_Name, "", new { @class = "text-danger" })
-                        
-                    </div>
-                
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Employee_ID)
+
+            <div class="form-group">
+
+
+                <h2>First Name:</h2>
+
+                <div class="col-md-10">
+
+                    @Html.EditorFor(model => model.First_Name, new { htmlAttributes = new { @class = "textbox" } })
+                    @Html.ValidationMessageFor(model => model.First_Name, "", new { @class = "text-danger" })
+
                 </div>
 
-                <div class="form-group">
-                    <h2>Middle Name:</h2>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Middle_Name, new { htmlAttributes = new { @class = "textbox" } })
-                        @Html.ValidationMessageFor(model => model.Middle_Name, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+            </div>
 
-                <div class="form-group">
-                    <h2>Last Name:</h2>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Last_Name, new { htmlAttributes = new { @class = "textbox" } })
-                        @Html.ValidationMessageFor(model => model.Last_Name, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                <h2>Middle Name:</h2>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Middle_Name, new { htmlAttributes = new { @class = "textbox" } })
+                    @Html.ValidationMessageFor(model => model.Middle_Name, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <h2>Sex:</h2>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "textbox" } })
-                        @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                <h2>Last Name:</h2>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Last_Name, new { htmlAttributes = new { @class = "textbox" } })
+                    @Html.ValidationMessageFor(model => model.Last_Name, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <h2>Address:</h2>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "textbox" } })
-                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                <h2>Sex:</h2>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "textbox" } })
+                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <h2>Phone Number:</h2>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "textbox" } })
-                        @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                <h2>Address:</h2>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "textbox" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <h2>Email:</h2>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "textbox" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                <h2>Phone Number:</h2>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "textbox" } })
+                    @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <h2>Birth Date:</h2>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Birth_Date, new { htmlAttributes = new { @class = "textbox" } })
-                        @Html.ValidationMessageFor(model => model.Birth_Date, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                <h2>Email:</h2>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "textbox" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <h2>Date Hired:</h2>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Date_Hired, new { htmlAttributes = new { @class = "textbox" } })
-                        @Html.ValidationMessageFor(model => model.Date_Hired, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group">
+                <h2>Birth Date:</h2>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Birth_Date, new { htmlAttributes = new { @class = "textbox" } })
+                    @Html.ValidationMessageFor(model => model.Birth_Date, "", new { @class = "text-danger" })
                 </div>
-               
+            </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="custom-btn btn-default" />
-                    </div>
+            <div class="form-group">
+                <h2>Date Hired:</h2>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Date_Hired, new { htmlAttributes = new { @class = "textbox" } })
+                    @Html.ValidationMessageFor(model => model.Date_Hired, "", new { @class = "text-danger" })
                 </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="custom-btn btn-default" />
+                </div>
+            </div>
         </div>
-                }
+        }
 
-                <div class="custom-btn">
-                    @Html.ActionLink("Back to List", "Hr_Employee_L")
-                </div>
+

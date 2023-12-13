@@ -31,10 +31,12 @@ namespace SBIT3J_SuperSystem_Final.Models
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 
+
         public virtual EmployeeAccount EmployeeAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Return_Item> Return_Item { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sales_Transaction_Details> Sales_Transaction_Details { get; set; }
+        //public IEnumerable<object> ListofOrderDetailViewModel { get; internal set; }
     }
 }
