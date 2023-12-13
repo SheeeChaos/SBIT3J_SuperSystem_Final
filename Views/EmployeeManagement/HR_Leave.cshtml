@@ -1,6 +1,7 @@
-﻿@model SBIT3J_SuperSystem_Final.Models.EmployeeInformation
+﻿@model SBIT3J_SuperSystem_Final.Models.Leave_Request
 
 @{
+    ViewBag.Title = "HR_Leave";
     Layout = null;
 }
 
@@ -25,7 +26,7 @@
             width: 40%;
             padding: 20px 40px;
             margin: 8px 0;
-            margin-left: 50px;
+            margin-left: 40px;
             background-color: cornflowerblue;
             color: black;
             border: none;
@@ -199,12 +200,12 @@
             background-color: lightgrey;
             margin: 0 auto;
             margin-top: 5%;
-            margin-left: 17%;
+            margin-left: 25%;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 40px 40px 40px 40px;
             height: 80%;
-            width: 65%;
+            width: 48%;
             overflow-x: hidden;
             overflow-y: scroll;
         }
@@ -305,6 +306,16 @@
             text-decoration: none;
             transition: background-color 0.3s;
         }
+        .btn {
+            font-family: Arial;
+            color: white;
+            background-color: maroon;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            color: white;
+            background-color: red;
+        }
 
             .custom-btn:hover {
                 background-color: #0056b3;
@@ -314,45 +325,31 @@
             position: absolute;
             display: inline-block;
             
-            width:55px;
             right: 20px;
             top: 15px;
             padding: 7px 13px;
             margin: 5px;
             font-size: 32px;
-            color: maroon;
+            color: white;
             border: none;
-            border-radius: 55%;
+            border-radius: 4px;
             cursor: pointer;
             text-decoration: none;
             transition: background-color 0.3s;
-            
         }
 
             .custom-btn2:hover {
-               
-            }
-
-        .btn {
-            font-family: 'Times New Roman';
-            color: white;
-            background-color: maroon;
-            transition: background-color 0.3s;
-        }
-
-            .btn:hover {
-                color: white;
-                background-color: red;
+                
             }
 
         .backtolist {
-            position: absolute;
+            position: fixed;
             display: inline-block;
             padding: 7px 10px;
-            top: 10px;
+            top: 20px;
             right: 20px;
             margin: 5px;
-            font-size: 52px;
+            font-size: 24px;
             color: white;
             background-color: white;
             border: none;
@@ -361,23 +358,19 @@
             text-decoration: none;
             transition: background-color 0.3s;
         }
-        .backtolist:hover{
-            background-color: dodgerblue;
-        }
 
         input[type="text"] {
             font-size: 24px;
         }
-
-        .text-danger {
-            color: darkred;
-            font-style: oblique;
-            font-weight: bold;
+        .form-group{
+            
+            background-color:lightgrey;
         }
+        
+        
     </style>
     <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Create Leave Request</title>
 </head>
 <body>
 
@@ -385,7 +378,7 @@
     
 
     <div class="container">
-        <a href="@Url.Action("Hr_Employee_L", "EmployeeManagement")" class="custom-btn2"><h4 style="color:maroon; font-family: 'Times New Roman'; font-size:32px;">←</h4></a>
+        <a href="@Url.Action("Hr_RequestLeave", "EmployeeManagement")" class="custom-btn2"><h4 style="color:maroon;">←</h4></a>
         <!--<img src="~/Image/Group4/background/Logo-background.jpg" class="logobg" />
     <div class="ContainerHeader"><h1 style="font-family: 'Times New Roman'; font-size:42px;">EMPLOYEE LIST</h1></div>-->
         @using (Html.BeginForm())
@@ -395,124 +388,85 @@
 
 
             <div class="form-horizontal">
-                <h1 style="font-family:'Times New Roman'; font-size:32px;">Employee Information</h1>
+                <h1 style="font-family:'Times New Roman'; font-size:32px;">Employee Leave Request</h1>
 
                 <table>
                     <tr class="crud-row">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
                         <td class="crud-header-cell" style="width:14in;">
                             <div class="form-group">
-                                <h2>First Name:</h2>
+                                <h2>Employee ID:</h2>
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.First_Name, new { htmlAttributes = new { @class = "textbox" } })
-                                    @Html.ValidationMessageFor(model => model.First_Name, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Employee_ID, new { htmlAttributes = new { @class = "textbox" } })
+                                    @Html.ValidationMessageFor(model => model.Employee_ID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="crud-row">
+                        <td class="crud-header-cell" style="width:14in;">
+                            <div class="form-group">
+                                <h2>Leave Request:</h2>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Leave_Request1, new { htmlAttributes = new { @class = "textbox" } })
+                                    @Html.ValidationMessageFor(model => model.Leave_Request1, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </td>
 
                         <td class="crud-header-cell" style="width:50%;">
                             <div class="form-group">
-                                <h2>Middle Name:</h2>
+                                <h2>Department:</h2>
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Middle_Name, new { htmlAttributes = new { @class = "textbox" } })
-
-                                    @Html.ValidationMessageFor(model => model.Middle_Name, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "textbox" } })
+                                    @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
 
                                 </div>
                             </div>
                         </td>
                     </tr>
-
                     <br>
                     <tr class="crud-row">
-                        <td class="crud-header-cell" style="width:50%;">
+                        <td class="crud-header-cell" style="width:50%;" colspan="2">
                             <div class="form-group">
-                                <h2>Last Name:</h2>
+                                <h2>Leave Description:</h2>
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Last_Name, new { htmlAttributes = new { @class = "textbox" } })
-                                    @Html.ValidationMessageFor(model => model.Last_Name, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </td>
-                        <td class="crud-header-cell" style="width:50%;">
-                            <div class="form-group">
-                                <h2>Sex:</h2>
-                                <div class="col-md-10">
-
-                                    @Html.DropDownListFor(m => m.Sex, new List<SelectListItem>()
-                                    {
-                                        new SelectListItem { Text = "Male", Value = "Male" },
-                                        new SelectListItem { Text = "Female", Value = "Female" },
-                                        new SelectListItem { Text = "Prefer not to say", Value = "" }
-                                    })
-
-                                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                                    @Html.TextAreaFor(model => model.Leave_Description, new { htmlAttributes = new { @class = "textbox" } })
+                                    @Html.ValidationMessageFor(model => model.Leave_Description, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </td>
                     </tr>
-                </table>
-                <table>
                     <tr class="crud-row">
+                        <td class="crud-header-cell" style="width:50%;">
+                            <div class="form-group">
+                                <h2>Start Date:</h2>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Start_Date, "{0:MM-dd-yyyy}", new { type = "date", @class = "textbox" })
+                                    @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </td>
+
                         <td class="crud-header-cell" style="width:16in;">
                             <div class="form-group">
-                                <h2>Address:</h2>
+                                <h2>End Date:</h2>
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "textbox" } })
-                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <table>
-                    <tr class="crud-row">
-                        <td class="crud-header-cell" style="width:14in;">
-                            <div class="form-group">
-                                <h2>Phone Number:</h2>
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "textbox" } })
-                                    @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </td>
-                        <td class="crud-header-cell" style="width:50%;">
-                            <div class="form-group">
-                                <h2>Email Address:</h2>
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "textbox" } })
-                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="crud-row">
-                        <td class="crud-header-cell" style="width:50%;">
-                            <div class="form-group">
-                                <h2>Birth Date:</h2>
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Birth_Date, new { htmlAttributes = new { type = "date", @class = "textbox" } })
-                                    @Html.ValidationMessageFor(model => model.Birth_Date, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </td>
-                        <td class="crud-header-cell" style="width:50%;">
-                            <div class="form-group">
-                                <h2>Date Hired:</h2>
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Date_Hired, new { htmlAttributes = new { type = "date", @class = "textbox" } })
-                                    @Html.ValidationMessageFor(model => model.Date_Hired, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(model => model.End_Date, "{0:MM-dd-yyyy}", new { type = "date", @class = "textbox" })
+                                    @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </td>
                     </tr>
                 </table>
 
+                <br>
+                <br>
+                <br>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
 
-                        <input type="submit" value="Create" class="btn btn-default" /><input type="reset" value="Reset" class="btn btn-default" />
+                        <input type="submit" value="Submit" class="btn btn-default" /><input type="reset" value="Reset" class="btn btn-default" />
                     </div>
                 </div>
             </div>
@@ -522,18 +476,6 @@
     </div>
 
 
-    <script>
-        $(document).ready(function () {
-            // Attach an input event handler to each input field
-            $("input[type='text'], input[type='date']").on("input", function () {
-                // Get the associated validation message element
-                var validationMessage = $(this).closest(".form-group").find(".text-danger");
-
-                // Hide the validation message
-                validationMessage.hide();
-            });
-        });
-    </script>
 
 
 </body>

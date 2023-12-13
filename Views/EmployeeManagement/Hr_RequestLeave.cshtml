@@ -204,7 +204,7 @@
                 }
 
                 .ContainerHeader {
-                    background-color: white;
+                    
                     width: 100%;
                     height: 38px;
                     top: 30px;
@@ -242,7 +242,7 @@
                 table.crud-table {
                     width: 100%;
                     border-collapse: collapse;
-                    margin-bottom: 20px;
+                    margin-bottom: -2px;
                 }
 
             th.crud-header-cell, td.crud-data-cell {
@@ -291,12 +291,12 @@
                 position: fixed;
                 display: inline-block;
                 padding: 7px 10px;
-                top: 195px;
-                right: 24px;
+                top: 247px;
+                right: 30px;
                 margin: 5px;
-                font-size: 38px;
-                color: white;
-                background-color: skyblue;
+                font-size: 30px;
+                color: dodgerblue;
+                background-color: white;
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;
@@ -307,6 +307,27 @@
             .cleave:hover{
                 background-color:dodgerblue;
             }
+
+            .custom-btn2 {
+                position: absolute;
+                display: inline-block;
+                background-color: maroon;
+                right: 20px;
+                top: 50px;
+                padding: 7px 13px;
+                margin: 5px;
+                font-size: 32px;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                text-decoration: none;
+                transition: background-color 0.3s;
+            }
+
+                .custom-btn2:hover {
+                    background-color: red;
+                }
 
         </style>
         <meta name="viewport" content="width=device-width" />
@@ -387,12 +408,15 @@
         <div class="container">
 
 
-            <div class="ContainerHeader"><h1 style="font-family: 'Times New Roman'; font-size:38px;">Leave Request</h1></div>
+            <div class="ContainerHeader"><h1 style="font-family: 'Times New Roman'; font-size:38px;">LEAVE REQUEST</h1></div>
             <br>
             <div class="wthin_container">
 
                 <table class="crud-table" style="width:100%;">
-
+                    <tr>
+                        <br>
+                        <br>
+                    </tr>
                     <tr>
                         <th class="crud-header-cell" style="width:5%;">
                             ID
@@ -413,7 +437,9 @@
                             End Date
                         </th>
 
-                        <a href="@Url.Action("Hr_Leave_C", "EmployeeManagement")" class="cleave"><h4 style="color:peru;">Create</h4></a>
+                        
+                            <a href="@Url.Action("HR_Leave", "EmployeeManagement")" class="custom-btn2"><h4 style="color:white;">Create Leave Request</h4></a>
+                        
 
 
                     </tr>

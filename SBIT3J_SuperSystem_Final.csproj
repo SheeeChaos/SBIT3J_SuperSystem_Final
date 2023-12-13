@@ -458,6 +458,9 @@
     <Content Include="Views\EmployeeManagement\Edit.cshtml" />
     <Content Include="Views\AdminMonitoring\ProductRevenue.cshtml" />
     <Content Include="Views\EmployeeManagement\CreateLeave.cshtml" />
+    <Content Include="Views\EmployeeManagement\HR_Leave.cshtml" />
+    <Content Include="Views\EmployeeManagement\HR_CreateAccount.cshtml" />
+    <Content Include="Views\EmployeeManagement\TimeInn.cshtml" />
     <Content Include="Views\EmployeeManagement\Hr_Leave_C.cshtml" />
     <Content Include="Views\AdminMonitoring\PrintPdf.cshtml" />
     <Content Include="Views\AdminMonitoring\Inventory.cshtml" />
