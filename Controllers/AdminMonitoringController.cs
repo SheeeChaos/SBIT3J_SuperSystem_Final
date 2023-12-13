@@ -15,7 +15,7 @@ using System.Web.Security;
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
 
-    [Authorize]
+    //[Authorize]
     public class AdminMonitoringController : Controller
     {
         // GET: AdminMonitoring
@@ -25,9 +25,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         {
             return View();
         }
-
         ////////////////           THIS PART IS FOR DASHBOARD                  //////////////////////////
-
         public ActionResult Dashboard()
         {
 

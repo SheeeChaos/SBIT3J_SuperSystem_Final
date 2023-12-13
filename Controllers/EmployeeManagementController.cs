@@ -14,9 +14,8 @@ using System.Web.Security;
 
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
-    //[Authorize]
-
-    public class EmployeeManagementController : Controller
+    [Authorize]
+ public class EmployeeManagementController : Controller
 
     {
         private DatabaseConnectionEntities dt = new DatabaseConnectionEntities();

@@ -23,10 +23,10 @@ namespace SBIT3J_SuperSystem_Final.Models
             this.Sales_Transaction = new HashSet<Sales_Transaction>();
         }
 
-        [Required(ErrorMessage = "Account ID is required")]
+        //[Required(ErrorMessage = "Account ID is required")]
         public int Account_ID { get; set; }
 
-        [Required(ErrorMessage = "Employee ID is required")]
+        //[Required(ErrorMessage = "Employee ID is required")]
         public Nullable<int> Employee_ID { get; set; }
 
         [Required(ErrorMessage = "Username is required")]
@@ -35,7 +35,7 @@ namespace SBIT3J_SuperSystem_Final.Models
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Role is required")]
+        //[Required(ErrorMessage = "Role is required")]
         public string Role { get; set; }
 
         public virtual EmployeeInformation EmployeeInformation { get; set; }

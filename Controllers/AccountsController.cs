@@ -44,9 +44,9 @@ namespace SBIT3J_SuperSystem_Final.Controllers
                     FormsAuthentication.SetAuthCookie(employeeAccount.Username, false);
                     Session["Username"] = employeeAccount.Username;
 
-                    int accountId = credentials.Account_ID; // Assuming Account_ID is the primary key of the Account table
+                    int accountId = credentials.Account_ID;
                     DateTime loginDateTime = DateTime.Now;
-                    string activity = "Login"; // Specify the activity as "Login"
+                    string activity = "Login"; 
 
                     AddAuditTrail(accountId, activity, loginDateTime);
 
@@ -106,7 +106,6 @@ namespace SBIT3J_SuperSystem_Final.Controllers
                 throw;
             }
         }
-
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
