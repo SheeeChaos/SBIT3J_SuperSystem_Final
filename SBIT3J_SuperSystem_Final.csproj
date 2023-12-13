@@ -290,7 +290,6 @@
     <Compile Include="Models\AuditTrail.cs">
       <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\Deduction.cs">
       <DependentUpon>SuperSystemDatabaseModel.tt</DependentUpon>
     </Compile>

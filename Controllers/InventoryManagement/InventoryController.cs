@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
+    //[Authorize]
     public class InventoryController : Controller
     {
         private DatabaseConnectionEntities objDatabaseConnectionEntities = new DatabaseConnectionEntities();
