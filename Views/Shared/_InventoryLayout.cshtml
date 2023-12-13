@@ -28,7 +28,7 @@
                     <span id="date">@DateTime.Now.ToString("MMMM, dd yyyy")</span>
                     <span id="time" style="margin-left: 20px;">@DateTime.Now.ToString("HH:mm:ss tt")</span>
                 </h3>
-                <h3 class="col text-end m-0">  Paul Tan <i class="bi bi-person-circle" style="color:white;"></i></h3>
+                <h3 class="col text-end m-0">   @User.Identity.Name <i class="bi bi-person-circle" style="color:white;"></i></h3>
             </div>
         </div>
 
@@ -43,9 +43,9 @@
                     <div>@Html.ActionLink("Inventory", "Products", "Inventory", new { area = "" }, new { @class = "list-group-item list-group-item-action py-4" })</div>
                     <div>@Html.ActionLink("Restock", "Restock", "Inventory", new { area = "" }, new { @class = "list-group-item list-group-item-action py-4" })</div>
                     <div>@Html.ActionLink("Return / Refunds", "ReturnsAndRefunds", "Inventory", new { area = "" }, new { @class = "list-group-item list-group-item-action py-4" })</div>
+                    <div>@Html.ActionLink("Discounts", "ManageDiscount", "Inventory", new { area = "" }, new { @class = "list-group-item list-group-item-action py-4" })</div>
                 </div>
                 <div style="bottom: 0;">@Html.ActionLink("Logout", "Logout", "Accounts", new { area = "" }, new { @class = "list-group-item list-group-item-action p-3 bg-black text-white py-4" })</div>
-
             </div>
             <div class="col-10 m-0 p-2 bg-white ">
                 @RenderBody()

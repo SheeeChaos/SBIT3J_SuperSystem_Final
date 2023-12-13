@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class POSController : Controller
     {
         // GET: POS
@@ -49,12 +49,13 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             return Json(discount, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public JsonResult Index(Sales_Transaction objSalesTransaction)
+        public JsonResult Recordtransact(Sales_Transaction objSalesTransaction)
         {
             TransactionRepository objTransactionRepository = new TransactionRepository();
             objTransactionRepository.AddOrder(objSalesTransaction);
-            return Json("Sales saved, Thanks for shopping with us!", JsonRequestBehavior.AllowGet);
+            int reciept = objTransactionRepository.getid;
+
+            return Json(reciept, JsonRequestBehavior.AllowGet);
 
         }
 

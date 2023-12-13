@@ -1,0 +1,47 @@
+﻿
+@model IEnumerable<SBIT3J_SuperSystem_Final.Models.Discount>
+
+@{
+    Layout = "~/Views/Shared/_InventoryLayout.cshtml";
+}
+<div class="container-fluid rounded-1 p-3 h-100">
+
+    <h2>DisabledDiscount</h2>
+    <div class="col bg-light mx-2 border-3 rounded-1 shadow p-3">
+        <div class="d-flex justify-content-between">
+            <p>
+            </p>
+            <p>
+                @Html.ActionLink("Back", "ManageDiscount", null, new { @class = "btn btn-success" })
+            </p>
+        </div>
+        <div class="table-container" style="max-height: 70dvh; overflow-y: auto;">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Discount Amount</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Discount_Name</td>
+                            <td>@item.Description</td>
+                            <td>@item.Discount_Amount</td>
+                            <td>
+                                @Html.ActionLink("Edit", "ManageDiscountEdit", new { id = item.Discount_ID }, new { @class = "btn btn-warning" }) |
+                                @Html.ActionLink("Enable", "ManageDiscountUndisable", new { id = item.Discount_ID }, new { @class = "btn btn-danger", @onclick = "return confirm('Are you sure you want to Enable this discount?');" })
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -85,7 +85,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
                     "Buttom",
                     "FootWear",
                     "HeadWear",
-                    "Accesory"
+                    "Accessory"
                 };
             var hardcodedSizes = new List<string>
                 {
@@ -220,6 +220,13 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             return RedirectToAction("Products");
         }
 
+        public JsonResult IsProductCodeExists(string productCode)
+        {
+            bool isExists = objDatabaseConnectionEntities.Product_Info.Any(p => p.Product_Code == productCode);
+
+            return Json(!isExists, JsonRequestBehavior.AllowGet);
+        }
+
 
 
 
@@ -240,14 +247,11 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
         public ActionResult Restock()
         {
-            // Get all products for the dropdown
-            ProductRepository objProductRepository = new ProductRepository();
-            var products = objProductRepository.GetAllProduct();
+            RestockRepository objProductRepository = new RestockRepository();
+            var products = objProductRepository.GetAllProductforRestock();
 
-            // Get all restocks for the view
             var restocks = objDatabaseConnectionEntities.Restocks.ToList();
 
-            // Create a model to hold both the products and restocks
             var objMultipleModel = new Tuple<IEnumerable<SelectListItem>, List<Restock>>(products, restocks);
 
             return View(objMultipleModel);
@@ -437,6 +441,133 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
 
 
+
+
+
+
+
+
+        // **************************ManageDiscount SECTION**************************
+
+        public ActionResult ManageDiscount()
+        {
+            DateTime targetDate = new DateTime(2023, 1, 20);
+
+            var discounts = objDatabaseConnectionEntities.Discounts
+                .Where(p => p.End_Date > targetDate)
+                .ToList();
+
+            return View(discounts);
+        }
+
+        public ActionResult ManageDiscountCreate()
+        {
+            return View();
+        }
+
+        // POST: Discount/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManageDiscountCreate([Bind(Include = "Discount_ID,Discount_Name,Description,Discount_Amount,Start_Date,End_Date")] Discount discount)
+        {
+            if (ModelState.IsValid)
+            {
+                objDatabaseConnectionEntities.Discounts.Add(discount);
+                objDatabaseConnectionEntities.SaveChanges();
+                return RedirectToAction("ManageDiscount");
+            }
+
+            return View(discount);
+        }
+
+        // GET: Discount/Edit/5
+        public ActionResult ManageDiscountEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Discount discount = objDatabaseConnectionEntities.Discounts.Find(id);
+            if (discount == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(discount);
+        }
+
+        // POST: Discount/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManageDiscountEdit([Bind(Include = "Discount_ID,Discount_Name,Description,Discount_Amount,Start_Date,End_Date")] Discount discount)
+        {
+            if (ModelState.IsValid)
+            {
+                objDatabaseConnectionEntities.Entry(discount).State = EntityState.Modified;
+                objDatabaseConnectionEntities.SaveChanges();
+                return RedirectToAction("ManageDiscount");
+            }
+
+            return View(discount);
+        }
+
+        // GET: Discount/Delete/5
+        public ActionResult ManageDiscountDelete(int? id)
+        {
+            Discount discount = objDatabaseConnectionEntities.Discounts.Find(id);
+            objDatabaseConnectionEntities.Discounts.Remove(discount);
+            objDatabaseConnectionEntities.SaveChanges();
+            return RedirectToAction("ManageDiscount");
+        }
+        public ActionResult DisabledDiscount()
+        {
+            DateTime targetDate = new DateTime(2023, 1, 20);
+
+            var DisabledDiscount = objDatabaseConnectionEntities.Discounts
+                .Where(p => p.End_Date < targetDate)
+                .ToList();
+
+            return View(DisabledDiscount);
+        }
+        public ActionResult ManageDiscountdisable(int? id)
+        {
+
+                Discount discount = objDatabaseConnectionEntities.Discounts.Find(id);
+
+                if (discount == null)
+                {
+                    return HttpNotFound();
+                }
+
+                if (discount.End_Date.HasValue)
+                {
+                    discount.End_Date = new DateTime(2022, discount.End_Date.Value.Month, discount.End_Date.Value.Day);
+                }
+
+                objDatabaseConnectionEntities.SaveChanges();
+
+
+            return RedirectToAction("ManageDiscount");
+        }
+        public ActionResult ManageDiscountUndisable(int? id)
+        {
+
+            Discount discount = objDatabaseConnectionEntities.Discounts.Find(id);
+
+            if (discount == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (discount.End_Date.HasValue)
+            {
+                discount.End_Date = new DateTime(2023, discount.End_Date.Value.Month, discount.End_Date.Value.Day);
+            }
+
+            objDatabaseConnectionEntities.SaveChanges();
+            return RedirectToAction("DisabledDiscount");
+        }
 
 
 

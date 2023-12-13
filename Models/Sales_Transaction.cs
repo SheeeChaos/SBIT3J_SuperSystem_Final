@@ -26,6 +26,8 @@ namespace SBIT3J_SuperSystem_Final.Models
         public Nullable<decimal> Total_Amount { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public IEnumerable<Sales_Transaction_Details> ListofOrderDetailViewModel { get; set; }
+        public string Account_name { get; set; }
+
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 

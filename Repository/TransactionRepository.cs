@@ -15,19 +15,26 @@ namespace SBIT3J_SuperSystem_Final.Repository
             objSBIT3JEntities = new DatabaseConnectionEntities();
         }
 
+        public int getid { get; set; }
         public bool AddOrder(Sales_Transaction objSalesTransaction)
         {
             try
             {
                 Sales_Transaction objSaleTransaction = objSalesTransaction;
 
-                objSaleTransaction.Account_ID = objSalesTransaction.Account_ID;
+                string cashierName = objSaleTransaction.Account_name;
+                EmployeeAccount cashier = objSBIT3JEntities.EmployeeAccounts.Single(u => u.Username == cashierName);
+                int cashierId = (int)cashier.Account_ID;
+
+
+
+                objSaleTransaction.Account_ID = cashierId;
                 objSaleTransaction.Total_Amount = objSalesTransaction.Total_Amount;
                 objSaleTransaction.Date = DateTime.Now;
                 objSBIT3JEntities.Sales_Transaction.Add(objSaleTransaction);
                 objSBIT3JEntities.SaveChanges();
                 int TransactionID = objSaleTransaction.Transaction_ID;
-
+                getid = TransactionID;
                 foreach (var item in objSaleTransaction.ListofOrderDetailViewModel)
                 {
                     Sales_Transaction_Details objSalesTransactionDetail = new Sales_Transaction_Details();
@@ -38,7 +45,6 @@ namespace SBIT3J_SuperSystem_Final.Repository
                     objSBIT3JEntities.Sales_Transaction_Details.Add(objSalesTransactionDetail);
                     objSBIT3JEntities.SaveChanges();
 
-                    // Update Stock Level
                     UpdateStockLevel((int)item.Product_ID, (int)objSalesTransactionDetail.Total_Quantity);
                 }
 
