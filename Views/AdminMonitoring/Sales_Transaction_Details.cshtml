@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SBIT3J_SuperSystem_Final.Models.TransactionDetailsModel>
+
+@{
+    ViewBag.Title = "Sales_Transaction_Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Styles/Group1Stylesheets/SalesTransactionDetailStyle.css" rel="stylesheet" />
+<h2>Sales Transaction Details</h2>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Transaction Detail ID</th>
+                <th>Product Code</th>
+                <th>Product Name</th>
+                <th>Total Quantity</th>
+                <th>Price</th>
+                <th>Discount Amount</th>
+                <th>Total Amount</th>
+                <th>Value Added Tax</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TransactionID</td>
+                    <td>@item.TransactionDetailID</td>
+                    <td>@item.ProductCode</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.TotalQuantity</td>
+                    <td>@item.Price</td>
+                    <td>@(item.DiscountAmount ?? 0)</td>
+                    <td>@item.TotalAmount</td>
+                    <td>@item.ValueAddedTax</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+    <div class="btn-cont">
+        @Html.ActionLink("Back", "SalesRevenue", new { @class = "btn btn-info" })
+    </div>

@@ -1,8 +1,91 @@
-﻿
+﻿@model IEnumerable<SBIT3J_SuperSystem_Final.Models.AllSalesDetail>
+
 @{
     ViewBag.Title = "Profit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<link href="~/Content/Styles/Group1Stylesheets/CompanyProfitStyle.css" rel="stylesheet" />
 
-<h2>Profit</h2>
+<h2>Company Profit</h2>
 
+<div class="profit-total-top-container">
+    <div class="profit-total-container">
+        <h3>Total Sales</h3>
+        <h1>@ViewBag.TotalSales</h1>
+    </div>
+    <div class="profit-total-container">
+        <h3>Total Capital</h3>
+        <h1>@ViewBag.TotalCapital</h1>
+    </div>
+    <div class="profit-total-container">
+        <h3>Net Profit</h3>
+        <h1>@ViewBag.TotalNet</h1>
+    </div>
+</div>
+
+<div class="filter-container">
+    <form method="get" action="@Url.Action("Profit")">
+
+        <div class="search-field">
+            <input type="text" name="searchFilter" id="searchFilter" placeholder="Search" value="@Request.QueryString["searchFilter"]" />
+            <div class="search-field-icon" name="filterType" value="search">
+                <img src="~/Image/Group1-Assets/Magnify.png" />
+            </div>
+        </div>
+
+        <button type="submit" name="filterType" value="search" style="display:none;">Apply Search Filter</button>
+
+        <div class="date-filter-container">
+            <label for="startDate">Start Date</label>
+            <input type="date" name="startDate" id="startDate" value="@Request.QueryString["startDate"]" />
+
+            <label for="endDate">End Date</label>
+            <input type="date" name="endDate" id="endDate" value="@Request.QueryString["endDate"]" />
+
+            <button type="submit" name="filterType" value="date">Filter Date</button>
+        </div>
+
+        <!-- Add this link for PDF generation -->
+        <a href="@Url.Action("GenerateProfitList", new { searchFilter = Request.QueryString["searchFilter"], startDate = Request.QueryString["startDate"], endDate = Request.QueryString["endDate"] })" class="btn btn-primary" target="_blank">
+            <div class="print-pdf-btn">
+                <p>Print</p>
+            </div>
+        </a>
+    </form>
+</div>
+
+
+<div class="table-container">
+    <table>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Transaction Detail ID</th>
+            <th>Product Code</th>
+            <th>Product Name</th>
+            <th>Total Quantity</th>
+            <th>Capital Price</th>
+            <th>Price</th>
+            <th>Discount Amount</th>
+            <th>Total Capital</th>
+            <th>Total Amount</th>
+            <th>Date</th>
+        </tr>
+
+        @foreach (var transaction in Model)
+        {
+            <tr>
+                <td>@transaction.Transaction_ID</td>
+                <td>@transaction.Transaction_Detail_ID</td>
+                <td>@transaction.Product_Code</td>
+                <td>@transaction.Product_Name</td>
+                <td>@transaction.Total_Quantity</td>
+                <td>@transaction.Capital_Price</td>
+                <td>@transaction.Price</td>
+                <td>@(transaction.Discount_Amount?? 0)</td>
+                <td>@transaction.Total_Capital</td>
+                <td>@transaction.Total_Amount</td>
+                <td>@transaction.Date</td>
+            </tr>
+        }
+    </table>
+</div>

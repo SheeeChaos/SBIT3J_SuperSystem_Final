@@ -32,8 +32,9 @@ namespace SBIT3J_SuperSystem_Final.Models
         public string Color { get; set; }
         public Nullable<bool> Sex { get; set; }
         public Nullable<bool> Is_Archived { get; set; }
-        public Nullable<int> Price { get; set; }
+        public Nullable<decimal> Price { get; set; }
         public Nullable<int> Stock_Level { get; set; }
+        public Nullable<decimal> Capital_Price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Loss_Damages> Loss_Damages { get; set; }

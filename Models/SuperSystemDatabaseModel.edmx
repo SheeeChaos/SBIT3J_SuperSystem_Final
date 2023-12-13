@@ -40,7 +40,7 @@
           <Property Name="Discount_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Discount_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="Discount_Amount" Type="int" />
+          <Property Name="Discount_Amount" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Start_Date" Type="date" />
           <Property Name="End_Date" Type="date" />
         </EntityType>
@@ -181,8 +181,9 @@
           <Property Name="Color" Type="varchar" MaxLength="50" />
           <Property Name="Sex" Type="bit" />
           <Property Name="Is_Archived" Type="bit" />
-          <Property Name="Price" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Stock_Level" Type="int" />
+          <Property Name="Capital_Price" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="Restock">
           <Key>
@@ -240,7 +241,7 @@
           <Property Name="Transaction_Detail_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Transaction_ID" Type="int" />
           <Property Name="Product_ID" Type="int" />
-          <Property Name="Total_Quantity" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="Total_Quantity" Type="int" />
           <Property Name="Discount_ID" Type="int" />
         </EntityType>
         <EntityType Name="SSS">
@@ -272,6 +273,25 @@
           <Property Name="Tax_Income" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Tax_Rate" Type="int" />
           <Property Name="Tax_Amount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DowntownAlley_Database.dbo.AllSalesDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AllSalesDetails">
+          <Key>
+            <PropertyRef Name="Transaction_ID" />
+            <PropertyRef Name="Transaction_Detail_ID" />
+          </Key>
+          <Property Name="Transaction_ID" Type="int" Nullable="false" />
+          <Property Name="Transaction_Detail_ID" Type="int" Nullable="false" />
+          <Property Name="Product_Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Total_Quantity" Type="int" />
+          <Property Name="Capital_Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Discount_Amount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Total_Capital" Type="decimal" Precision="21" Scale="2" />
+          <Property Name="Total_Amount" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="Date" Type="datetime" />
         </EntityType>
         <Association Name="FK__AuditTrai__Accou__59063A47">
           <End Role="EmployeeAccount" Type="Self.EmployeeAccount" Multiplicity="0..1" />
@@ -671,6 +691,21 @@
           <EntitySet Name="SSS" EntityType="Self.SSS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AllSalesDetails" EntityType="Self.AllSalesDetails" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AllSalesDetails].[Transaction_ID] AS [Transaction_ID], 
+    [AllSalesDetails].[Transaction_Detail_ID] AS [Transaction_Detail_ID], 
+    [AllSalesDetails].[Product_Code] AS [Product_Code], 
+    [AllSalesDetails].[Product_Name] AS [Product_Name], 
+    [AllSalesDetails].[Total_Quantity] AS [Total_Quantity], 
+    [AllSalesDetails].[Capital_Price] AS [Capital_Price], 
+    [AllSalesDetails].[Price] AS [Price], 
+    [AllSalesDetails].[Discount_Amount] AS [Discount_Amount], 
+    [AllSalesDetails].[Total_Capital] AS [Total_Capital], 
+    [AllSalesDetails].[Total_Amount] AS [Total_Amount], 
+    [AllSalesDetails].[Date] AS [Date]
+    FROM [dbo].[AllSalesDetails] AS [AllSalesDetails]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__AuditTrai__Accou__59063A47" Association="Self.FK__AuditTrai__Accou__59063A47">
             <End Role="EmployeeAccount" EntitySet="EmployeeAccount" />
             <End Role="AuditTrail" EntitySet="AuditTrail" />
@@ -1002,6 +1037,7 @@
             <End Role="Sales_Transaction" EntitySet="Sales_Transaction" />
             <End Role="Sales_Transaction_Details" EntitySet="Sales_Transaction_Details" />
           </AssociationSet>
+          <EntitySet Name="AllSalesDetails" EntityType="DowntownAlley_DatabaseModel.AllSalesDetail" />
         </EntityContainer>
         <EntityType Name="AuditTrail">
           <Key>
@@ -1055,7 +1091,7 @@
           <Property Name="Discount_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Discount_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Discount_Amount" Type="Int32" />
+          <Property Name="Discount_Amount" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Start_Date" Type="DateTime" Precision="0" />
           <Property Name="End_Date" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Sales_Transaction_Details" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Discount_ID" FromRole="Discount" ToRole="Sales_Transaction_Details" />
@@ -1193,13 +1229,14 @@
           <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Sex" Type="Boolean" />
           <Property Name="Is_Archived" Type="Boolean" />
-          <Property Name="Price" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Stock_Level" Type="Int32" />
           <NavigationProperty Name="Loss_Damages" Relationship="DowntownAlley_DatabaseModel.FK_Loss_Damages_Product_ID" FromRole="Product_Info" ToRole="Loss_Damages" />
           <NavigationProperty Name="Loss_Fraud" Relationship="DowntownAlley_DatabaseModel.FK_Loss_Fraud_Product_ID" FromRole="Product_Info" ToRole="Loss_Fraud" />
           <NavigationProperty Name="Restock_Detail" Relationship="DowntownAlley_DatabaseModel.FK_Restock_Detail_Product_ID" FromRole="Product_Info" ToRole="Restock_Detail" />
           <NavigationProperty Name="Return_Item" Relationship="DowntownAlley_DatabaseModel.FK_Return_Item_Product_ID" FromRole="Product_Info" ToRole="Return_Item" />
           <NavigationProperty Name="Sales_Transaction_Details" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Product_ID" FromRole="Product_Info" ToRole="Sales_Transaction_Details" />
+          <Property Name="Capital_Price" Type="Decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="Restock">
           <Key>
@@ -1267,7 +1304,7 @@
           <Property Name="Transaction_Detail_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Transaction_ID" Type="Int32" />
           <Property Name="Product_ID" Type="Int32" />
-          <Property Name="Total_Quantity" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Total_Quantity" Type="Int32" />
           <Property Name="Discount_ID" Type="Int32" />
           <NavigationProperty Name="Discount" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Discount_ID" FromRole="Sales_Transaction_Details" ToRole="Discount" />
           <NavigationProperty Name="Product_Info" Relationship="DowntownAlley_DatabaseModel.FK_Sales_Transaction_Details_Product_ID" FromRole="Sales_Transaction_Details" ToRole="Product_Info" />
@@ -1653,6 +1690,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AllSalesDetail">
+          <Key>
+            <PropertyRef Name="Transaction_ID" />
+            <PropertyRef Name="Transaction_Detail_ID" />
+          </Key>
+          <Property Name="Transaction_ID" Type="Int32" Nullable="false" />
+          <Property Name="Transaction_Detail_ID" Type="Int32" Nullable="false" />
+          <Property Name="Product_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Quantity" Type="Int32" />
+          <Property Name="Capital_Price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Discount_Amount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Total_Capital" Type="Decimal" Precision="21" Scale="2" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1841,6 +1895,7 @@
           <EntitySetMapping Name="Product_Info">
             <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.Product_Info">
               <MappingFragment StoreEntitySet="Product_Info">
+                <ScalarProperty Name="Capital_Price" ColumnName="Capital_Price" />
                 <ScalarProperty Name="Stock_Level" ColumnName="Stock_Level" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Is_Archived" ColumnName="Is_Archived" />
@@ -1949,6 +2004,23 @@
                 <ScalarProperty Name="Tax_Income" ColumnName="Tax_Income" />
                 <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
                 <ScalarProperty Name="Tax_ID" ColumnName="Tax_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AllSalesDetails">
+            <EntityTypeMapping TypeName="DowntownAlley_DatabaseModel.AllSalesDetail">
+              <MappingFragment StoreEntitySet="AllSalesDetails">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Total_Capital" ColumnName="Total_Capital" />
+                <ScalarProperty Name="Discount_Amount" ColumnName="Discount_Amount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Capital_Price" ColumnName="Capital_Price" />
+                <ScalarProperty Name="Total_Quantity" ColumnName="Total_Quantity" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Product_Code" ColumnName="Product_Code" />
+                <ScalarProperty Name="Transaction_Detail_ID" ColumnName="Transaction_Detail_ID" />
+                <ScalarProperty Name="Transaction_ID" ColumnName="Transaction_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

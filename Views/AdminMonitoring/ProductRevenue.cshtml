@@ -1,8 +1,69 @@
-﻿
+﻿@model List<SBIT3J_SuperSystem_Final.Models.ProductRevenueModel>
 @{
     ViewBag.Title = "ProductRevenue";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<link href="~/Content/Styles/Group1Stylesheets/ProductRevenueStyle.css" rel="stylesheet" />
 
-<h2>ProductRevenue</h2>
+<h2>Product Revenue</h2>
 
+<div class="product-total-top-container">
+    <div class="product-total-container">
+        <h3>Product Sale</h3>
+        <h1>@ViewBag.totalSalesofProduct</h1>
+    </div>
+
+    <div class="product-total-container">
+        <h3>Total Discount </h3>
+        <h1>@ViewBag.totalDiscAmount</h1>
+    </div>
+
+    <div class="product-total-container">
+        <h3>Total Sold Item</h3>
+        <h1>@ViewBag.totalSoldItem</h1>
+    </div>
+
+</div>
+
+<div class="filter-container">
+    <form method="get" action="@Url.Action("ProductRevenue")">
+
+        <div class="search-field">
+            <input type="text" name="searchFilter" id="searchFilter" placeholder="Search" />
+            <div class="search-field-icon" name="filterType" value="search">
+                <img src="~/Image/Group1-Assets/Magnify.png" />
+            </div>
+        </div>
+        <button type="submit" name="filterType" value="search" style="display:none;">Apply Search Filter</button>
+        <!-- Add this link for PDF generation -->
+        <a href="@Url.Action("GenerateProductRevenueList", new { searchFilter = Request.QueryString["searchFilter"] })" class="btn btn-primary" target="_blank">
+            <div class="print-pdf-btn">
+                <p>Print</p>
+            </div>
+        </a>
+    </form>
+</div>
+
+<div class="table-container">
+    <table>
+        <tr>
+             <th>Product Code</th>
+            <th>Product Name</th>
+            <th>Total Quantity</th>
+            <th>Price</th>
+            <th>Total Discount</th>
+            <th>Total Amount</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product_Code</td>
+                <td>@item.Product_Name</td>
+                <td>@item.Total_Quantity</td>
+                <td>@item.Price</td>
+                <td>@item.Total_Discount</td>
+                <td>@item.Total_Amount</td>
+            </tr>
+        }
+    </table>
+  </div>
