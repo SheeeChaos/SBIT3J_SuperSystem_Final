@@ -1,0 +1,15 @@
+@{
+    ViewBag.Title = "Payroll";
+    Layout = "~/Views/Shared/_PayrollLayout.cshtml";
+}
+
+@model List<EmployeeInformation>
+
+<h2>Payslip</h2>
+
+<div>
+    <p>Employee ID: @Model.EmployeeId</p>
+    <p>Basic Salary: $@Model.Salary</p>
+    <p>Deductions: $@Model.Deductions</p>
+    <p>Net Salary: $@Model.NetSalary</p>
+</div>
