@@ -43,9 +43,9 @@
                     <div>@Html.ActionLink("Inventory", "Products", "Inventory", new { area = "" }, new { @class = "list-group-item list-group-item-action py-4" })</div>
                     <div>@Html.ActionLink("Restock", "Restock", "Inventory", new { area = "" }, new { @class = "list-group-item list-group-item-action py-4" })</div>
                     <div>@Html.ActionLink("Return / Refunds", "ReturnsAndRefunds", "Inventory", new { area = "" }, new { @class = "list-group-item list-group-item-action py-4" })</div>
+                    <div>@Html.ActionLink("Discounts", "ManageDiscount", "Inventory", new { area = "" }, new { @class = "list-group-item list-group-item-action py-4" })</div>
                 </div>
                 <div style="bottom: 0;">@Html.ActionLink("Logout", "Logout", "Accounts", new { area = "" }, new { @class = "list-group-item list-group-item-action p-3 bg-black text-white py-4" })</div>
-
             </div>
             <div class="col-10 m-0 p-2 bg-white ">
                 @RenderBody()

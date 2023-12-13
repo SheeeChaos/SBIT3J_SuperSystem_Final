@@ -20,9 +20,11 @@
         $("#restockButton").click(function () {
             AddRestock();
         });
-
+        $("#clear").click(function () {
+            reset();
+        });
         var button = $("#clickMeButton");
-
+        
 
 
         // Add a click event listener to the button
@@ -32,34 +34,59 @@
             var productName = $("#ProductId option:selected").text();
             var quantity = $("#txtQuantity").val();
             var unitprice = $("#unitprice").val();
-            var TotalAmount = quantity * unitprice; // Assu`ming TotalAmount should be the same as quantity
+            var TotalAmount = quantity * unitprice; // Assuming TotalAmount should be the same as quantity
 
-            if (productId === "" || quantity === "") {
-                alert("Please select a product and enter a quantity.");
+            if (productId === "" || quantity === "" ) {
+                alert("Please select a product and enter a valid quantity.");
+                return;
+            }
+            if (quantity <= 0 ) {
+                alert("Quantity must be greater than 0");
+                return;
+            }
+            if (quantity >= 10000) {
+                alert("Quantity must be less than 10,000");
                 return;
             }
 
-            var itemlist = `<tr>
-            <td>${productId}</td>
+            // Check if the product already exists in the table
+            var existingRow = tblItemList.find("tr:has(td:first-child:contains('" + productId + "'))");
+
+            if (existingRow.length > 0) {
+                // Product already exists, update quantity and total amount
+                var existingQuantity = parseFloat(existingRow.find("td:eq(3)").text());
+                var newQuantity = parseFloat(quantity) + existingQuantity;
+                var newTotalAmount = newQuantity * unitprice;
+
+                existingRow.find("td:eq(3)").text(newQuantity);
+                existingRow.find("td:eq(4)").text(newTotalAmount.toFixed(2));
+            } else {
+                // Product does not exist, add a new row
+                var itemlist = `<tr>
+            <td hidden>${productId}</td>
             <td>${productName}</td>
+            <td>${unitprice}</td>
             <td>${quantity}</td>
-            <td>${TotalAmount}</td>
+            <td>${TotalAmount.toFixed(2)}</td>
             <td>
                 <input type='button' value='Remove' name='remove' class='btn btn-danger' onclick='RemoveItem(this)' />
             </td>
             </tr>`;
 
-            tblItemList.append(itemlist);
+                tblItemList.append(itemlist);
+            }
 
-            $("#ProductId, #txtQuantity,").val("");
+            $("#ProductId, #txtQuantity").val("");
             $("#unitprice").val(0.00);
         });
 
-
-
     });
 
-
+    function reset() {
+        $("#tblRestock tbody").empty();
+        $("#ProductId, #txtQuantity").val("");
+        $("#unitprice").val(0.00);
+    }
     function RemoveItem(itemID) {
         $(itemID).closest('tr').remove();
     }
@@ -87,7 +114,7 @@
         var ListofRestockViewModel = new Array();
         var totalamount = 0.00;
         $("#tblRestock").find("tr:gt(0)").each(function () {
-            totalamount += parseFloat($(this).find("td:eq(3)").text());
+            totalamount += parseFloat($(this).find("td:eq(4)").text());
         });
 
         objRestock.Total_Amount = totalamount
@@ -95,8 +122,8 @@
         $("#tblRestock").find("tr:gt(0)").each(function () {
             var restockDetail = {};
             restockDetail.Product_ID = $(this).find("td:eq(0)").text();
-            restockDetail.Quantity_Added = $(this).find("td:eq(2)").text();
-            restockDetail.Total_Amount = $(this).find("td:eq(3)").text();
+            restockDetail.Quantity_Added = $(this).find("td:eq(3)").text();
+            restockDetail.Total_Amount = $(this).find("td:eq(4)").text();
 
             ListofRestockViewModel.push(restockDetail);
         });
@@ -113,7 +140,7 @@
                 if (data === 'Restock saved!') {
                     setTimeout(function () {
                         location.reload(true);
-                    }, 1000);
+                    }, 500);
                 }
             },
             error: function (xhr, status, error) {
@@ -191,7 +218,7 @@
                                     </div>
                                     <div class="form-group">
                                         Quantity:
-                                        <input type="text" name="Quantity" value="" id="txtQuantity" class="form-control" />
+                                        <input type="number" name="Quantity" value="" id="txtQuantity" class="form-control" />
                                     </div>
                                     <div class="mt-4">
                                         <button id="clickMeButton" class="btn btn-success">Add</button>
@@ -201,27 +228,32 @@
                                 Price:
                                 <input type="text" name="productprice" value="0.00" id="unitprice" class="form-control" />
 
-                                <table id="tblRestock" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Product ID</th>
-                                            <th>Product Code</th>
-                                            <th>Quantity</th>
-                                            <th>TotalAmount</th>
-                                            <th></th>
+                                    <div class="table-container bg-light" style="max-height: 30dvh; overflow-y: auto; max-width: 70dvh; overflow-x: auto; ">
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Table rows will be added dynamically here -->
-                                    </tbody>
-                                </table>
+                                        <table id="tblRestock" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th hidden>Product ID</th>
+                                                    <th>Product Code</th>
+                                                    <th>Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>TotalAmount</th>
+                                                    <th></th>
 
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Table rows will be added dynamically here -->
+                                            </tbody>
+                                        </table>
+
+                                </div>
                             </div>
                         </div>
 
                         <div class="modal-footer">
-                            <button id="restockButton" class="btn btn-primary">Restock</button>
+                            <button id="restockButton" class="btn btn-success">Restock</button>
+                            <button id="clear" class="btn btn-danger">Clear</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
 

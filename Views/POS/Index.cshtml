@@ -59,18 +59,14 @@
             $('#Product').val(0).change(function () {
                 var productId = $(this).val();
                 GetUnitPrice(productId);
-                CalculateSubTotal();
-
             });
 
             $('#Discount').val(0).change(function () {
                 var discountId = $(this).val();
                 GetDiscount(discountId);
-                CalculateSubTotal();
-
             });
-            
-            $("input[type=text], input[type=number], #unitprice, #txtDiscount").change(CalculateSubTotal);
+
+            $("input[type=text], input[type=number]").change(CalculateSubTotal);
             $("#btnCancelOrder").click(ResetItem);
 
             $("#btnAddtoOrder").click(function () {
@@ -80,21 +76,19 @@
                 }
             });
 
-
-
-
             $("#ChangeConfirm").click(function () {
                 CalculateChange();
             });
 
             $("#btnProcessOrderAndPrintReceipt").click(function () {
                 if (validateOrderDetails()) {
-                    ProcessOrderAndPrintReceipt();
+                    FinalPayment();
                     ResetItem();
                 }
             });
 
         });
+
         function validateOrderDetails() {
             var rowCount = $("#tblOrder tbody tr").length;
             if (rowCount === 0) {
@@ -115,10 +109,7 @@
 
             return true;
         }
-        function ProcessOrderAndPrintReceipt() {
-            FinalPayment();
-            PrintReceipt();
-        }
+  
 
         function validateInputs() {
             if ($("#txtQuantity").val() === "" || $("#unitprice").val() === "" || $("#txtDiscountAmount").val() === "") {
@@ -152,6 +143,14 @@
             var totalDiscountAmount = discountAmountPerItem * quantity;
             var total = (price * quantity) - totalDiscountAmount;
 
+            if (isNaN(total)) {
+                total = 0.00;
+            }
+            if (isNaN(totalDiscountAmount)) {
+                totalDiscountAmount = 0.00;
+            }
+
+
             $("#subtotal").val(total.toFixed(2));
             $("#txtDiscountAmount").val(totalDiscountAmount.toFixed(2));
         }
@@ -165,15 +164,34 @@
         function AddItemtoList() {
             var tblItemList = $("#tblOrder");
             var price = parseFloat($("#unitprice").val());
+
+            if ($("#txtQuantity").val() <= 0) {
+                alert("Please enter a valid Quantity, must be more than 0");
+                ResetItem();
+                return false;
+            }
+
             var quantity = parseFloat($("#txtQuantity").val());
             var discount = parseFloat($("#txtDiscountAmount").val());
             var productId = $("#Product").val();
             var productName = $("#Product option:selected").text();
             var discountID = $('#Discount').val();
-
             var total = (price * quantity) - discount;
 
-            var itemlist = `<tr>
+            var existingRow = tblItemList.find(`td:contains(${productId})`).closest('tr');
+
+            if (existingRow.length > 0) {
+
+                var existingQuantity = parseFloat(existingRow.find("td:eq(3)").text());
+                var existingDiscount = parseFloat(existingRow.find("td:eq(4)").text());
+                var existingTotal = parseFloat(existingRow.find("td:eq(5)").text());
+
+                existingRow.find("td:eq(3)").text((existingQuantity + quantity).toFixed());
+                existingRow.find("td:eq(4)").text((existingDiscount + discount).toFixed());
+                existingRow.find("td:eq(5)").text((existingTotal + total).toFixed());
+            } else {
+                // Add a new row if the product is not in the table
+                var itemlist = `<tr>
                                 <td hidden>${productId}</td>
                                 <td>${productName}</td>
                                 <td>${price.toFixed(2)}</td>
@@ -184,7 +202,9 @@
                                 <td><input type='button' value='Remove' name='remove' class='btn btn-danger' onclick='RemoveItem(this)' /></td>
                             </tr>`;
 
-            tblItemList.append(itemlist);
+                tblItemList.append(itemlist);
+            }
+
             FinalOrderTotal();
             ResetItem();
         }
@@ -192,61 +212,56 @@
 
 
 
+        function FinalPayment() {
+            var finalTotalBill = parseFloat($("#FinalTotalBill").val());
+            var cashierName = '@User.Identity.Name';
 
+            if (!isNaN(finalTotalBill) && finalTotalBill > 0) {
+                var objSalesTransaction = {};
+                var ListofOrderDetailViewModel = new Array();
+                // SalesTransactionDetail
+                objSalesTransaction.Account_name = cashierName;
+                objSalesTransaction.Total_Amount = finalTotalBill;
 
+                $("#tblOrder").find("tr:gt(0)").each(function () {
+                    var SalesTransactionDetail = {};
+                    SalesTransactionDetail.Product_ID = $(this).find("td:eq(0)").text();
+                    SalesTransactionDetail.Total_Quantity = $(this).find("td:eq(3)").text();
+                    SalesTransactionDetail.PricePerUnit = $(this).find("td:eq(2)").text();
+                    SalesTransactionDetail.Subtotal = $(this).find("td:eq(5)").text();
+                    SalesTransactionDetail.Discount_ID = $(this).find("td:eq(6)").text();
+                    ListofOrderDetailViewModel.push(SalesTransactionDetail);
+                });
 
-function FinalPayment() {
-    var finalTotalBill = parseFloat($("#FinalTotalBill").val());
-    
-    // Validation: Check if finalTotalBill is a valid number and greater than 0
-    if (!isNaN(finalTotalBill) && finalTotalBill > 0) {
-        var objSalesTransaction = {};
-        var ListofOrderDetailViewModel = new Array();
+                objSalesTransaction.ListofOrderDetailViewModel = ListofOrderDetailViewModel;
 
-        // SalesTransactionDetail
-        objSalesTransaction.Account_ID = 3;
-        objSalesTransaction.Total_Amount = finalTotalBill;
-        objSalesTransaction.ReceiptInfo = "006";
+                // Validation: Check if there are order details in the list
+                if (ListofOrderDetailViewModel.length > 0) {
+                    $.ajax({
+                        async: true,
+                        type: 'POST',
+                        dataType: 'JSON',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(objSalesTransaction),
+                        url: '/POS/Index',
+                        success: function (data) {
+                            alert("Transaction Saved! Thank you for shopping with us!");
+                            PrintReceipt(data)
 
-        $("#tblOrder").find("tr:gt(0)").each(function () {
-            var SalesTransactionDetail = {};
-            SalesTransactionDetail.Product_ID = $(this).find("td:eq(0)").text();
-            SalesTransactionDetail.Total_Quantity = $(this).find("td:eq(3)").text();
-            SalesTransactionDetail.PricePerUnit = $(this).find("td:eq(2)").text();
-            SalesTransactionDetail.Subtotal = $(this).find("td:eq(5)").text();
-            SalesTransactionDetail.Discount_ID = $(this).find("td:eq(6)").text();
-            ListofOrderDetailViewModel.push(SalesTransactionDetail);
-        });
+                        },
 
-        objSalesTransaction.ListofOrderDetailViewModel = ListofOrderDetailViewModel;
-
-        // Validation: Check if there are order details in the list
-        if (ListofOrderDetailViewModel.length > 0) {
-            $.ajax({
-                async: true,
-                type: 'POST',
-                dataType: 'JSON',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(objSalesTransaction),
-                url: '/POS/Index',
-                success: function (data) {
-                    alert(data);
-                },
-                error: function (xhr, status, error) {
-                    console.error("AJAX error: " + status, error);
-                    alert("There is some problem adding the data. Check the console for details.");
+                        error: function (xhr, status, error) {
+                            console.error("AJAX error: " + status, error);
+                            alert("There is some problem adding the data. Check the console for details.");
+                        }
+                    });
+                } else {
+                    alert("Please add items to the order before making the payment.");
                 }
-            });
-        } else {
-            alert("Please add items to the order before making the payment.");
+            } else {
+                alert("Please enter a valid total amount.");
+            }
         }
-    } else {
-        alert("Please enter a valid total amount.");
-    }
-}
-
-
-
 
         function FinalOrderTotal() {
             var finalSubTotal = 0.00;
@@ -289,26 +304,26 @@ function FinalPayment() {
 
 
 
-        function PrintReceipt() {
+
+        function PrintReceipt(receipt) {
             // Get the values needed for the receipt
             var finalSubTotal = $("#FinalSubTotal").val();
             var vat = $("#vat").val();
             var finalTotalBill = $("#FinalTotalBill").val();
             var customerMoney = $("#CustomerMoney").val();
             var customerChange = $("#CustomerChange").val();
-
             // Construct the receipt content with table items
             var receiptContent = "=========================\n";
-            receiptContent += "   Downtown Alley\n";
-            receiptContent += "   123 Main Street\n";
-            receiptContent += "   Quezon City, 1999\n";
-            receiptContent += "   Phone: (123) 456-7890\n";
-            receiptContent += "   Email: DowntownAlley@gmail.com\n";
-            receiptContent += "   Website: www.DowntownAlley.com\n";
-            receiptContent += "   =========================\n\n";
-            receiptContent += "Receipt No: 006\n";
+            receiptContent += "Downtown Alley\n";
+            receiptContent += "123 Main Street\n";
+            receiptContent += "Quezon City, 1999\n";
+            receiptContent += "Phone: (123) 456-7890\n";
+            receiptContent += "Email: DowntownAlley@gmail.com\n";
+            receiptContent += "Website: www.DowntownAlley.com\n";
+            receiptContent += "=========================\n\n";
+            receiptContent += "Receipt No:" + receipt +"\n";
             receiptContent += "Date/Time: " + getCurrentDateTime() + "\n";
-            receiptContent += "Cashier: Paul Tan\n\n";
+            receiptContent += "Cashier: @User.Identity.Name\n\n";
             receiptContent += "-------------------------------------------\n";
             receiptContent += "Product Code | Qty | Price | Discnt Amt | Total\n";
             receiptContent += "-------------------------------------------\n";
@@ -376,6 +391,7 @@ function FinalPayment() {
                 url: '/POS/getItemUnitPrice',
                 success: function (data) {
                     $("#unitprice").val(parseFloat(data).toFixed(2));
+                    CalculateSubTotal();
                 },
                 error: function (xhr, status, error) {
                     console.error("AJAX error: " + status, error);
@@ -393,6 +409,7 @@ function FinalPayment() {
                 url: '/POS/getDiscountvalue',
                 success: function (data) {
                     $("#txtDiscount").val(parseFloat(data).toFixed());
+                    CalculateSubTotal();
                 },
                 error: function (xhr, status, error) {
                     console.error("AJAX error: " + status, error);
@@ -403,14 +420,11 @@ function FinalPayment() {
 
     </script>
 
-
-
-
-    <div class="container-fluid body-content bg-light min-vh-100 pt-5" style="margin-top: -62.5px; background-color: #fcf5f4 ">
+    <div class="container-fluid body-content bg-light min-vh-100 pt-5" style="margin-top: -62.5px; background-color: #fcf5f4; ">
         <main class="container-fluid pt-4 row">
 
             <div class="col">
-                <div class=" table-container mx-1 border border-1 border-black rounded-1 p-3" style="max-height: 80vh; overflow-y: auto; background-color: #fbe8e9;">
+                <div class=" table-container mx-1 border border-3 border-black rounded-1 p-3" style="max-height: 80vh; overflow-y: auto; ">
                     <table id="tblOrder" style="width:100%;  ">
                         <thead>
                             <tr>
@@ -434,7 +448,7 @@ function FinalPayment() {
 
 
             <div class="col-4 ">
-                <div class="form-group border border-1 bg-light border-black p-2" style="background-color: #fbe8e9">
+                <div class="form-group border border-2 bg-light border-black p-2" style="background-color: #fbe8e9">
                     <div class="row">
                         <div class="col">
                             Search Product:
@@ -459,7 +473,7 @@ function FinalPayment() {
                         </div>
                         <div class="col d-flex">
                             Discount Amount:
-                            <input type="text" readonly="readonly" name="Discount" value="0" id="txtDiscountAmount" class="form-control" />
+                            <input type="text" readonly="readonly" name="Discount" value="0.00" id="txtDiscountAmount" class="form-control" />
                         </div>
                     </div>
                     Quantity:
@@ -479,7 +493,7 @@ function FinalPayment() {
 
 
 
-                <div class="form-group border border-1 bg-light border-black p-2 my-2">
+                <div class="form-group border border-2 bg-light border-black p-2 my-2">
                     <div class="d-flex gap-2 my-1">
                         <div>
                             Sub Total:
@@ -495,7 +509,7 @@ function FinalPayment() {
                 </div>
 
 
-                <div class="form-group border border-1 bg-light border-black p-2 " style="background-color:white">
+                <div class="form-group border border-2 bg-light border-black p-2 " style="background-color:white">
                     <h5>Amount tendered:</h5>
                     <div class="d-flex gap-2">
                         <input type="number" name="CustomerMoney" id="CustomerMoney" value="" class="form-control" />
@@ -518,9 +532,7 @@ function FinalPayment() {
 
 
 
-    <input type="button" name="name" value="Logout" class="btn btn-dark" style="position: absolute; bottom:0; left:5px;" />
-
-
+    <div style="position: absolute; bottom:0; left:5px;">@Html.ActionLink("Logout", "Logout", "Accounts", new { area = "" }, new { @class = "btn btn-dark" })</div>
 
 
 

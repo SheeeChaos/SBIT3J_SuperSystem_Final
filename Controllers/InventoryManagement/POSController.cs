@@ -54,7 +54,9 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         {
             TransactionRepository objTransactionRepository = new TransactionRepository();
             objTransactionRepository.AddOrder(objSalesTransaction);
-            return Json("Sales saved, Thanks for shopping with us!", JsonRequestBehavior.AllowGet);
+            int reciept = objTransactionRepository.getid;
+
+            return Json(reciept, JsonRequestBehavior.AllowGet);
 
         }
 
