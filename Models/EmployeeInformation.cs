@@ -11,7 +11,8 @@ namespace SBIT3J_SuperSystem_Final.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class EmployeeInformation
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -29,19 +30,42 @@ namespace SBIT3J_SuperSystem_Final.Models
             this.SSSes = new HashSet<SSS>();
             this.Taxes = new HashSet<Tax>();
         }
-    
+
         public int Employee_ID { get; set; }
+
+        [Required(ErrorMessage = "First Name is required.")]
         public string First_Name { get; set; }
+
+        [Required(ErrorMessage = "Middle Name is required.")]
         public string Middle_Name { get; set; }
+
+        [Required(ErrorMessage = "Last Name is required.")]
         public string Last_Name { get; set; }
+
+        [Required(ErrorMessage = "Sex is required.")]
         public string Sex { get; set; }
+
+        [Required(ErrorMessage = "Address is required.")]
         public string Address { get; set; }
+
+        [Required(ErrorMessage = "Phone Number is required.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Invalid Phone Number.")]
         public string Phone_Number { get; set; }
+
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; }
-        public Nullable<System.DateTime> Birth_Date { get; set; }
-        public Nullable<System.DateTime> Date_Hired { get; set; }
+
+        [Required(ErrorMessage = "Birth Date is required.")]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> Birth_Date { get; set; }
+
+        [Required(ErrorMessage = "Date Hired is required.")]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> Date_Hired { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeAccount> EmployeeAccounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Deduction> Deductions { get; set; }

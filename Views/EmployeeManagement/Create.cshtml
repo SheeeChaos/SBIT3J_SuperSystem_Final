@@ -9,314 +9,348 @@
 <html>
 <head>
     <style>
-            .textbox {
-                width: 100%;
-                padding: 12px 20px;
-                margin: 8px 0;
-                box-sizing: border-box;
-                border: 2px solid #ccc;
-                border-radius: 4px;
-                background-color: #f8f8f8;
-                font-size: 16px;
-            }
+        .textbox {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            font-size: 16px;
+        }
 
-            .btn {
-                position:static;
-                width: 40%;
-                padding: 20px 40px;
-                margin: 8px 0;
-                margin-left:50px;
-                background-color: cornflowerblue;
+        .btn {
+            position: static;
+            width: 40%;
+            padding: 20px 40px;
+            margin: 8px 0;
+            margin-left: 50px;
+            background-color: cornflowerblue;
+            color: black;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 32px;
+            font-family: 'Times New Roman';
+        }
+
+
+            .btn:hover {
                 color: black;
-                border: none;
-                cursor: pointer;
-                border-radius: 4px;
-                font-size: 32px;
-                font-family:'Times New Roman';
-            }
-            
-
-                .btn:hover {
-                    color:black;
-                    background-color: white;
-                }
-
-            
-            * {
-                margin: 0;
-                padding: 0;
-                outline: none;
-                border: none;
-                text-decoration: none;
-                box-sizing: border-box;
-                font-family: Arial;
-            }
-
-            body {
-                background: rgba(75,6,15,255);
-                background-attachment: fixed;
-                overflow: hidden;
-            }
-
-            .titlehder {
-                font-family: 'Times New Roman';
-                position: absolute;
-                left: 15%;
-                top: 5%;
-                font-size: 52px;
-                color: white;
-            }
-
-
-            .logo-img {
-                position: absolute;
-                display: block;
-                width: 10%;
-                border-radius: 55%;
-                border: 0.5px solid #808080;
-                top: 10px;
-                margin-left: 40px;
-                margin-right: auto;
-                z-index: 2;
-            }
-
-            nav {
-                margin-left: -50px;
-                width: 430px;
-                height: auto;
-                overflow-x: hidden;
-                overflow-y: scroll;
-            }
-
-                nav::-webkit-scrollbar {
-                    display: none;
-                }
-
-            .navitem {
-                position: relative;
-                display: block;
-                background-color: ghostwhite;
-                padding: 5px;
-                margin-top: 10%;
-                margin-right: auto;
-                margin-left: auto;
-                width: 130px;
-                height: 130px;
-                border-radius: 55%;
-                border: 1px solid rgba(0,0,0,1);
-            }
-
-            .cogicon {
-                position: absolute;
                 background-color: white;
-                border: 5px solid rgba(0,0,0,1);
-                border-radius: 55%;
-                right: 50px;
-                top: 50px;
-                width: 180px;
-                height: auto;
             }
 
-            .modal {
+
+        * {
+            margin: 0;
+            padding: 0;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            box-sizing: border-box;
+            font-family: Arial;
+        }
+
+        body {
+            background: rgba(75,6,15,255);
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        .titlehder {
+            font-family: 'Times New Roman';
+            position: absolute;
+            left: 15%;
+            top: 5%;
+            font-size: 52px;
+            color: white;
+        }
+
+
+        .logo-img {
+            position: absolute;
+            display: block;
+            width: 10%;
+            border-radius: 55%;
+            border: 0.5px solid #808080;
+            top: 10px;
+            margin-left: 40px;
+            margin-right: auto;
+            z-index: 2;
+        }
+
+        nav {
+            margin-left: -50px;
+            width: 430px;
+            height: auto;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+            nav::-webkit-scrollbar {
                 display: none;
-                position: fixed;
-                z-index: 1;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                overflow: auto;
-                background-color: rgb(0,0,0);
-                background-color: rgba(0,0,0,0.4);
             }
 
-            .modal-content {
-                background-color: #fefefe;
-                margin: 15% auto;
-                padding: 20px;
-                border: 1px solid #888;
-                width: 40%;
-            }
+        .navitem {
+            position: relative;
+            display: block;
+            background-color: ghostwhite;
+            padding: 5px;
+            margin-top: 10%;
+            margin-right: auto;
+            margin-left: auto;
+            width: 130px;
+            height: 130px;
+            border-radius: 55%;
+            border: 1px solid rgba(0,0,0,1);
+        }
 
-            .close {
-                color: #aaaaaa;
-                float: right;
-                font-size: 28px;
-                font-weight: bold;
-            }
+        .cogicon {
+            position: absolute;
+            background-color: white;
+            border: 5px solid rgba(0,0,0,1);
+            border-radius: 55%;
+            right: 50px;
+            top: 50px;
+            width: 180px;
+            height: auto;
+        }
 
-                .close:hover,
-                .close:focus {
-                    color: #000;
-                    text-decoration: none;
-                    cursor: pointer;
-                }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
 
-            .exitt {
-                position: absolute;
-                padding: 0;
-                margin: auto;
-                margin-left: 80%;
-                margin-bottom: -60px;
-                width: 50px;
-                height: 50px;
-            }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 40%;
+        }
 
-            .btnn {
-                text-align: center;
-                background-color: dodgerblue;
-                width: 70px;
-                height: 50px;
-            }
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-            .dvlogout {
-                position: absolute;
-                text-align: center;
-                background-color: deepskyblue;
-            }
-
-            .curvenav {
-                position: absolute;
-                background-color: ghostwhite;
-                border-radius: 140px, 0, 0, 40px;
-                transition: 0.5s ease-in-out;
-                width: 300px;
-                height: 160px;
-                border: 1px, solid, rgba(0,0,0,1);
-                top: 285px;
-                margin-left: 88px;
-                border-radius: 80px 0 0 80px;
-                border: 3px solid rgba(100,21,4,255);
-                z-index: -2;
-            }
-
-            .btnn:hover {
-                background-color: blue;
-            }
-
-            .container {
-                position: absolute;
-                background-color: lightgrey;
-                
-                margin: 0 auto;
-                margin-top: 5%;
-                margin-left:25%;
-                padding: 20px;
-                border: 1px solid #ccc;
-                border-radius: 40px 40px 40px 40px;
-                height: 80%;
-                width: 48%;
-                overflow: hidden;
-            }
-
-                .container::-webkit-scrollbar {
-                    display: none;
-                }
-
-            .logobg {
-                opacity: 0.15;
-                position: absolute;
-                margin: 0;
-                padding: 0;
-                top: -170px;
-                left: -70px;
-                width: 2720px;
-            }
-
-            .ContainerHeader {
-                background-color: white;
-                width: 100%;
-                height: 42px;
-                top: 30px;
-            }
-
-            .lgout-btn {
-                display: inline-block;
-                padding: 10px 20px;
-                margin: 5px;
-                margin-left: 40%;
-                margin-right: 40%;
-                font-size: 18px;
-                color: #ffffff;
-                background-color: #007bff;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
+            .close:hover,
+            .close:focus {
+                color: #000;
                 text-decoration: none;
-                transition: background-color 0.3s;
+                cursor: pointer;
             }
 
-                .lgout-btn:hover {
-                    background-color: #0056b3;
-                }
+        .exitt {
+            position: absolute;
+            padding: 0;
+            margin: auto;
+            margin-left: 80%;
+            margin-bottom: -60px;
+            width: 50px;
+            height: 50px;
+        }
 
-            h2.crud-header {
-                color: black;
-                font-size: 42px;
-                margin-bottom: 0;
-                text-align: left;
-                background-color: white;
-                height: 42px;
+        .btnn {
+            text-align: center;
+            background-color: dodgerblue;
+            width: 70px;
+            height: 50px;
+        }
+
+        .dvlogout {
+            position: absolute;
+            text-align: center;
+            background-color: deepskyblue;
+        }
+
+        .curvenav {
+            position: absolute;
+            background-color: ghostwhite;
+            border-radius: 140px, 0, 0, 40px;
+            transition: 0.5s ease-in-out;
+            width: 300px;
+            height: 160px;
+            border: 1px, solid, rgba(0,0,0,1);
+            top: 285px;
+            margin-left: 88px;
+            border-radius: 80px 0 0 80px;
+            border: 3px solid rgba(100,21,4,255);
+            z-index: -2;
+        }
+
+        .btnn:hover {
+            background-color: blue;
+        }
+
+        .container {
+            position: absolute;
+            background-color: lightgrey;
+            margin: 0 auto;
+            margin-top: 5%;
+            margin-left: 17%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 40px 40px 40px 40px;
+            height: 80%;
+            width: 65%;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+            .container::-webkit-scrollbar {
+                display: none;
             }
 
-            table.crud-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-bottom: 20px;
+        .logobg {
+            opacity: 0.15;
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            top: -170px;
+            left: -70px;
+            width: 2720px;
+        }
+
+        .ContainerHeader {
+            background-color: white;
+            width: 100%;
+            height: 42px;
+            top: 30px;
+        }
+
+        .lgout-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            margin-left: 40%;
+            margin-right: 40%;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+            .lgout-btn:hover {
+                background-color: #0056b3;
             }
 
-            th.crud-header-cell, td.crud-data-cell {
-                position:static;
-                padding: 12px;
-                border: 2px solid rgba(0,0,0,0.7);
-                text-align: left;
-                font-size: 28px;
-            }
+        h2.crud-header {
+            color: black;
+            font-size: 42px;
+            margin-bottom: 0;
+            text-align: left;
+            background-color: white;
+            height: 42px;
+        }
 
-            th.crud-header-cell {
-                background-color: #f2f2f2;
-                font-size: 32px;
-            }
+        table.crud-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-            tr.crud-row:nth-child(even) {
-                background-color: #f9f9f9;
-            }
+        th.crud-header-cell, td.crud-data-cell {
+            position: static;
+            padding: 12px;
+            border: 2px solid rgba(0,0,0,0.7);
+            text-align: left;
+            font-size: 28px;
+        }
 
-            /*tr.crud-row:hover {
+        th.crud-header-cell {
+            background-color: #f2f2f2;
+            font-size: 32px;
+        }
+
+        tr.crud-row:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /*tr.crud-row:hover {
             background-color: #e5e5e5;
         }*/
         .crud-row {
             position: static;
             margin-top: 20px;
-            
             background-color: white;
             margin: 100px;
         }
 
-            .custom-btn {
-                display: inline-block;
-                padding: 7px 13px;
-                margin: 5px;
-                font-size: 24px;
-                color: white;
-                background-color: #007bff;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                text-decoration: none;
-                transition: background-color 0.3s;
+        .custom-btn {
+            display: inline-block;
+            padding: 7px 13px;
+            margin: 5px;
+            font-size: 24px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+            .custom-btn:hover {
+                background-color: #0056b3;
             }
 
-                .custom-btn:hover {
-                    background-color: #0056b3;
-                }
+        .custom-btn2 {
+            position: absolute;
+            display: inline-block;
+            
+            width:55px;
+            right: 20px;
+            top: 15px;
+            padding: 7px 13px;
+            margin: 5px;
+            font-size: 32px;
+            color: maroon;
+            border: none;
+            border-radius: 55%;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            
+        }
+
+            .custom-btn2:hover {
+               
+            }
+
+        .btn {
+            font-family: 'Times New Roman';
+            color: white;
+            background-color: maroon;
+            transition: background-color 0.3s;
+        }
+
+            .btn:hover {
+                color: white;
+                background-color: red;
+            }
 
         .backtolist {
-            position:fixed;
+            position: absolute;
             display: inline-block;
             padding: 7px 10px;
-            top:20px;
-            right:20px;
+            top: 10px;
+            right: 20px;
             margin: 5px;
             font-size: 52px;
             color: white;
@@ -327,29 +361,33 @@
             text-decoration: none;
             transition: background-color 0.3s;
         }
+        .backtolist:hover{
+            background-color: dodgerblue;
+        }
 
         input[type="text"] {
             font-size: 24px;
         }
 
-
-    
-
-
+        .text-danger {
+            color: darkred;
+            font-style: oblique;
+            font-weight: bold;
+        }
     </style>
     <meta name="viewport" content="width=device-width" />
     <title>Create</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 
     <img src="~/Image/Group4/LogoDTA.png" class="logo-img" />
-    <div class="backtolist">
-        @Html.ActionLink("Back to List", "Hr_Employee_L")
-    </div>
+    
 
     <div class="container">
+        <a href="@Url.Action("Hr_Employee_L", "EmployeeManagement")" class="custom-btn2"><h4 style="color:maroon; font-family: 'Times New Roman'; font-size:32px;">←</h4></a>
         <!--<img src="~/Image/Group4/background/Logo-background.jpg" class="logobg" />
-        <div class="ContainerHeader"><h1 style="font-family: 'Times New Roman'; font-size:42px;">EMPLOYEE LIST</h1></div>-->
+    <div class="ContainerHeader"><h1 style="font-family: 'Times New Roman'; font-size:42px;">EMPLOYEE LIST</h1></div>-->
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -357,7 +395,7 @@
 
 
             <div class="form-horizontal">
-                <h1 style="font-family:'Times New Roman'; font-size:52px;">Employee Information</h1>
+                <h1 style="font-family:'Times New Roman'; font-size:32px;">Employee Information</h1>
 
                 <table>
                     <tr class="crud-row">
@@ -378,6 +416,7 @@
                                 <h2>Middle Name:</h2>
                                 <div class="col-md-10">
                                     @Html.EditorFor(model => model.Middle_Name, new { htmlAttributes = new { @class = "textbox" } })
+
                                     @Html.ValidationMessageFor(model => model.Middle_Name, "", new { @class = "text-danger" })
 
                                 </div>
@@ -400,7 +439,14 @@
                             <div class="form-group">
                                 <h2>Sex:</h2>
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "textbox" } })
+
+                                    @Html.DropDownListFor(m => m.Sex, new List<SelectListItem>()
+                                    {
+                                        new SelectListItem { Text = "Male", Value = "Male" },
+                                        new SelectListItem { Text = "Female", Value = "Female" },
+                                        new SelectListItem { Text = "Prefer not to say", Value = "" }
+                                    })
+
                                     @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -419,8 +465,8 @@
                             </div>
                         </td>
                     </tr>
-                    </table>
-                    <table>
+                </table>
+                <table>
                     <tr class="crud-row">
                         <td class="crud-header-cell" style="width:14in;">
                             <div class="form-group">
@@ -446,7 +492,7 @@
                             <div class="form-group">
                                 <h2>Birth Date:</h2>
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Birth_Date, new { htmlAttributes = new { @class = "textbox" } })
+                                    @Html.EditorFor(model => model.Birth_Date, new { htmlAttributes = new { type = "date", @class = "textbox" } })
                                     @Html.ValidationMessageFor(model => model.Birth_Date, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -455,7 +501,7 @@
                             <div class="form-group">
                                 <h2>Date Hired:</h2>
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Date_Hired, new { htmlAttributes = new { @class = "textbox" } })
+                                    @Html.EditorFor(model => model.Date_Hired, new { htmlAttributes = new { type = "date", @class = "textbox" } })
                                     @Html.ValidationMessageFor(model => model.Date_Hired, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -465,7 +511,7 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        
+
                         <input type="submit" value="Create" class="btn btn-default" /><input type="reset" value="Reset" class="btn btn-default" />
                     </div>
                 </div>
@@ -476,7 +522,19 @@
     </div>
 
 
-    
+    <script>
+        $(document).ready(function () {
+            // Attach an input event handler to each input field
+            $("input[type='text'], input[type='date']").on("input", function () {
+                // Get the associated validation message element
+                var validationMessage = $(this).closest(".form-group").find(".text-danger");
+
+                // Hide the validation message
+                validationMessage.hide();
+            });
+        });
+    </script>
+
 
 </body>
 </html>
