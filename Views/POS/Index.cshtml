@@ -216,8 +216,34 @@
                                 <td><input type='button' value='Remove' name='remove' class='btn btn-danger' onclick='RemoveItem(this)' /></td>
                             </tr>`;
 
-                tblItemList.append(itemlist);
-            
+            tblItemList.append(itemlist);
+
+            //var existingRow = tblItemList.find(`tr:has(td:contains("${productId}")):has(td:contains("${discountID}"))`);
+
+            //if (existingRow.length > 0) {
+            //    // If the product already exists, update the quantity and other values
+            //    var existingQuantity = parseFloat(existingRow.find("td:eq(3)").text());
+            //    var existingDiscount = parseFloat(existingRow.find("td:eq(4)").text());
+            //    var existingTotal = parseFloat(existingRow.find("td:eq(5)").text());
+
+            //    existingRow.find("td:eq(3)").text((existingQuantity + quantity).toFixed());
+            //    existingRow.find("td:eq(4)").text((existingDiscount + discount).toFixed());
+            //    existingRow.find("td:eq(5)").text((existingTotal + total).toFixed());
+            //} else {
+            //    // If the product does not exist, add a new row
+            //    var itemlist = `<tr>
+            //            <td hidden>${productId}</td>
+            //            <td>${productName}</td>
+            //            <td>${price.toFixed(2)}</td>
+            //            <td>${quantity.toFixed()}</td>
+            //            <td>${discount.toFixed()}</td>
+            //            <td>${total.toFixed(2)}</td>
+            //            <td hidden>${discountID}</td>
+            //            <td><input type='button' value='Remove' name='remove' class='btn btn-danger' onclick='RemoveItem(this)' /></td>
+            //        </tr>`;
+
+            //    tblItemList.append(itemlist);
+            //}
 
             FinalOrderTotal();
             ResetItem();
