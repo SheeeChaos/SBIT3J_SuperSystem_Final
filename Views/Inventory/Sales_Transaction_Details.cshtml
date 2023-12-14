@@ -27,8 +27,15 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.Product_ID</td>
-                                <td>@item.Total_Quantity</td>
+                                <td>@item.Product_Info.Product_Code</td>
+                                @if (item.Total_Quantity <= 0)
+                                {
+                                    <td>Refunded</td>
+                                }
+                                else
+                                {
+                                    <td>@item.Total_Quantity</td>
+                                }
                                 @if (item.Discount != null)
                                 {
                                     <td>@item.Discount.Discount_Amount</td>

@@ -139,7 +139,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ProductsEdit([Bind(Include = "Product_ID,Product_Code,Product_Name,Category,Size,Color,Sex,Is_Archived,Price,Stock_Level")] Product_Info product_Info)
+        public ActionResult ProductsEdit([Bind(Include = "Product_ID,Product_Code,Product_Name,Category,Size,Color,Sex,Is_Archived,Price")] Product_Info product_Info)
         {
             if (ModelState.IsValid)
             {
@@ -275,6 +275,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.RestockID = id;
 
             return View(restockDetailsList);
         }
@@ -359,6 +360,9 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             return View();
         }
 
+
+
+
         // POST: Return_Item/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -370,6 +374,9 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             {
                 objDatabaseConnectionEntities.Return_Item.Add(return_Item);
                 objDatabaseConnectionEntities.SaveChanges();
+
+                UpdateTablesAfterReturn(return_Item);
+
                 return RedirectToAction("ReturnsAndRefunds");
             }
 
@@ -377,6 +384,71 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             ViewBag.Transaction_ID = new SelectList(objDatabaseConnectionEntities.Sales_Transaction, "Transaction_ID", "Transaction_ID", return_Item.Transaction_ID);
             return View(return_Item);
         }
+        private void UpdateTablesAfterReturn(Return_Item returnItem)
+        {
+            // Update Product_Info table
+            if (returnItem.Resellable == true)
+            {
+                var productInfo = objDatabaseConnectionEntities.Product_Info
+                    .FirstOrDefault(p => p.Product_ID == returnItem.Product_ID);
+
+                if (productInfo != null)
+                {
+                    productInfo.Stock_Level += returnItem.Quantity_Returned;
+                    objDatabaseConnectionEntities.SaveChanges();
+                }
+            }
+
+            // Update Sales_Transaction_Details table
+            var salesTransactionDetail = objDatabaseConnectionEntities.Sales_Transaction_Details
+                .Where(d => d.Transaction_ID == returnItem.Transaction_ID && d.Product_ID == returnItem.Product_ID)
+                .FirstOrDefault();
+
+            if (salesTransactionDetail != null)
+            {
+                salesTransactionDetail.Total_Quantity -= returnItem.Quantity_Returned;
+                objDatabaseConnectionEntities.SaveChanges();
+
+            }
+
+            // Update Sales_Transaction table
+            var salesTransaction = objDatabaseConnectionEntities.Sales_Transaction
+                .FirstOrDefault(t => t.Transaction_ID == returnItem.Transaction_ID);
+
+            if (salesTransaction != null)
+            {
+                // Assuming that Price is the property in Product_Info that represents the product price
+                decimal productPrice = (decimal)objDatabaseConnectionEntities.Product_Info
+                    .Where(p => p.Product_ID == returnItem.Product_ID)
+                    .Select(p => p.Price)
+                    .FirstOrDefault();
+
+                // Assuming Discount_Amount is the property in Discount that represents the discount amount
+                decimal discountAmount = objDatabaseConnectionEntities.Sales_Transaction_Details
+                   .Where(d => d.Transaction_ID == returnItem.Transaction_ID && d.Product_ID == returnItem.Product_ID && d.Discount != null)
+                   .Select(d => d.Discount.Discount_Amount)
+                   .FirstOrDefault() ?? 0;
+
+
+                // Calculate the total amount considering the quantity returned and the discount
+
+                var discountDecimal = discountAmount / 100;
+
+                var discountAmountPerItem = productPrice * discountDecimal;
+                var totalDiscountAmount = discountAmountPerItem * returnItem.Quantity_Returned;
+                decimal totalAmountAdjustment = (decimal)((returnItem.Quantity_Returned * productPrice) - totalDiscountAmount) * 1.12M;
+
+                salesTransaction.Total_Amount -= totalAmountAdjustment;
+                objDatabaseConnectionEntities.SaveChanges();
+
+            }
+
+        }
+
+
+
+
+
 
         // GET: Return_Item/Edit/5
         public ActionResult ReturnsAndRefundsEdit(int? id)
@@ -404,14 +476,63 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         {
             if (ModelState.IsValid)
             {
-                objDatabaseConnectionEntities.Entry(return_Item).State = EntityState.Modified;
-                objDatabaseConnectionEntities.SaveChanges();
-                return RedirectToAction("ReturnsAndRefunds");
+                // Fetch the original return item from the database
+                Return_Item originalReturnItem = objDatabaseConnectionEntities.Return_Item.Find(return_Item.Return_ID);
+
+                if (originalReturnItem != null)
+                {
+                    // Calculate the difference in Quantity_Returned
+                    int quantityDifference = (int)(return_Item.Quantity_Returned - originalReturnItem.Quantity_Returned);
+
+                    // Update Product_Info Stock_Level
+                    Product_Info productInfo = objDatabaseConnectionEntities.Product_Info.Find(return_Item.Product_ID);
+                    if (productInfo != null)
+                    {
+                        // Add or subtract the difference to Stock_Level
+                        productInfo.Stock_Level += quantityDifference;
+                        objDatabaseConnectionEntities.Entry(productInfo).State = EntityState.Modified;
+                    }
+
+                    // Update Sales_Transaction_Details Total_Quantity
+                    Sales_Transaction_Details transactionDetails = objDatabaseConnectionEntities.Sales_Transaction_Details
+                        .FirstOrDefault(td => td.Transaction_ID == return_Item.Transaction_ID && td.Product_ID == return_Item.Product_ID);
+                    if (transactionDetails != null)
+                    {
+                        // Add or subtract the difference to Total_Quantity
+                        transactionDetails.Total_Quantity += quantityDifference;
+                        objDatabaseConnectionEntities.Entry(transactionDetails).State = EntityState.Modified;
+                    }
+
+                    // Update Sales_Transaction Total_Amount
+                    Sales_Transaction salesTransaction = objDatabaseConnectionEntities.Sales_Transaction.Find(return_Item.Transaction_ID);
+                    if (salesTransaction != null)
+                    {
+                        // Calculate the new Total_Amount based on updated Sales_Transaction_Details
+                        salesTransaction.Total_Amount = objDatabaseConnectionEntities.Sales_Transaction_Details
+                            .Where(td => td.Transaction_ID == return_Item.Transaction_ID)
+                            .Sum(td => (td.Total_Quantity * td.Product_Info.Price) - (td.Discount != null ? td.Discount.Discount_Amount : 0));
+
+                        objDatabaseConnectionEntities.Entry(salesTransaction).State = EntityState.Modified;
+                    }
+
+                    // Update the original return item with the new values
+                    objDatabaseConnectionEntities.Entry(originalReturnItem).CurrentValues.SetValues(return_Item);
+
+                    // Save changes to the database
+                    objDatabaseConnectionEntities.SaveChanges();
+
+                    return RedirectToAction("ReturnsAndRefunds");
+                }
             }
-            ViewBag.Product_ID = new SelectList(objDatabaseConnectionEntities.Product_Info, "Product_ID", "Product_Code", return_Item.Product_ID);
-            ViewBag.Transaction_ID = new SelectList(objDatabaseConnectionEntities.Sales_Transaction, "Transaction_ID", "Transaction_ID", return_Item.Transaction_ID);
+
+
             return View(return_Item);
         }
+
+
+
+
+
 
         // GET: Return_Item/Delete/5
         public ActionResult ReturnsAndRefundsDelete(int? id)
@@ -434,10 +555,88 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         public ActionResult ReturnsAndRefundsDeleteConfirmed(int id)
         {
             Return_Item return_Item = objDatabaseConnectionEntities.Return_Item.Find(id);
+
+            // Save the original values for reverting changes
+            Return_Item originalValues = new Return_Item
+            {
+                Product_ID = return_Item.Product_ID,
+                Transaction_ID = return_Item.Transaction_ID,
+                Quantity_Returned = return_Item.Quantity_Returned,
+                Resellable = return_Item.Resellable,
+            };
+
             objDatabaseConnectionEntities.Return_Item.Remove(return_Item);
             objDatabaseConnectionEntities.SaveChanges();
+
+            // Revert changes made during creation
+            RevertTablesAfterReturn(originalValues);
+
             return RedirectToAction("ReturnsAndRefunds");
         }
+
+        private void RevertTablesAfterReturn(Return_Item originalValues)
+        {
+            // Revert Product_Info table
+            if (originalValues.Resellable == true)
+            {
+                var productInfo = objDatabaseConnectionEntities.Product_Info
+                    .FirstOrDefault(p => p.Product_ID == originalValues.Product_ID);
+
+                if (productInfo != null)
+                {
+                    productInfo.Stock_Level -= originalValues.Quantity_Returned;
+                    objDatabaseConnectionEntities.SaveChanges();
+                }
+            }
+
+            // Revert Sales_Transaction_Details table
+            var salesTransactionDetail = objDatabaseConnectionEntities.Sales_Transaction_Details
+                .Where(d => d.Transaction_ID == originalValues.Transaction_ID && d.Product_ID == originalValues.Product_ID)
+                .FirstOrDefault();
+
+            if (salesTransactionDetail != null)
+            {
+                salesTransactionDetail.Total_Quantity += originalValues.Quantity_Returned;
+                objDatabaseConnectionEntities.SaveChanges();
+            }
+
+            // Revert Sales_Transaction table
+            var salesTransaction = objDatabaseConnectionEntities.Sales_Transaction
+                .FirstOrDefault(t => t.Transaction_ID == originalValues.Transaction_ID);
+
+            if (salesTransaction != null)
+            {
+                // Assuming that Price is the property in Product_Info that represents the product price
+                decimal productPrice = (decimal)objDatabaseConnectionEntities.Product_Info
+                    .Where(p => p.Product_ID == originalValues.Product_ID)
+                    .Select(p => p.Price)
+                    .FirstOrDefault();
+
+                // Assuming Discount_Amount is the property in Discount that represents the discount amount
+
+                decimal discountAmount = objDatabaseConnectionEntities.Sales_Transaction_Details
+                    .Where(d => d.Transaction_ID == originalValues.Transaction_ID && d.Product_ID == originalValues.Product_ID && d.Discount != null)
+                    .Select(d => d.Discount.Discount_Amount)
+                    .FirstOrDefault() ?? 0;
+
+
+                // Calculate the total amount considering the reverted quantity and the discount
+
+                var discountDecimal = discountAmount / 100;
+
+                var discountAmountPerItem = productPrice * discountDecimal;
+                var totalDiscountAmount = discountAmountPerItem * originalValues.Quantity_Returned;
+                decimal totalAmountAdjustment = (decimal)((originalValues.Quantity_Returned * productPrice) - totalDiscountAmount) ;
+                
+                var vatinclud = (salesTransaction.Total_Amount * 0.12M) - totalAmountAdjustment;
+
+                salesTransaction.Total_Amount += vatinclud;
+
+
+                objDatabaseConnectionEntities.SaveChanges();
+            }
+        }
+
 
 
 
