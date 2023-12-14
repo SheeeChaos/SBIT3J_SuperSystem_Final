@@ -31,7 +31,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         public ActionResult Dashboard()
         {
             List<MonthlySalesData> monthlySales = new List<MonthlySalesData>();
-            
+
             using (DatabaseConnectionEntities context = new DatabaseConnectionEntities())
             { // wala munang gagalaw nito -mark :>
                 int[] salesPerMonth = new int[12];
@@ -50,38 +50,8 @@ namespace SBIT3J_SuperSystem_Final.Controllers
                 {
                     salesPerMonth[monthlySales[i].MonthNumber - 1] = (int)(monthlySales[i].TotalSales ?? 0);
                 }
-            }
-
-            return View(monthlySales);
-        }
 
 
-        public ActionResult SalesRevenue()
-
-            using (dbcon)
-            {
-                var monthlySalesData = dbcon.Sales_Transaction
-                    .Where(s => s.Date != null) // Exclude null dates
-                    .GroupBy(s => new { Year = s.Date.Value.Year, Month = s.Date.Value.Month })
-                    .Select(g => new
-                    {
-                        Year = g.Key.Year,
-                        Month = g.Key.Month,
-                        TotalSales = g.Sum(s => s.Total_Amount) ?? 0 // Use 0 as the default value if Total_Amount is null
-                    })
-                    .AsEnumerable() // Switch to LINQ to Objects
-                    .Select(g => new MonthlySalesViewModel
-                    {
-                        Month = $"{g.Year}-{g.Month}",
-                        TotalSales = g.TotalSales
-                    })
-                    .OrderBy(g => g.Month)
-                    .ToList();
-
-                var salesGraphData = new SalesGraphViewModel
-                {
-                    MonthlySales = monthlySalesData
-                };
 
                 var CritStock = dbcon.Product_Info
                    .Where(p => p.Stock_Level <= 20)
@@ -97,15 +67,14 @@ namespace SBIT3J_SuperSystem_Final.Controllers
                      .Sum(st => st.Total_Amount);
                 ViewBag.CurrentDailySale = currentDailySale;
 
-               var totalStockLevel = dbcon.Product_Info.Sum(p => p.Stock_Level);
+                var totalStockLevel = dbcon.Product_Info.Sum(p => p.Stock_Level);
                 ViewBag.TotalStockLevel = totalStockLevel;
 
 
-                return View(salesGraphData);
             }
 
+            return View(monthlySales);
         }
-
 
         ////////////////           THIS PART IS FOR SALES REVENUE                   //////////////////////////
 
@@ -444,9 +413,6 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             return View(dbcon.AuditTrails.ToList());
         }
 
-
-
-
         ////////////////           THIS PART IS FOR OVER ALL ACTIVITES               //////////////////////////
         public ActionResult OverallActivities(string searchFilter, DateTime? startDate, DateTime? endDate, string filterType)
 
@@ -485,7 +451,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         }
 
         public ActionResult GeneratePdf(string searchFilter, DateTime? startDate, DateTime? endDate)
-        {
+        { 
             var query = GetFilteredData(searchFilter, startDate, endDate);
 
             var pdfResult = new ViewAsPdf("PrintPdf", query)

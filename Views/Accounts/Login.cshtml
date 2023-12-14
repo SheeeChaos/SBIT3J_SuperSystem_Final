@@ -17,7 +17,7 @@
 
                 <div class="header-logo">
                     <div class="img-container">
-
+                        <img src="~/Image/Group1-Assets/received_594167488046920.png"/>
                     </div>
                 </div>
                 <div class="company-name">
@@ -35,7 +35,7 @@
                 {
                     <div class="input-control">
                         @Html.Label("Username")
-                        @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = " Enter your username" })
+                        @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = " Enter Username" })
                         <div class="error-container"> @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })</div>
                     </div>
 
@@ -57,7 +57,7 @@
     </div>
 </div>
 
-<script>
+@*<script>
     function updateTime() {
         var currentTime = new Date();
         var hours = currentTime.getHours();
@@ -76,4 +76,4 @@
 
     // Initial update
     updateTime();
-</script>
+</script>*@

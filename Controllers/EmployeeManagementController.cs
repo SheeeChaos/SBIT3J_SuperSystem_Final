@@ -14,7 +14,7 @@ using System.Web.Security;
 
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
-    [Authorize]
+ [Authorize]
  public class EmployeeManagementController : Controller
 
     {
