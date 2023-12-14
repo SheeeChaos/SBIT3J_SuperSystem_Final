@@ -54,19 +54,19 @@ namespace SBIT3J_SuperSystem_Final.Controllers
                     {
                         return RedirectToAction("Dashboard", "AdminMonitoring");
                     }
-                    else if (credentials.Role == "Cashier")
+                    else if (credentials.Role == "cashier")
                     {
                         return RedirectToAction("Index", "POS");
                     }
-                    else if (credentials.Role == "StockManager")
+                    else if (credentials.Role == "stockManager")
                     {
                         return RedirectToAction("Index", "Inventory");
                     }
-                    else if (credentials.Role == "Hr")
+                    else if (credentials.Role == "hr")
                     {
                         return RedirectToAction("Index", "EmployeeManagement");
                     }
-                    else if (credentials.Role == "Accountant")
+                    else if (credentials.Role == "accountant")
                     {
                         return RedirectToAction("Index", "Payroll");
                     }

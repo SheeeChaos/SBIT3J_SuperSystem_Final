@@ -59,5 +59,14 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
         }
 
+        [HttpGet]
+
+        // GET: Inventory/CheckStock
+        public JsonResult CheckStock(int ProductID)
+        {
+            int stock = (int)objDatabaseConnectionEntities.Product_Info.Single(model => model.Product_ID == ProductID).Stock_Level;
+            return Json(stock, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

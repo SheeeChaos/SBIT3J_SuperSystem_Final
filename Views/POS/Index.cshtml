@@ -70,11 +70,17 @@
             $("#btnCancelOrder").click(ResetItem);
 
             $("#btnAddtoOrder").click(function () {
-                if (validateInputs()) {
-                    AddItemtoList();
-                    ResetItem();
+                var quantity = $("#txtQuantity").val();
+                var ProductId = $('#Product').val();
+                if (quantity === "" || $("#unitprice").val() === "" || $("#txtDiscountAmount").val() === "") {
+                    alert("Please fill in all fields.");
+                    return false;
                 }
+
+                CheckStock(ProductId)
+           
             });
+
 
             $("#ChangeConfirm").click(function () {
                 CalculateChange();
@@ -88,6 +94,34 @@
             });
 
         });
+
+
+        function CheckStock(ProductId) {
+            var quantity = $("#txtQuantity").val();
+
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: 'application/json; charset=utf-8',
+                data: { ProductID: ProductId },
+                url: '/POS/CheckStock',
+                success: function (data) {
+                    if (quantity > data) {
+                        alert("This product only has " + data + " left in stock");
+                        return false;
+                    } else {
+                        AddItemtoList();
+                        ResetItem();
+                        return true;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX error: " + status, error);
+                    alert("There is some problem checking stocks.");
+                }
+            });
+        }
+
 
         function validateOrderDetails() {
             var rowCount = $("#tblOrder tbody tr").length;
@@ -110,15 +144,6 @@
             return true;
         }
   
-
-        function validateInputs() {
-            if ($("#txtQuantity").val() === "" || $("#unitprice").val() === "" || $("#txtDiscountAmount").val() === "") {
-                alert("Please fill in all fields.");
-                return false;
-            }
-
-            return true;
-        }
 
         function ResetItem() {
             $("#unitprice").val('');
@@ -178,18 +203,7 @@
             var discountID = $('#Discount').val();
             var total = (price * quantity) - discount;
 
-            var existingRow = tblItemList.find(`td:contains(${productId})`).closest('tr');
 
-            if (existingRow.length > 0) {
-
-                var existingQuantity = parseFloat(existingRow.find("td:eq(3)").text());
-                var existingDiscount = parseFloat(existingRow.find("td:eq(4)").text());
-                var existingTotal = parseFloat(existingRow.find("td:eq(5)").text());
-
-                existingRow.find("td:eq(3)").text((existingQuantity + quantity).toFixed());
-                existingRow.find("td:eq(4)").text((existingDiscount + discount).toFixed());
-                existingRow.find("td:eq(5)").text((existingTotal + total).toFixed());
-            } else {
                 // Add a new row if the product is not in the table
                 var itemlist = `<tr>
                                 <td hidden>${productId}</td>
@@ -203,7 +217,7 @@
                             </tr>`;
 
                 tblItemList.append(itemlist);
-            }
+            
 
             FinalOrderTotal();
             ResetItem();
@@ -242,6 +256,7 @@
                         type: 'POST',
                         dataType: 'JSON',
                         contentType: 'application/json; charset=utf-8',
+
                         data: JSON.stringify(objSalesTransaction),
                         url: '/POS/Recordtransact',
                         success: function (data) {
