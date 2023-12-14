@@ -476,55 +476,10 @@ namespace SBIT3J_SuperSystem_Final.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Fetch the original return item from the database
-                Return_Item originalReturnItem = objDatabaseConnectionEntities.Return_Item.Find(return_Item.Return_ID);
-
-                if (originalReturnItem != null)
-                {
-                    // Calculate the difference in Quantity_Returned
-                    int quantityDifference = (int)(return_Item.Quantity_Returned - originalReturnItem.Quantity_Returned);
-
-                    // Update Product_Info Stock_Level
-                    Product_Info productInfo = objDatabaseConnectionEntities.Product_Info.Find(return_Item.Product_ID);
-                    if (productInfo != null)
-                    {
-                        // Add or subtract the difference to Stock_Level
-                        productInfo.Stock_Level += quantityDifference;
-                        objDatabaseConnectionEntities.Entry(productInfo).State = EntityState.Modified;
-                    }
-
-                    // Update Sales_Transaction_Details Total_Quantity
-                    Sales_Transaction_Details transactionDetails = objDatabaseConnectionEntities.Sales_Transaction_Details
-                        .FirstOrDefault(td => td.Transaction_ID == return_Item.Transaction_ID && td.Product_ID == return_Item.Product_ID);
-                    if (transactionDetails != null)
-                    {
-                        // Add or subtract the difference to Total_Quantity
-                        transactionDetails.Total_Quantity += quantityDifference;
-                        objDatabaseConnectionEntities.Entry(transactionDetails).State = EntityState.Modified;
-                    }
-
-                    // Update Sales_Transaction Total_Amount
-                    Sales_Transaction salesTransaction = objDatabaseConnectionEntities.Sales_Transaction.Find(return_Item.Transaction_ID);
-                    if (salesTransaction != null)
-                    {
-                        // Calculate the new Total_Amount based on updated Sales_Transaction_Details
-                        salesTransaction.Total_Amount = objDatabaseConnectionEntities.Sales_Transaction_Details
-                            .Where(td => td.Transaction_ID == return_Item.Transaction_ID)
-                            .Sum(td => (td.Total_Quantity * td.Product_Info.Price) - (td.Discount != null ? td.Discount.Discount_Amount : 0));
-
-                        objDatabaseConnectionEntities.Entry(salesTransaction).State = EntityState.Modified;
-                    }
-
-                    // Update the original return item with the new values
-                    objDatabaseConnectionEntities.Entry(originalReturnItem).CurrentValues.SetValues(return_Item);
-
-                    // Save changes to the database
-                    objDatabaseConnectionEntities.SaveChanges();
-
-                    return RedirectToAction("ReturnsAndRefunds");
-                }
+                objDatabaseConnectionEntities.Entry(return_Item).State = EntityState.Modified;
+                objDatabaseConnectionEntities.SaveChanges();
+                return RedirectToAction("Products");
             }
-
 
             return View(return_Item);
         }
@@ -626,13 +581,9 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
                 var discountAmountPerItem = productPrice * discountDecimal;
                 var totalDiscountAmount = discountAmountPerItem * originalValues.Quantity_Returned;
-                decimal totalAmountAdjustment = (decimal)((originalValues.Quantity_Returned * productPrice) - totalDiscountAmount) ;
-                
-                var vatinclud = (salesTransaction.Total_Amount * 0.12M) - totalAmountAdjustment;
+                decimal totalAmountAdjustment = (decimal)((originalValues.Quantity_Returned * productPrice) - totalDiscountAmount) * 1.12M;
 
-                salesTransaction.Total_Amount += vatinclud;
-
-
+                salesTransaction.Total_Amount += totalAmountAdjustment;
                 objDatabaseConnectionEntities.SaveChanges();
             }
         }
