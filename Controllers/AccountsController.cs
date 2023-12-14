@@ -9,7 +9,7 @@ using System.Web.Security;
 
 namespace SBIT3J_SuperSystem_Final.Controllers
 {
-
+    
     public class AccountsController : Controller
     {
         // GET: Accounts
@@ -50,7 +50,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
                     AddAuditTrail(accountId, activity, loginDateTime);
 
-                    if (credentials.Role == "Admin")
+                    if (credentials.Role == "admin")
                     {
                         return RedirectToAction("Dashboard", "AdminMonitoring");
                     }
@@ -64,7 +64,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
                     }
                     else if (credentials.Role == "hr")
                     {
-                        return RedirectToAction("Index", "EmployeeManagement");
+                        return RedirectToAction("Hr_Employee_L", "EmployeeManagement");
                     }
                     else if (credentials.Role == "accountant")
                     {

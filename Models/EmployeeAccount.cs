@@ -26,9 +26,10 @@ namespace SBIT3J_SuperSystem_Final.Models
         public int Account_ID { get; set; }
 
         public Nullable<int> Employee_ID { get; set; }
-
+        [Required]
         public string Username { get; set; }
 
+        [Required]
         public string Password { get; set; }
 
         public string Role { get; set; }

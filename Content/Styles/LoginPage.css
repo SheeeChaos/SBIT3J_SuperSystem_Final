@@ -61,6 +61,11 @@
         background-color: gray;
     }
 
+    .img-container img{
+        height:180px;
+        width:100%;
+    }
+
 .left-panel h1 {
     text-align: center;
     margin-top: 0;
