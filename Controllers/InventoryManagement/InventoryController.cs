@@ -275,6 +275,7 @@ namespace SBIT3J_SuperSystem_Final.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.RestockID = id;
 
             return View(restockDetailsList);
         }
@@ -527,6 +528,8 @@ namespace SBIT3J_SuperSystem_Final.Controllers
 
             return View(return_Item);
         }
+
+
 
 
 

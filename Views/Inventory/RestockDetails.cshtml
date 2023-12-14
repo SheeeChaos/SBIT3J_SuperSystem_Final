@@ -9,16 +9,17 @@
 
     <h2>Restock Details</h2>
     <div class="col bg-light mx-2 border-3 rounded-1 shadow p-3">
-
+        <h4>
+            RestockID ID: @ViewBag.RestockID
+        </h4>
         <div class="table-container" style="max-height: 70dvh; overflow-y: auto;">
 
             @if (Model != null && Model.Count > 0)
             {
                 <table class="table">
                     <tr>
-                        <th>Restock ID</th>
                         <th>Restock Detail ID</th>
-                        <th>Product ID</th>
+                        <th>Product Code</th>
                         <th>Quantity Added</th>
                         <th>Total Amount</th>
                     </tr>
@@ -26,9 +27,8 @@
                     @foreach (var restockDetail in Model)
                     {
                         <tr>
-                            <td>@restockDetail.Restock_ID</td>
                             <td>@restockDetail.RestockDetail_ID</td>
-                            <td>@restockDetail.Product_ID</td>
+                            <td>@restockDetail.Product_Info.Product_Code</td>
                             <td>@restockDetail.Quantity_Added</td>
                             <td>@restockDetail.Total_Amount</td>
                         </tr>
@@ -40,7 +40,8 @@
                 <p>No restock details found for the specified Restock ID.</p>
             }
             <br />
-            @Html.ActionLink("Back to List", "Restock")
+            @Html.ActionLink("Back to List", "Restock", null, new { @class = "btn btn-info mt-2" })
+
         </div>
     </div>
 </div>
