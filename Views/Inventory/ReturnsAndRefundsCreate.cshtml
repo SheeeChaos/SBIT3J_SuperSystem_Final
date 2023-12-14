@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_InventoryLayout.cshtml";
 }
 
-<h2>Refund</h2>
 <div class="container-fluid rounded-1 p-3">
 
     <div class="col bg-light mx-2 border-3 rounded-1 shadow p-3">
@@ -15,11 +14,16 @@
             @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Return_Item</h4>
+            <div class="d-flex justify-content-between">
+                <h2>Refund</h2>
+                <div>
+                    @Html.ActionLink("Back to List", "ReturnsAndRefunds", null, new { @class = "btn btn-info" })
+                </div>
+            </div>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.Transaction_ID, "Transaction_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+                Transaction ID:
                 <div class="col-md-10">
                     @Html.DropDownList("Transaction_ID", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Transaction_ID, "", new { @class = "text-danger" })
@@ -27,10 +31,11 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Product_ID, "Product_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+                Product Code:
+
                 <div class="col-md-10">
                     @Html.DropDownList("Product_ID", null, htmlAttributes: new { @class = "form-control" })
-                   @*@Html.EditorFor(model => model.Product_ID, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @*@Html.EditorFor(model => model.Product_ID, new { htmlAttributes = new { @class = "form-control" } })*@
 
                     @Html.ValidationMessageFor(model => model.Product_ID, "", new { @class = "text-danger" })
                 </div>
@@ -60,15 +65,21 @@
                 </div>
             </div>
 
+
             <div class="form-group">
-                @Html.LabelFor(model => model.Resellable, htmlAttributes: new { @class = "control-label col-md-2" })
+                Resellable?
                 <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.Resellable)
-                        @Html.ValidationMessageFor(model => model.Resellable, "", new { @class = "text-danger" })
-                    </div>
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(model => model.Resellable, true) Yes
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(model => model.Resellable, false, new { @checked = "checked" }) No
+                    </label>
+                    @Html.ValidationMessageFor(model => model.Resellable, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Customer_Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -80,15 +91,13 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Create" class="btn btn-success" />
                 </div>
             </div>
         </div>
         }
 
-        <div>
-            @Html.ActionLink("Back to List", "ReturnsAndRefunds")
-        </div>
+
     </div>
 </div>
 
