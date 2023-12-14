@@ -303,9 +303,6 @@
                 <!---->
                 <a class="lgout-btn" href="@Url.Action("Logout", "Accounts")">LOGOUT</a>
 
-
-
-
             </div>
 
         </div>
@@ -341,9 +338,9 @@
 
         <!-- Payroll - DIRECTLY TO ANOTHER SYSTEM -->
         <!--<a href="Url.Action("Payroll","Payroll")">-->
-            <img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
+            @*<img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
         
-        <hr>
+        <hr>*@
 
     </nav>
     <!-- ^^^ NAVBAR SECTION ^^^ -->
@@ -352,9 +349,6 @@
     <div class="container">
 
         <div class="ContainerHeader"><h1 style="font-family: 'Times New Roman'; font-size:38px;">ATTENDANCE LIST</h1></div>
-
-        
-
         <table class="crud-table" style="width:100%;">
             <tr>
                 <br>
@@ -374,42 +368,24 @@
                 </th>
                 <th class="crud-header-cell" style="width:17%;">
                     Absent
-                </th>
-                
-                
-                
+                </th>                
             </tr>
         </table>
-
-
-
         @foreach (var item in Model)
         {
             <table class="crud-table">
-
-
                 <tr class="crud-row">
                     <td class="crud-data-cell" style="width:5%;">@Html.DisplayFor(modelItem => item.Account_ID)</td>
                     <td class="crud-data-cell" style="width:17%;">@Html.DisplayFor(modelItem => item.Time_In)</td>
                     <td class="crud-data-cell" style="width:17%;">@Html.DisplayFor(modelItem => item.Time_Out)</td>
                     <td class="crud-data-cell" style="width:10%;">@Html.DisplayFor(modelItem => item.Total_Hour_Worked)</td>
                     <td class="crud-data-cell" style="width:17%;">@Html.DisplayFor(modelItem => item.Absent)</td>
-                    
                 </tr>
-
-
-
             </table>
         }
         <img src="~/Image/Group4/background/Logo-background.jpg" class="logobg" />
 
     </div>
-
-
-
-
-
-
 
     <!-- SCRIPTING -->
 
@@ -439,17 +415,14 @@
                 modal.style.display = "none";
             }
         }
-
         // Add user
         function addUser() {
             alert("User added");
         }
-
         // Update user
         function updateUser() {
             alert("User updated");
         }
-
         // Delete user
         function deleteUser() {
             alert("User deleted");

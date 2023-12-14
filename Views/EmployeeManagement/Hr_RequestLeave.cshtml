@@ -354,9 +354,8 @@
 
                     <h1>DO YOU WANT TO LOGOUT?</h1>
 
-                    <!--href="Url.Action("Login", "Accounts")"-->
-                    <a class="lgout-btn">LOGOUT</a>
-
+                    <!---->
+                    <a class="lgout-btn" href="@Url.Action("Logout", "Accounts")">LOGOUT</a>
 
 
 
@@ -380,24 +379,24 @@
 
                 <img src="~/Image/Group4/ICONS/EmployeeList.png" class="navitem" />
 
-                </a>
-                <hr>
-
-                <!-- Attendance List -->
-                <a href="@Url.Action("Hr_Attendance_L","EmployeeManagement")">
-                    <img src="~/Image/Group4/ICONS/EmployeeAttendance.png" class="navitem" />
-                </a>
-                <hr>
-
-                <!-- Leave Request -->
-                
-                    <img src="~/Image/Group4/ICONS/LeaveRequest.png" class="navitem" />
-                
-
-                <!-- Payroll - DIRECTLY TO ANOTHER SYSTEM -->
-                <!--<a href="Url.Action("Payroll","Payroll")">-->
-                <img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
             </a>
+            <hr>
+
+            <!-- Attendance List -->
+            <a href="@Url.Action("Hr_Attendance_L","EmployeeManagement")">
+                <img src="~/Image/Group4/ICONS/EmployeeAttendance.png" class="navitem" />
+            </a>
+            <hr>
+
+            <!-- Leave Request -->
+
+            <img src="~/Image/Group4/ICONS/LeaveRequest.png" class="navitem" />
+
+
+            <!-- Payroll - DIRECTLY TO ANOTHER SYSTEM -->
+            <!--<a href="Url.Action("Payroll","Payroll")">-->
+            @*<img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
+            </a>*@
             <hr>
 
         </nav>
@@ -437,9 +436,9 @@
                             End Date
                         </th>
 
-                        
-                            <a href="@Url.Action("HR_Leave", "EmployeeManagement")" class="custom-btn2"><h4 style="color:white;">Create Leave Request</h4></a>
-                        
+
+                        <a href="@Url.Action("HR_Leave", "EmployeeManagement")" class="custom-btn2"><h4 style="color:white;">Create Leave Request</h4></a>
+
 
 
                     </tr>
@@ -470,8 +469,37 @@
 
             </div>
 
-            
+
         </div>
-        
+
+        <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("openModal");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on the button, open the modal
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+
+
     </body>
 </html>

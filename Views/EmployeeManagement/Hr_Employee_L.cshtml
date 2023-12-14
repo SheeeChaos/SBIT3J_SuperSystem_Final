@@ -322,8 +322,8 @@
 
                 <h1>DO YOU WANT TO LOGOUT?</h1>
 
-                <!--href="Url.Action("Login", "Accounts")"-->
-                <a class="lgout-btn">LOGOUT</a>
+                <!---->
+                <a class="lgout-btn" href="@Url.Action("Logout", "Accounts")">LOGOUT</a>
 
 
 
@@ -361,10 +361,10 @@
         </a>
 
         <!-- Payroll - DIRECTLY TO ANOTHER SYSTEM -->
-        <a href="@Url.Action("HR_CreateAccount","EmployeeManagement")">
+        @*<a href="@Url.Action("HR_CreateAccount","EmployeeManagement")">
         <img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
         </a>
-        <hr>
+        <hr>*@
 
     </nav>
     

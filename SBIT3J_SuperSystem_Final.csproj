@@ -237,6 +237,7 @@
     <Content Include="Image\Group1-Assets\CriticalLevelIcon.png" />
     <Content Include="Image\Group1-Assets\DailySales.png" />
     <Content Include="Image\Group1-Assets\InventoryIcon.png" />
+    <Content Include="Image\Group1-Assets\logo.png" />
     <Content Include="Image\Group1-Assets\LogoutIcon.png" />
     <Content Include="Image\Group1-Assets\LossesIcon.png" />
     <Content Include="Image\Group1-Assets\Magnify.png" />

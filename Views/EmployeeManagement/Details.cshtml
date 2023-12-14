@@ -316,10 +316,8 @@
 
                 <h1>DO YOU WANT TO LOGOUT?</h1>
 
-                <!--href="Url.Action("Login", "Accounts")"-->
-                <a class="lgout-btn">LOGOUT</a>
-
-
+                <!---->
+                <a class="lgout-btn" href="@Url.Action("Logout", "Accounts")">LOGOUT</a>
 
 
             </div>
@@ -355,9 +353,9 @@
 
         <!-- Payroll - DIRECTLY TO ANOTHER SYSTEM -->
         <!--<a href="Url.Action("Payroll","Payroll")">-->
-        <img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
+        <!--<img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
         </a>
-        <hr>
+        <hr>-->
 
     </nav>
 
@@ -369,95 +367,116 @@
             <div class="ContainerHeader">
                 <a href="@Url.Action("Hr_Employee_L", "EmployeeManagement")" class="custom-btn2"><h4 style="color:maroon;">←</h4></a>
                 <h1 style="font-size:32px; font-family: 'Times New Roman'; text-align:left;">
-                     EMPLOYEE INFORMATION DETAILS 
+                    EMPLOYEE INFORMATION DETAILS
                 </h1>
             </div>
 
 
 
-                <table class="crud-table" style="width:100%;">
-                    <tr>
-                        <th class="crud-header-cell" style="width:5%;">
-                            First Name
-                        </th>
-                        <td class="crud-data-cell" style="width:95%;">
-                            @Html.DisplayFor(model => model.First_Name)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="crud-header-cell" style="width:5%;">
-                            Middle Name
-                        </th>
-                        <td class="crud-data-cell" style="width:95%;">
-                            @Html.DisplayFor(model => model.Middle_Name)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="crud-header-cell" style="width:5%;">
-                            Last Name
-                        </th>
-                        <td class="crud-data-cell" style="width:95%;">
-                            @Html.DisplayFor(model => model.Last_Name)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="crud-header-cell" style="width:5%;">
-                            Sex
-                        </th>
-                        <td class="crud-data-cell" style="width:5%;">
-                            @Html.DisplayFor(model => model.Sex)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="crud-header-cell" style="width:17%;">
-                            Address
-                        </th>
-                        <td class="crud-data-cell" style="width:17%;">
-                            @Html.DisplayFor(model => model.Address)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="crud-header-cell" style="width:15%;">
-                            Phone Number
-                        </th>
-                        <td class="crud-data-cell" style="width:15%;">
-                            @Html.DisplayFor(model => model.Phone_Number)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="crud-header-cell" style="width:15%;">
-                            Email
-                        </th>
-                        <td class="crud-data-cell" style="width:15%;">
-                            @Html.DisplayFor(model => model.Email)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="crud-header-cell" style="width:5%;">
-                            Birth Date
-                        </th>
-                        <td class="crud-data-cell" style="width:5%;">
-                            @Html.DisplayFor(model => model.Birth_Date)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="crud-header-cell" style="width:5%;">
-                            Date Hired
-                        </th>
-                        <td class="crud-data-cell" style="width:5%;">
-                            @Html.DisplayFor(model => model.Date_Hired)
-                        </td>
-                    </tr>
-                </table>
+            <table class="crud-table" style="width:100%;">
+                <tr>
+                    <th class="crud-header-cell" style="width:5%;">
+                        First Name
+                    </th>
+                    <td class="crud-data-cell" style="width:95%;">
+                        @Html.DisplayFor(model => model.First_Name)
+                    </td>
+                </tr>
+                <tr>
+                    <th class="crud-header-cell" style="width:5%;">
+                        Middle Name
+                    </th>
+                    <td class="crud-data-cell" style="width:95%;">
+                        @Html.DisplayFor(model => model.Middle_Name)
+                    </td>
+                </tr>
+                <tr>
+                    <th class="crud-header-cell" style="width:5%;">
+                        Last Name
+                    </th>
+                    <td class="crud-data-cell" style="width:95%;">
+                        @Html.DisplayFor(model => model.Last_Name)
+                    </td>
+                </tr>
+                <tr>
+                    <th class="crud-header-cell" style="width:5%;">
+                        Sex
+                    </th>
+                    <td class="crud-data-cell" style="width:5%;">
+                        @Html.DisplayFor(model => model.Sex)
+                    </td>
+                </tr>
+                <tr>
+                    <th class="crud-header-cell" style="width:17%;">
+                        Address
+                    </th>
+                    <td class="crud-data-cell" style="width:17%;">
+                        @Html.DisplayFor(model => model.Address)
+                    </td>
+                </tr>
+                <tr>
+                    <th class="crud-header-cell" style="width:15%;">
+                        Phone Number
+                    </th>
+                    <td class="crud-data-cell" style="width:15%;">
+                        @Html.DisplayFor(model => model.Phone_Number)
+                    </td>
+                </tr>
+                <tr>
+                    <th class="crud-header-cell" style="width:15%;">
+                        Email
+                    </th>
+                    <td class="crud-data-cell" style="width:15%;">
+                        @Html.DisplayFor(model => model.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <th class="crud-header-cell" style="width:5%;">
+                        Birth Date
+                    </th>
+                    <td class="crud-data-cell" style="width:5%;">
+                        @Html.DisplayFor(model => model.Birth_Date)
+                    </td>
+                </tr>
+                <tr>
+                    <th class="crud-header-cell" style="width:5%;">
+                        Date Hired
+                    </th>
+                    <td class="crud-data-cell" style="width:5%;">
+                        @Html.DisplayFor(model => model.Date_Hired)
+                    </td>
+                </tr>
+            </table>
+    </div>
 
+    <script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
 
+    // Get the button that opens the modal
+    var btn = document.getElementById("openModal");
 
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
 
-                
-                    
-                
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
 
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
 
-            </div>
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    </script>
+
 </body>
 </html>

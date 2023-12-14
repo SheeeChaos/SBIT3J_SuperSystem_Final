@@ -322,9 +322,8 @@
 
             <h1>DO YOU WANT TO LOGOUT?</h1>
 
-            <!--"-->
+            <!---->
             <a class="lgout-btn" href="@Url.Action("Logout", "Accounts")">LOGOUT</a>
-
 
 
 
@@ -360,116 +359,144 @@
 
     <!-- Payroll - DIRECTLY TO ANOTHER SYSTEM -->
     <!--<a href="Url.Action("Payroll","Payroll")">-->
-    <img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
+    <!--<img src="~/Image/Group4/ICONS/Payroll.png" class="navitem" />
     </a>
-    <hr>
+    <hr>-->
 
 </nav>
 
 <div class="container">
     <a href="@Url.Action("Hr_Employee_L", "EmployeeManagement")" class="custom-btn2"><h4 style="color:maroon;">←</h4></a>
     <div class="Text-header">
-        
+
         @using (Html.BeginForm())
         {
 
             @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <h1 style="text-decoration:underline; font-family: 'Times New Roman'; font-size:32px;">EMPLOYEE INFORMATION</h1>
+            <div class="form-horizontal">
+                <h1 style="text-decoration:underline; font-family: 'Times New Roman'; font-size:32px;">EMPLOYEE INFORMATION</h1>
 
-            <br>
-            <br>
-            <hr />
+                <br>
+                <br>
+                <hr />
 
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Employee_ID)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Employee_ID)
 
-            <div class="form-group">
+                <div class="form-group">
 
 
-                <h2>First Name:</h2>
+                    <h2>First Name:</h2>
 
-                <div class="col-md-10">
+                    <div class="col-md-10">
 
-                    @Html.EditorFor(model => model.First_Name, new { htmlAttributes = new { @class = "textbox" } })
-                    @Html.ValidationMessageFor(model => model.First_Name, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.First_Name, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.First_Name, "", new { @class = "text-danger" })
+
+                    </div>
 
                 </div>
 
-            </div>
+                <div class="form-group">
+                    <h2>Middle Name:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Middle_Name, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Middle_Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <h2>Middle Name:</h2>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Middle_Name, new { htmlAttributes = new { @class = "textbox" } })
-                    @Html.ValidationMessageFor(model => model.Middle_Name, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <h2>Last Name:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Last_Name, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Last_Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Sex:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Address:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Phone Number:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Email:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Birth Date:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Birth_Date, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Birth_Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2>Date Hired:</h2>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Date_Hired, new { htmlAttributes = new { @class = "textbox" } })
+                        @Html.ValidationMessageFor(model => model.Date_Hired, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="custom-btn btn-default" />
+                    </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <h2>Last Name:</h2>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Last_Name, new { htmlAttributes = new { @class = "textbox" } })
-                    @Html.ValidationMessageFor(model => model.Last_Name, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <h2>Sex:</h2>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "textbox" } })
-                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <h2>Address:</h2>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "textbox" } })
-                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <h2>Phone Number:</h2>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "textbox" } })
-                    @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <h2>Email:</h2>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "textbox" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <h2>Birth Date:</h2>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Birth_Date, new { htmlAttributes = new { @class = "textbox" } })
-                    @Html.ValidationMessageFor(model => model.Birth_Date, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <h2>Date Hired:</h2>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Date_Hired, new { htmlAttributes = new { @class = "textbox" } })
-                    @Html.ValidationMessageFor(model => model.Date_Hired, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="custom-btn btn-default" />
-                </div>
-            </div>
-        </div>
         }
 
+        <script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("openModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+        </script>
 
